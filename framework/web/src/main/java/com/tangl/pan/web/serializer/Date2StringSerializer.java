@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Date转String的JSON序列化器
- * 用于返回实体Date类型字段的自动序列化
+ * Date 转 String 的 JSON 序列化器
+ * 用于返回实体 Date 类型字段的自动序列化
  */
 public class Date2StringSerializer extends JsonSerializer<Date> {
     @Override

@@ -28,7 +28,7 @@ public class CorsFilter implements Filter {
     /**
      * 添加跨域的响应头
      *
-     * @param response
+     * @param response 响应对象
      */
     private void addCorsResponseHeader(HttpServletResponse response) {
         response.setHeader(CorsConfigEnum.CORS_ORIGIN.getKey(), CorsConfigEnum.CORS_ORIGIN.getValue());

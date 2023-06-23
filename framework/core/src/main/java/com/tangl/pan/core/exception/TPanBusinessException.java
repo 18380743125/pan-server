@@ -1,12 +1,14 @@
 package com.tangl.pan.core.exception;
 
 import com.tangl.pan.core.response.ResponseCode;
+import lombok.Getter;
 
 /**
  * @author tangl
  * @description 自定义全局业务异常类
  * @create 2023-06-22 15:07
  */
+@Getter
 public class TPanBusinessException extends RuntimeException {
     /**
      * 错误码

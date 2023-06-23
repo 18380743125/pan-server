@@ -1,6 +1,5 @@
 package com.tangl.pan.web.log;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 /**
  * @author tangl
- * @description http调用日志实体
+ * @description http 调用日志实体
  * @create 2023-06-22 18:28
  */
 @NoArgsConstructor
@@ -89,7 +88,7 @@ public class HttpLogEntity {
         log.info("responseHeaders: {}", getResponseHeaders());
         log.info("responseData: {}", getResponseData());
         log.info("resolveTime: {}", getResolveTime());
-        log.info("====================HTTP CALL FINISH====================");
+        log.info("====================HTTP CALL FINISH====================\n");
     }
 
     @Override

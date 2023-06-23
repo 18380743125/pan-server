@@ -18,18 +18,17 @@ public class IdEncryptSerializer extends JsonSerializer<Long> {
      * Method that can be called to ask implementation to serialize
      * values of type this serializer handles.
      *
-     * @param value       Value to serialize; can <b>not</b> be null.
-     * @param gen         Generator used to output resulting Json content
-     * @param serializers Provider that can be used to get serializers for
-     *                    serializing Objects value contains, if any.
+     * @param value              Value to serialize; can <b>not</b> be null.
+     * @param gen                Generator used to output resulting Json content
+     * @param serializerProvider Provider that can be used to get serializers for
+     *                           serializing Objects value contains, if any.
      */
     @Override
-    public void serialize(Long value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(Long value, JsonGenerator gen, SerializerProvider serializerProvider) throws IOException {
         if (Objects.isNull(value)) {
             gen.writeString(StringUtils.EMPTY);
         } else {
             gen.writeString(IdUtil.encrypt(value));
         }
     }
-
 }

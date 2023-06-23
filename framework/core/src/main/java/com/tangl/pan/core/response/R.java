@@ -3,6 +3,7 @@ package com.tangl.pan.core.response;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,6 +15,7 @@ import java.util.Objects;
  */
 // 保证 json 序列化时，如果属性值为 null，key 一起消失
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
 public class R<T> implements Serializable {
     /**
      * 状态码
@@ -59,7 +61,7 @@ public class R<T> implements Serializable {
         return new R<T>(ResponseCode.SUCCESS.getCode(), message);
     }
 
-    public static <T> R<T> success(T data) {
+    public static <T> R<T> data(T data) {
         return new R<T>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc(), data);
     }
 

@@ -1,18 +1,18 @@
 package com.tangl.pan.web.log;
 
 import com.alibaba.fastjson.JSON;
-        import com.google.common.collect.Maps;
-        import org.apache.commons.lang3.StringUtils;
-        import org.apache.commons.lang3.time.StopWatch;
-        import org.springframework.web.bind.annotation.RequestMethod;
-        import org.springframework.web.util.ContentCachingRequestWrapper;
-        import org.springframework.web.util.ContentCachingResponseWrapper;
+import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.util.ContentCachingRequestWrapper;
+import org.springframework.web.util.ContentCachingResponseWrapper;
 
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletResponse;
-        import java.util.Enumeration;
-        import java.util.Map;
-        import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author tangl

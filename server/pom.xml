@@ -23,6 +23,15 @@
             <artifactId>t-pan-web</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.tangl.pan</groupId>
+            <artifactId>t-pan-swagger2</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
