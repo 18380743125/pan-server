@@ -32,6 +32,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.tangl.pan</groupId>
+            <artifactId>t-pan-mybatis-plus</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tangl.pan</groupId>
+            <artifactId>t-pan-schedule</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

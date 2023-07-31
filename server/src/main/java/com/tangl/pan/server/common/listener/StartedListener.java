@@ -4,8 +4,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,10 +24,11 @@ public class StartedListener implements ApplicationListener<ApplicationReadyEven
      */
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        String port = applicationReadyEvent.getApplicationContext().getEnvironment().getProperty("server.port");
+        ApplicationContext context = applicationReadyEvent.getApplicationContext();
+        String port = context.getEnvironment().getProperty("server.port");
         String url = String.format("http://%s:%s", "127.0.0.1", port);
         log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "t pan server at：" + url));
-        if (checkShowServerDoc(applicationReadyEvent.getApplicationContext())) {
+        if (checkShowServerDoc(context)) {
             log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "t pan server's doc started at：", url, "/doc.html"));
         }
         log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "t pan server has started successfully！"));
@@ -35,11 +36,12 @@ public class StartedListener implements ApplicationListener<ApplicationReadyEven
 
     /**
      * 校验是否开启了接口文档
-     * @param applicationContext 启动事件对象
+     *
+     * @param context applicationContext
      * @return boolean
      */
-    private boolean checkShowServerDoc(ConfigurableApplicationContext applicationContext) {
-        return applicationContext.getEnvironment().getProperty("swagger2.show", Boolean.class, true)
-                && applicationContext.containsBean("swagger2Config");
+    private boolean checkShowServerDoc(ApplicationContext context) {
+        return context.getEnvironment().getProperty("swagger2.show", Boolean.class, true)
+                && context.containsBean("swagger2Config");
     }
 }

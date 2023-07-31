@@ -1,6 +1,7 @@
 package com.tangl.pan.web.exception;
 
 import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.exception.TPanFrameworkException;
 import com.tangl.pan.core.response.R;
 import com.tangl.pan.core.response.ResponseCode;
 import org.springframework.validation.BindException;
@@ -52,6 +53,11 @@ public class WebExceptionHandler {
     public R<?> bindExceptionHandler(BindException e) {
         FieldError fieldError = e.getBindingResult().getFieldErrors().stream().findFirst().get();
         return R.fail(ResponseCode.ERROR_PARAM.getCode(), fieldError.getDefaultMessage());
+    }
+
+    @ExceptionHandler(value = TPanFrameworkException.class)
+    public R<?> tPanFrameworkException(TPanFrameworkException e) {
+        return R.fail(ResponseCode.ERROR.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(value = RuntimeException.class)

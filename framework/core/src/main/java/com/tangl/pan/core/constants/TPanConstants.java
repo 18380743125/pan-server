@@ -34,7 +34,7 @@ public interface TPanConstants {
     Long ZERO_LONG = 0L;
 
     /**
-     * Integer 常量 1
+     * Integer 常量 0
      */
     Integer ZERO_INT = 0;
 

@@ -24,10 +24,10 @@ public class HttpLogEntityBuilder {
     /**
      * 构建HTTP日志对象
      *
-     * @param requestWrapper
-     * @param responseWrapper
-     * @param stopWatch
-     * @return
+     * @param requestWrapper  requestWrapper
+     * @param responseWrapper responseWrapper
+     * @param stopWatch       时间
+     * @return HttpLogEntity
      */
     public static HttpLogEntity build(ContentCachingRequestWrapper requestWrapper, ContentCachingResponseWrapper responseWrapper, StopWatch stopWatch) {
         HttpLogEntity httpLogEntity = new HttpLogEntity();
@@ -56,8 +56,8 @@ public class HttpLogEntityBuilder {
     /**
      * 获取IP地址
      *
-     * @param request
-     * @return
+     * @param request request
+     * @return String
      */
     public static String getIpAddress(HttpServletRequest request) {
         if (request == null) {
@@ -76,7 +76,6 @@ public class HttpLogEntityBuilder {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Real-IP");
         }
-
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
@@ -87,19 +86,17 @@ public class HttpLogEntityBuilder {
     /**
      * 获取请求头MAP
      *
-     * @param request
-     * @return
+     * @param request request
+     * @return Map
      */
     public static Map<String, String> getRequestHeaderMap(HttpServletRequest request) {
         Map<String, String> result = Maps.newHashMap();
         if (Objects.nonNull(request)) {
             Enumeration<String> headerNames = request.getHeaderNames();
-            if (Objects.nonNull(request)) {
-                while (headerNames.hasMoreElements()) {
-                    String headerName = headerNames.nextElement();
-                    String headerValue = request.getHeader(headerName);
-                    result.put(headerName, headerValue);
-                }
+            while (headerNames.hasMoreElements()) {
+                String headerName = headerNames.nextElement();
+                String headerValue = request.getHeader(headerName);
+                result.put(headerName, headerValue);
             }
         }
         return result;
@@ -108,8 +105,8 @@ public class HttpLogEntityBuilder {
     /**
      * 获取响应头MAP
      *
-     * @param response
-     * @return
+     * @param response response
+     * @return Map
      */
     public static Map<String, String> getResponseHeaderMap(HttpServletResponse response) {
         Map<String, String> result = Maps.newHashMap();
