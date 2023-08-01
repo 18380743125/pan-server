@@ -11,14 +11,14 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 注册用户参数实体对象
- * @create 2023-07-28 21:20
+ * @description 提交重置密码的 PO 参数
+ * @create 2023-08-01 11:15
  */
-@ApiModel(value = "用户注册参数")
+@ApiModel(value = "用户忘记密码-重置用户密码参数")
 @Data
-public class UserRegisterPO implements Serializable {
+public class ResetPasswordPO implements Serializable {
 
-    private static final long serialVersionUID = 4189821062710229705L;
+    private static final long serialVersionUID = 3350050136406351359L;
 
     @ApiModelProperty(value = "用户名", required = true)
     @NotBlank(message = "用户名不能为空")
@@ -30,13 +30,7 @@ public class UserRegisterPO implements Serializable {
     @Length(min = 6, max = 16, message = "请输入6-16位的密码")
     private String password;
 
-    @ApiModelProperty(value = "密保问题", required = true)
-    @NotBlank(message = "密保问题不能为空")
-    @Length(max = 100, message = "密保问题不能超过100个字符")
-    private String question;
-
-    @ApiModelProperty(value = "密保答案", required = true)
-    @NotBlank(message = "密保答案不能为空")
-    @Length(max = 100, message = "密保答案不能超过100个字符")
-    private String answer;
+    @ApiModelProperty(value = "提交重置密码的token", required = true)
+    @NotBlank(message = "token信息不能为空")
+    private String token;
 }
