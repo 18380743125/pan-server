@@ -1,8 +1,10 @@
 package com.tangl.pan.server.modules.user.converter;
 
+import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
 import com.tangl.pan.server.modules.user.po.*;
+import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -61,4 +63,24 @@ public interface UserConverter {
      * @return ResetPasswordContext
      */
     ResetPasswordContext resetPasswordPO2ResetPasswordContext(ResetPasswordPO resetPasswordPO);
+
+    /**
+     * ChangePasswordPO 转 ChangePasswordContext
+     *
+     * @param changePasswordPO changePasswordPO
+     * @return ChangePasswordContext
+     */
+    ChangePasswordContext changePasswordPO2ChangePasswordContext(ChangePasswordPO changePasswordPO);
+
+    /**
+     * 拼装用户基本信息返回实体
+     *
+     * @param user     user
+     * @param userFile userFile
+     * @return UserInfoVO
+     */
+    @Mapping(source = "user.username", target = "username")
+    @Mapping(source = "userFile.fileId", target = "rootFileId")
+    @Mapping(source = "userFile.filename", target = "rootFilename")
+    UserInfoVO assembleUserInfoVO(TPanUser user, TPanUserFile userFile);
 }

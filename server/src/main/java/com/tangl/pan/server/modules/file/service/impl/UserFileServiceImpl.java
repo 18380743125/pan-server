@@ -42,6 +42,22 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     }
 
     /**
+     * 查询用户根文件夹信息
+     *
+     * @param userId 用户 ID
+     * @return TPanUserFile
+     */
+    @Override
+    public TPanUserFile getUserRootFile(Long userId) {
+        QueryWrapper<TPanUserFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("parent_id", FileConstants.TOP_PARENT_ID);
+        queryWrapper.eq("del_flag", DelFlagEnum.NO.getCode());
+        queryWrapper.eq("folder_flag", FolderFlagEnum.YES.getCode());
+        return getOne(queryWrapper);
+    }
+
+    /**
      * 保存用户文件的映射记录
      *
      * @param parentId       父级目录ID

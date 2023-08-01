@@ -8,15 +8,13 @@ import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.converter.UserConverter;
 import com.tangl.pan.server.modules.user.po.*;
 import com.tangl.pan.server.modules.user.service.IUserService;
+import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author tangl
@@ -113,5 +111,32 @@ public class UserController {
         ResetPasswordContext resetPasswordContext = userConverter.resetPasswordPO2ResetPasswordContext(resetPasswordPO);
         userService.resetPassword(resetPasswordContext);
         return R.success();
+    }
+
+    @LoginIgnore
+    @ApiOperation(
+            value = "用户在线修改密码",
+            notes = "该接口提供了用户在线修改密码的功能",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @PostMapping("password/change")
+    public R<?> changePassword(@Validated @RequestBody ChangePasswordPO changePasswordPO) {
+        ChangePasswordContext changePasswordContext = userConverter.changePasswordPO2ChangePasswordContext(changePasswordPO);
+        changePasswordContext.setUserId(UserIdUtil.get());
+        userService.changePassword(changePasswordContext);
+        return R.success();
+    }
+
+    @ApiOperation(
+            value = "查询登录用户的基本信息",
+            notes = "该接口提供了查询登录用户的基本信息的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("/")
+    public R<UserInfoVO> info() {
+        UserInfoVO userInfoVO = userService.info(UserIdUtil.get());
+        return R.data(userInfoVO);
     }
 }

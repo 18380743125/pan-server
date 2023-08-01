@@ -3,6 +3,7 @@ package com.tangl.pan.server.modules.user.service;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 
 /**
  * @author tangl
@@ -55,4 +56,17 @@ public interface IUserService extends IService<TPanUser> {
      * @param resetPasswordContext resetPasswordContext
      */
     void resetPassword(ResetPasswordContext resetPasswordContext);
+
+    /**
+     * 用户在线修改密码
+     * @param changePasswordContext changePasswordContext
+     */
+    void changePassword(ChangePasswordContext changePasswordContext);
+
+    /**
+     * 查询登录用户的基本信息
+     * @param userId 用户 ID
+     * @return UserInfoVO
+     */
+    UserInfoVO info(Long userId);
 }

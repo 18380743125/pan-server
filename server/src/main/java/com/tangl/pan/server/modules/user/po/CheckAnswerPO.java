@@ -1,5 +1,6 @@
 package com.tangl.pan.server.modules.user.po;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @description 校验密保答案 PO 对象
  * @create 2023-07-31 23:34
  */
+@ApiModel(value = "用户忘记密码-重置密码参数")
 @Data
 public class CheckAnswerPO implements Serializable {
 

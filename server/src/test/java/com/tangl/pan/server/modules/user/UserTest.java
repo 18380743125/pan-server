@@ -6,6 +6,7 @@ import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.user.constants.UserConstants;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.service.IUserService;
+import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -163,45 +164,45 @@ public class UserTest {
     }
 
     /**
-     * 忘记密码-校验重置密码-成功
+     * 在线修改密码-成功
      */
     @Test
-    public void testResetPasswordSuccess() {
+    public void testChangePasswordSuccess() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
         Assert.isTrue(userId > 0L);
-        CheckAnswerContext checkAnswerContext = new CheckAnswerContext();
-        checkAnswerContext.setUsername(USERNAME);
-        checkAnswerContext.setQuestion("你的手机型号");
-        checkAnswerContext.setAnswer("小米11");
-        String token = userService.checkAnswer(checkAnswerContext);
-        Assert.isTrue(StringUtils.isNotBlank(token));
-        ResetPasswordContext resetPasswordContext = new ResetPasswordContext();
-        resetPasswordContext.setToken(token);
-        resetPasswordContext.setPassword("123123");
-        resetPasswordContext.setUsername(USERNAME);
-        userService.resetPassword(resetPasswordContext);
+        ChangePasswordContext changePasswordContext = new ChangePasswordContext();
+        changePasswordContext.setUserId(userId);
+        changePasswordContext.setOldPassword(PASSWORD);
+        changePasswordContext.setNewPassword(PASSWORD + "_change");
+        userService.changePassword(changePasswordContext);
     }
 
     /**
-     * 忘记密码-校验重置密码-失败
+     * 在线修改密码-失败
      */
     @Test(expected = TPanBusinessException.class)
-    public void testResetPasswordWrong() {
+    public void testChangePasswordWrong() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
         Assert.isTrue(userId > 0L);
-        CheckAnswerContext checkAnswerContext = new CheckAnswerContext();
-        checkAnswerContext.setUsername(USERNAME);
-        checkAnswerContext.setQuestion("你的手机型号");
-        checkAnswerContext.setAnswer("小米11");
-        String token = userService.checkAnswer(checkAnswerContext);
-        Assert.isTrue(StringUtils.isNotBlank(token));
-        ResetPasswordContext resetPasswordContext = new ResetPasswordContext();
-        resetPasswordContext.setToken(token + "_change");
-        resetPasswordContext.setPassword("123123");
-        resetPasswordContext.setUsername(USERNAME);
-        userService.resetPassword(resetPasswordContext);
+        ChangePasswordContext changePasswordContext = new ChangePasswordContext();
+        changePasswordContext.setUserId(userId);
+        changePasswordContext.setOldPassword(PASSWORD + "_fail");
+        changePasswordContext.setNewPassword(PASSWORD + "_change");
+        userService.changePassword(changePasswordContext);
+    }
+
+    /**
+     * 查询登录用户的基本信息
+     */
+    @Test
+    public void testQueryUserInfo() {
+        UserRegisterContext context = createUserRegisterContext();
+        Long userId = userService.register(context);
+        Assert.isTrue(userId > 0L);
+        UserInfoVO info = userService.info(userId);
+        Assert.notNull(info);
     }
 
 

@@ -12,6 +12,7 @@ import com.tangl.pan.core.utils.JwtUtil;
 import com.tangl.pan.core.utils.PasswordUtil;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
+import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.user.constants.UserConstants;
 import com.tangl.pan.server.modules.user.context.*;
@@ -19,6 +20,7 @@ import com.tangl.pan.server.modules.user.converter.UserConverter;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.mapper.TPanUserMapper;
+import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,6 +149,99 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
     public void resetPassword(ResetPasswordContext resetPasswordContext) {
         checkForgetPasswordToken(resetPasswordContext);
         checkAndResetUserPassword(resetPasswordContext);
+    }
+
+    /**
+     * 在线修改密码
+     * 1、校验旧密码
+     * 2、重置新密码
+     * 3、退出当前的登录状态
+     *
+     * @param changePasswordContext changePasswordContext
+     */
+    @Override
+    public void changePassword(ChangePasswordContext changePasswordContext) {
+        checkOldPassword(changePasswordContext);
+        doChangePassword(changePasswordContext);
+        exitLoginStatus(changePasswordContext);
+    }
+
+    /**
+     * 1、查询用户的基本信息实体
+     * 2、查询用户的根文件夹信息
+     * 3、拼装 VO 对象返回
+     * 查询用户的基本信息
+     *
+     * @param userId 用户 ID
+     * @return UserInfoVO
+     */
+    @Override
+    public UserInfoVO info(Long userId) {
+        TPanUser entity = getById(userId);
+        if (Objects.isNull(entity)) {
+            throw new TPanBusinessException("用户信息查询失败");
+        }
+        TPanUserFile userFile = getUserRootFileInfo(userId);
+        if (Objects.isNull(userFile)) {
+            throw new TPanBusinessException("查询根文件夹信息失败");
+        }
+        return userConverter.assembleUserInfoVO(entity, userFile);
+    }
+
+    /**
+     * 获取用户根文件夹信息实体
+     *
+     * @param userId 用户 ID
+     * @return TPanUserFile
+     */
+    private TPanUserFile getUserRootFileInfo(Long userId) {
+        return userFileService.getUserRootFile(userId);
+    }
+
+    /**
+     * 退出用户的登录状态
+     *
+     * @param changePasswordContext changePasswordContext
+     */
+    private void exitLoginStatus(ChangePasswordContext changePasswordContext) {
+        exit(changePasswordContext.getUserId());
+    }
+
+    /**
+     * 修改新密码
+     *
+     * @param changePasswordContext changePasswordContext
+     */
+    private void doChangePassword(ChangePasswordContext changePasswordContext) {
+        String newPassword = changePasswordContext.getNewPassword();
+        TPanUser entity = changePasswordContext.getEntity();
+        String salt = entity.getSalt();
+        String encNewPassword = PasswordUtil.encryptPassword(salt, newPassword);
+        entity.setPassword(encNewPassword);
+        if (!updateById(entity)) {
+            throw new TPanBusinessException("修改用户密码失败");
+        }
+    }
+
+    /**
+     * 校验用户旧密码
+     * 查询并封装用户的实体信息到上下文对象中
+     *
+     * @param changePasswordContext changePasswordContext
+     */
+    private void checkOldPassword(ChangePasswordContext changePasswordContext) {
+        Long userId = changePasswordContext.getUserId();
+        String oldPassword = changePasswordContext.getOldPassword();
+        TPanUser entity = getById(userId);
+        if (Objects.isNull(entity)) {
+            throw new TPanBusinessException("用户信息不存在");
+        }
+        changePasswordContext.setEntity(entity);
+        String encOldPassword = PasswordUtil.encryptPassword(entity.getSalt(), oldPassword);
+        String dbOldPassword = entity.getPassword();
+        if (!Objects.equals(encOldPassword, dbOldPassword)) {
+            throw new TPanBusinessException("旧密码不正确");
+        }
     }
 
     /**

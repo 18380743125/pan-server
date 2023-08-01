@@ -1,22 +1,26 @@
 package com.tangl.pan.server.modules.user.converter;
 
+import com.tangl.pan.server.modules.file.entity.TPanUserFile;
+import com.tangl.pan.server.modules.user.context.ChangePasswordContext;
 import com.tangl.pan.server.modules.user.context.CheckAnswerContext;
 import com.tangl.pan.server.modules.user.context.CheckUsernameContext;
 import com.tangl.pan.server.modules.user.context.ResetPasswordContext;
 import com.tangl.pan.server.modules.user.context.UserLoginContext;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
+import com.tangl.pan.server.modules.user.po.ChangePasswordPO;
 import com.tangl.pan.server.modules.user.po.CheckAnswerPO;
 import com.tangl.pan.server.modules.user.po.CheckUsernamePO;
 import com.tangl.pan.server.modules.user.po.ResetPasswordPO;
 import com.tangl.pan.server.modules.user.po.UserLoginPO;
 import com.tangl.pan.server.modules.user.po.UserRegisterPO;
+import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-08-01T11:39:27+0800",
+    date = "2023-08-01T17:18:42+0800",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 20.0.1 (Oracle Corporation)"
 )
 @Component
@@ -108,5 +112,38 @@ public class UserConverterImpl implements UserConverter {
         resetPasswordContext.setToken( resetPasswordPO.getToken() );
 
         return resetPasswordContext;
+    }
+
+    @Override
+    public ChangePasswordContext changePasswordPO2ChangePasswordContext(ChangePasswordPO changePasswordPO) {
+        if ( changePasswordPO == null ) {
+            return null;
+        }
+
+        ChangePasswordContext changePasswordContext = new ChangePasswordContext();
+
+        changePasswordContext.setOldPassword( changePasswordPO.getOldPassword() );
+        changePasswordContext.setNewPassword( changePasswordPO.getNewPassword() );
+
+        return changePasswordContext;
+    }
+
+    @Override
+    public UserInfoVO assembleUserInfoVO(TPanUser user, TPanUserFile userFile) {
+        if ( user == null && userFile == null ) {
+            return null;
+        }
+
+        UserInfoVO userInfoVO = new UserInfoVO();
+
+        if ( user != null ) {
+            userInfoVO.setUsername( user.getUsername() );
+        }
+        if ( userFile != null ) {
+            userInfoVO.setRootFileId( userFile.getFileId() );
+            userInfoVO.setRootFilename( userFile.getFilename() );
+        }
+
+        return userInfoVO;
     }
 }
