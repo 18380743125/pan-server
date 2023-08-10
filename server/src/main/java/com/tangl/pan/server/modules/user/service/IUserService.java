@@ -53,18 +53,21 @@ public interface IUserService extends IService<TPanUser> {
 
     /**
      * 重置用户密码
+     *
      * @param resetPasswordContext resetPasswordContext
      */
     void resetPassword(ResetPasswordContext resetPasswordContext);
 
     /**
      * 用户在线修改密码
+     *
      * @param changePasswordContext changePasswordContext
      */
     void changePassword(ChangePasswordContext changePasswordContext);
 
     /**
      * 查询登录用户的基本信息
+     *
      * @param userId 用户 ID
      * @return UserInfoVO
      */

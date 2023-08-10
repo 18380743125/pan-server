@@ -1,6 +1,5 @@
 package com.tangl.pan.server.modules.file.service.impl;
 
-import cn.hutool.core.text.StrBuilder;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.core.constants.TPanConstants;
@@ -8,14 +7,17 @@ import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
+import com.tangl.pan.server.modules.file.context.QueryFileListContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author tangl
@@ -55,6 +57,17 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         queryWrapper.eq("del_flag", DelFlagEnum.NO.getCode());
         queryWrapper.eq("folder_flag", FolderFlagEnum.YES.getCode());
         return getOne(queryWrapper);
+    }
+
+    /**
+     * 查询用户的文件列表
+     *
+     * @param context 查询文件列表上下文实体
+     * @return List<UserFileVO>
+     */
+    @Override
+    public List<UserFileVO> getFileList(QueryFileListContext context) {
+        return baseMapper.selectFileList(context);
     }
 
     /**

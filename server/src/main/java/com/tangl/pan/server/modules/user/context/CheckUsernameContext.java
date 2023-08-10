@@ -15,7 +15,7 @@ public class CheckUsernameContext implements Serializable {
     private static final long serialVersionUID = 364700909418572357L;
 
     /**
-     * 用户名称
+     * 用户名
      */
     private String username;
 }

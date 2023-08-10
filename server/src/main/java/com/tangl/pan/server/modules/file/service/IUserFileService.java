@@ -1,8 +1,12 @@
 package com.tangl.pan.server.modules.file.service;
 
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
+import com.tangl.pan.server.modules.file.context.QueryFileListContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
+
+import java.util.List;
 
 /**
  * @author tangl
@@ -25,4 +29,11 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @return TPanUserFile
      */
     TPanUserFile getUserRootFile(Long userId);
+
+    /**
+     *
+     * @param context 查询文件列表上下文实体
+     * @return 查询用户的文件列表
+     */
+    List<UserFileVO> getFileList(QueryFileListContext context);
 }

@@ -1,11 +1,10 @@
 ${AnsiColor.BLUE}
-           ______                       _
-          |______|                    /' `\
-            ||||                     /'     )
-            ||||       ______       /'(___,/' ____     ,____
-            ||||                   /'        /'    )   /'    )
-            ||||                  /'        /'    /'  /'    /'
-            ||||                 (,/'       (___,/(__/'    /(__
+
+.-----.  .---.
+`-. .-'  : .; :
+  : :    :  _.'.--.  ,-.,-.
+  : :    : :  ' .; ; : ,. :
+  :_;    :_;  `.__,_;:_;:_;
 
  ${AnsiColor.YELLOW}ENV:${spring.profiles.active:default}                         ${AnsiColor.BRIGHT_GREEN}VERSION:${swagger2.version:1.0}
  ${AnsiColor.BRIGHT_GREEN}

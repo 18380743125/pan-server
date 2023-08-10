@@ -17,18 +17,19 @@ import java.io.Serializable;
 public class CheckAnswerContext implements Serializable {
 
     private static final long serialVersionUID = -6740912203444332708L;
-    @ApiModelProperty(value = "用户名", required = true)
-    @NotBlank(message = "用户名不能为空")
-    @Pattern(regexp = "^[0-9A-Za-z]{6,16}$", message = "请输入6-16位只包含数字字母的用户名")
+
+    /**
+     * 用户名
+     */
     private String username;
 
-    @ApiModelProperty(value = "密保问题", required = true)
-    @NotBlank(message = "密保问题不能为空")
-    @Length(max = 100, message = "密保问题不能超过100个字符")
+    /**
+     * 密保问题
+     */
     private String question;
 
-    @ApiModelProperty(value = "密保答案", required = true)
-    @NotBlank(message = "密保答案不能为空")
-    @Length(max = 100, message = "密保答案不能超过100个字符")
+    /**
+     * 密保答案
+     */
     private String answer;
 }

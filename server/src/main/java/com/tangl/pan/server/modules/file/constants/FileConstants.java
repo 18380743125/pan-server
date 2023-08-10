@@ -25,4 +25,9 @@ public interface FileConstants {
      * 中文 ）
      */
     String CN_RIGHT_PARENTHESES_STR = "）";
+
+    /**
+     * 所有文件类型的标识
+     */
+    String ALL_FILE_TYPE = "-1";
 }

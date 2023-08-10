@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author tangl
- * @description 用户模块的控制器实体
+ * @description 用户模块的控制器
  * @create 2023-07-28 21:10
  */
 @Api("用户模块")

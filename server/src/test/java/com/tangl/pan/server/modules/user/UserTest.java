@@ -3,7 +3,6 @@ package com.tangl.pan.server.modules.user;
 import cn.hutool.core.lang.Assert;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.server.TPanServerLauncher;
-import com.tangl.pan.server.modules.user.constants.UserConstants;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 
 /**
  * @author tangl
