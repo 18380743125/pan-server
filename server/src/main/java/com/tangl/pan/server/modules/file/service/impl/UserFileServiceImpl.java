@@ -5,20 +5,23 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.event.file.DeleteFileEvent;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
-import com.tangl.pan.server.modules.file.context.CreateFolderContext;
-import com.tangl.pan.server.modules.file.context.DeleteFileContext;
-import com.tangl.pan.server.modules.file.context.QueryFileListContext;
-import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
+import com.tangl.pan.server.modules.file.context.*;
+import com.tangl.pan.server.modules.file.entity.TPanFile;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
+import com.tangl.pan.server.modules.file.enums.FileTypeEnum;
 import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
+import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,9 @@ import java.util.stream.Collectors;
  */
 @Service(value = "userFileService")
 public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUserFile> implements IUserFileService, ApplicationContextAware {
+
+    @Autowired
+    private IFileService fileService;
 
     private ApplicationContext applicationContext;
 
@@ -114,6 +120,46 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         checkFileDeleteCondition(context);
         doDeleteFile(context);
         afterFileDelete(context);
+    }
+
+    /**
+     * 文件秒传
+     * 1、通过文件的唯一标识查询文件实体记录
+     * 2、如果没有查到，直接返回秒传失败
+     * 3、如果查到记录，直接挂在关联关系，返回秒传成功
+     *
+     * @param context 秒传上下文实体
+     * @return 是否秒传成功
+     */
+    @Override
+    public boolean secUpload(SecUploadContext context) {
+        String filename = context.getFilename();
+        TPanFile record = getFileByUserIdAndIdentifier(context);
+        if (Objects.isNull(record)) {
+            return false;
+        }
+        saveUserFile(context.getParentId(),
+                context.getFilename(),
+                FolderFlagEnum.NO,
+                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename)),
+                record.getFileId(),
+                context.getUserId(),
+                record.getFileSizeDesc()
+        );
+        return true;
+    }
+
+    private TPanFile getFileByUserIdAndIdentifier(SecUploadContext context) {
+        Long userId = context.getUserId();
+        String identifier = context.getIdentifier();
+        QueryWrapper<TPanFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("create_user", userId);
+        queryWrapper.eq("identifier", identifier);
+        List<TPanFile> records = fileService.list(queryWrapper);
+        if (CollectionUtils.isEmpty(records)) {
+            return null;
+        }
+        return records.get(TPanConstants.ZERO_INT);
     }
 
     /**

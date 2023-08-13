@@ -2,10 +2,12 @@ package com.tangl.pan.server.modules.file.converter;
 
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
 import com.tangl.pan.server.modules.file.context.DeleteFileContext;
+import com.tangl.pan.server.modules.file.context.SecUploadContext;
 import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.po.CreateFolderPO;
 import com.tangl.pan.server.modules.file.po.DeleteFilePO;
+import com.tangl.pan.server.modules.file.po.SecUploadPO;
 import com.tangl.pan.server.modules.file.po.UpdateFilenamePO;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
@@ -29,4 +31,8 @@ public interface FileConverter {
 
     @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
     DeleteFileContext deleteFilePO2DeleteFileContext(DeleteFilePO deleteFilePO);
+
+    @Mapping(target = "parentId", expression = "java(com.tangl.pan.core.utils.IdUtil.decrypt(secUploadPO.getParentId()))")
+    @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
+    SecUploadContext secUploadPO2SecUploadContext(SecUploadPO secUploadPO);
 }

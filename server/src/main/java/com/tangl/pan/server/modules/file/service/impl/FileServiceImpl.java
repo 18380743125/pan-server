@@ -2,7 +2,7 @@ package com.tangl.pan.server.modules.file.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
-import com.tangl.pan.server.modules.file.service.TPanFileService;
+import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanFileMapper;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2023-07-23 23:41:43
 */
 @Service
-public class TPanFileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> implements TPanFileService{
+public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> implements IFileService {
 
 }
 

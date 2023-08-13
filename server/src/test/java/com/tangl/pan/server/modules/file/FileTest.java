@@ -1,11 +1,12 @@
 package com.tangl.pan.server.modules.file;
 
+import cn.hutool.core.lang.Assert;
 import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.TPanServerLauncher;
-import com.tangl.pan.server.modules.file.context.CreateFolderContext;
-import com.tangl.pan.server.modules.file.context.DeleteFileContext;
-import com.tangl.pan.server.modules.file.context.QueryFileListContext;
-import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
+import com.tangl.pan.server.modules.file.context.*;
+import com.tangl.pan.server.modules.file.entity.TPanFile;
+import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
@@ -19,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +37,73 @@ public class FileTest {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IFileService fileService;
+
+    /**
+     * 测试秒传成功
+     */
+    @Test
+    public void testSecUploadSuccess() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+
+        String identifier = "123456789";
+
+        TPanFile record = new TPanFile();
+        record.setFileId(IdUtil.get());
+        record.setFilename("filename");
+        record.setRealPath("realpath");
+        record.setFileSize("fileSize");
+        record.setFileSizeDesc("fileSizeDesc");
+        record.setFilePreviewContentType("");
+        record.setIdentifier(identifier);
+        record.setCreateUser(userId);
+        record.setCreateTime(new Date());
+        fileService.save(record);
+
+        SecUploadContext context = new SecUploadContext();
+        context.setIdentifier(identifier);
+        context.setFilename("filename");
+        context.setParentId(userInfo.getRootFileId());
+        context.setUserId(userId);
+
+        boolean result = userFileService.secUpload(context);
+        Assert.isTrue(result);
+    }
+
+    /**
+     * 测试秒传失败
+     */
+    @Test
+    public void testSecUploadFail() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+
+        String identifier = "123456789";
+
+        TPanFile record = new TPanFile();
+        record.setFileId(IdUtil.get());
+        record.setFilename("filename");
+        record.setRealPath("realpath");
+        record.setFileSize("fileSize");
+        record.setFileSizeDesc("fileSizeDesc");
+        record.setFilePreviewContentType("");
+        record.setIdentifier(identifier);
+        record.setCreateUser(userId);
+        record.setCreateTime(new Date());
+        fileService.save(record);
+
+        SecUploadContext context = new SecUploadContext();
+        context.setIdentifier(identifier + 333);
+        context.setFilename("filename");
+        context.setParentId(userInfo.getRootFileId());
+        context.setUserId(userId);
+
+        boolean result = userFileService.secUpload(context);
+        Assert.isFalse(result);
+    }
 
     /**
      * 校验文件删除失败-非法的文件ID
