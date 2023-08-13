@@ -8,6 +8,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @description 针对表【t_pan_file_chunk(文件分片信息表)】的数据库操作Service
 * @createDate 2023-07-23 23:41:43
 */
-public interface TPanFileChunkService extends IService<TPanFileChunk> {
+public interface IFileChunkService extends IService<TPanFileChunk> {
 
 }

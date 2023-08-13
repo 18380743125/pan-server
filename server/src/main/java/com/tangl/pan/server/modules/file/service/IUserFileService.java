@@ -1,9 +1,6 @@
 package com.tangl.pan.server.modules.file.service;
 
-import com.tangl.pan.server.modules.file.context.CreateFolderContext;
-import com.tangl.pan.server.modules.file.context.DeleteFileContext;
-import com.tangl.pan.server.modules.file.context.QueryFileListContext;
-import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
+import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
@@ -53,4 +50,11 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @param context 批量删除用户文件的上下文实体
      */
     void deleteFile(DeleteFileContext context);
+
+    /**
+     * 文件秒传
+     *
+     * @param context 秒传上下文实体
+     */
+    boolean secUpload(SecUploadContext context);
 }
