@@ -1,8 +1,11 @@
 package com.tangl.pan.server.modules.file;
 
+import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
+import com.tangl.pan.server.modules.file.context.DeleteFileContext;
 import com.tangl.pan.server.modules.file.context.QueryFileListContext;
+import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
@@ -15,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +35,182 @@ public class FileTest {
 
     @Autowired
     private IUserService userService;
+
+    /**
+     * 校验文件删除失败-非法的文件ID
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testDeleteFileFailByWrongFileId() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        DeleteFileContext deleteFileContext = new DeleteFileContext();
+        deleteFileContext.setUserId(userId);
+        List<Long> fileIdList = new ArrayList<>();
+        fileIdList.add(fileId + 1);
+        deleteFileContext.setFileIdList(fileIdList);
+
+        userFileService.deleteFile(deleteFileContext);
+    }
+
+    /**
+     * 校验文件删除失败-非法的用户ID
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testDeleteFileFailByWrongUserId() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        DeleteFileContext deleteFileContext = new DeleteFileContext();
+        deleteFileContext.setUserId(userId + 1);
+        List<Long> fileIdList = new ArrayList<>();
+        fileIdList.add(fileId);
+        deleteFileContext.setFileIdList(fileIdList);
+
+        userFileService.deleteFile(deleteFileContext);
+    }
+
+    /**
+     * 删除用户文件-成功
+     */
+    @Test
+    public void testDeleteFileSuccess() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        DeleteFileContext deleteFileContext = new DeleteFileContext();
+        deleteFileContext.setUserId(userId);
+        List<Long> fileIdList = new ArrayList<>();
+        fileIdList.add(fileId);
+        deleteFileContext.setFileIdList(fileIdList);
+
+        userFileService.deleteFile(deleteFileContext);
+    }
+
+    /**
+     * 无效的 fileId
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testUpdateFilenameFailByWrongFileId() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
+        updateFilenameContext.setFileId(fileId + 6);
+        updateFilenameContext.setUserId(userId);
+        updateFilenameContext.setNewFilename("新的测试文件夹");
+
+        userFileService.updateFilename(updateFilenameContext);
+    }
+
+    /**
+     * 无权修改的 userId
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testUpdateFilenameFailByWrongUserId() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
+        updateFilenameContext.setFileId(fileId);
+        updateFilenameContext.setUserId(userId + 9);
+        updateFilenameContext.setNewFilename("新的测试文件夹");
+
+        userFileService.updateFilename(updateFilenameContext);
+    }
+
+    /**
+     * 新旧文件名称一致
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testUpdateFilenameFailByWrongFilename() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
+        updateFilenameContext.setFileId(fileId);
+        updateFilenameContext.setUserId(userId);
+        updateFilenameContext.setNewFilename("测试文件夹");
+
+        userFileService.updateFilename(updateFilenameContext);
+    }
+
+    /**
+     * 该文件夹下已有该文件名称
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testUpdateFilenameFailByOtherWrong() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        createFolderContext.setFolderName("测试文件夹1");
+        userFileService.createFolder(createFolderContext);
+
+        UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
+        updateFilenameContext.setFileId(fileId);
+        updateFilenameContext.setUserId(userId);
+        updateFilenameContext.setNewFilename("测试文件夹1");
+
+        userFileService.updateFilename(updateFilenameContext);
+    }
+
+    /**
+     * 重命名文件成功
+     */
+    @Test
+    public void testUpdateFilenameSuccess() {
+        Long userId = register();
+        UserInfoVO userInfo = info(userId);
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        Long fileId = userFileService.createFolder(createFolderContext);
+
+        UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
+        updateFilenameContext.setFileId(fileId);
+        updateFilenameContext.setUserId(userId);
+        updateFilenameContext.setNewFilename("测试文件夹1");
+
+        userFileService.updateFilename(updateFilenameContext);
+    }
 
     /**
      * 测试用户查询文件列表成功

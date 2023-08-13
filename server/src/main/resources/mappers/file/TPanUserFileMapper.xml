@@ -20,15 +20,6 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        file_id,
-        user_id,parent_id,
-        real_file_id,filename,folder_flag,
-        file_size_desc,file_type,del_flag,
-        create_user,create_time,update_user,
-        update_time
-    </sql>
-
     <select id="selectFileList" resultType="com.tangl.pan.server.modules.file.vo.UserFileVO">
         SELECT
             file_id AS fileId,

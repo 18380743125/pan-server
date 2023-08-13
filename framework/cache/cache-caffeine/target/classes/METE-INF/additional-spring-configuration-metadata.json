@@ -1,19 +1,19 @@
 {
   "properties": [
     {
-      "name": "com.tang.pan.cache.caffeeine.init-cache-capacity",
+      "name": "com.tangl.pan.cache.caffeeine.init-cache-capacity",
       "type": "java.lang.Integer",
       "description": "Caffeine 缓存的初始容量",
       "defaultValue": 256
     },
     {
-      "name": "com.tang.pan.cache.caffeeine.max-cache-capacity",
+      "name": "com.tangl.pan.cache.caffeeine.max-cache-capacity",
       "type": "java.lang.Long",
       "description": "Caffeine 缓存的最大容量",
       "defaultValue": "10000L"
     },
     {
-      "name": "com.tang.pan.cache.caffeeine.allow-null-value",
+      "name": "com.tangl.pan.cache.caffeeine.allow-null-value",
       "type": "java.lang.Integer",
       "description": "Caffeine 缓存是否允许 null 作为 value 的属性",
       "defaultValue": true

@@ -1,23 +1,33 @@
 package com.tangl.pan.server.modules.file.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
+import com.tangl.pan.server.common.event.file.DeleteFileEvent;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
+import com.tangl.pan.server.modules.file.context.DeleteFileContext;
 import com.tangl.pan.server.modules.file.context.QueryFileListContext;
+import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author tangl
@@ -25,7 +35,15 @@ import java.util.List;
  * @createDate 2023-07-23 23:41:43
  */
 @Service(value = "userFileService")
-public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUserFile> implements IUserFileService {
+public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUserFile> implements IUserFileService, ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
     /**
      * 创建文件夹信息
      *
@@ -71,6 +89,148 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     }
 
     /**
+     * 更新文件名称
+     * 1、校验更新文件名称的条件
+     * 2、执行更新文件名称的操作
+     *
+     * @param context 重命名文件名的上下文实体
+     */
+    @Override
+    public void updateFilename(UpdateFilenameContext context) {
+        checkUpdateFilenameCondition(context);
+        doUpdateFilename(context);
+    }
+
+    /**
+     * 批量删除用户文件
+     * 1、校验删除的条件
+     * 2、执行批量删除
+     * 3、发布批量删除文件的事件，给其他模块使用
+     *
+     * @param context 批量删除用户文件的上下文实体
+     */
+    @Override
+    public void deleteFile(DeleteFileContext context) {
+        checkFileDeleteCondition(context);
+        doDeleteFile(context);
+        afterFileDelete(context);
+    }
+
+    /**
+     * 发布批量删除文件的事件，给其他模块使用
+     *
+     * @param context 批量删除用户文件的上下文实体
+     */
+    private void afterFileDelete(DeleteFileContext context) {
+        List<Long> fileIdList = context.getFileIdList();
+        DeleteFileEvent deleteFileEvent = new DeleteFileEvent(this, fileIdList);
+        applicationContext.publishEvent(deleteFileEvent);
+    }
+
+    /**
+     * 执行批量删除
+     *
+     * @param context 批量删除用户文件的上下文实体
+     */
+    private void doDeleteFile(DeleteFileContext context) {
+        List<Long> fileIdList = context.getFileIdList();
+        UpdateWrapper<TPanUserFile> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.in("file_id", fileIdList);
+        updateWrapper.set("del_flag", DelFlagEnum.YES.getCode());
+        updateWrapper.set("update_time", new Date());
+        if (!update(updateWrapper)) {
+            throw new TPanBusinessException("文件删除失败");
+        }
+    }
+
+    /**
+     * 删除文件前的前置校验
+     * 1、文件 ID 合法校验
+     * 2、用户拥有删除该文件的权限
+     *
+     * @param context 批量删除用户文件的上下文实体
+     */
+    private void checkFileDeleteCondition(DeleteFileContext context) {
+        List<Long> fileIdList = context.getFileIdList();
+        Long userId = context.getUserId();
+
+        List<TPanUserFile> userFiles = listByIds(fileIdList);
+        if (userFiles.size() != fileIdList.size()) {
+            throw new TPanBusinessException("存在不合法的文件ID");
+        }
+
+        Set<Long> fileIdSet = userFiles.stream().map(TPanUserFile::getFileId).collect(Collectors.toSet());
+        int oldSize = fileIdSet.size();
+        fileIdSet.addAll(fileIdList);
+        int newSize = fileIdSet.size();
+        if (oldSize != newSize) {
+            throw new TPanBusinessException("存在不合法的文件ID");
+        }
+
+        Set<Long> userIdSet = userFiles.stream().map(TPanUserFile::getUserId).collect(Collectors.toSet());
+        if (userIdSet.size() != 1) {
+            throw new TPanBusinessException("存在不合法的文件ID");
+        }
+
+        Long dbUserId = userIdSet.stream().findFirst().get();
+
+        if (!Objects.equals(dbUserId, userId)) {
+            throw new TPanBusinessException("该用户没有删除该文件的权限");
+        }
+    }
+
+    /**
+     * 执行更新文件名称
+     *
+     * @param context 重命名文件名的上下文实体
+     */
+    private void doUpdateFilename(UpdateFilenameContext context) {
+        TPanUserFile entity = context.getEntity();
+        entity.setFilename(context.getNewFilename());
+        entity.setUpdateUser(context.getUserId());
+        entity.setUpdateTime(new Date());
+        if (!updateById(entity)) {
+            throw new TPanBusinessException("文件重命名失败");
+        }
+    }
+
+    /**
+     * 更新文件名称的条件校验
+     * 1、文件ID是有效的
+     * 2、用户有权限更新该文件的文件名称
+     * 3、新旧文件名称不能一样
+     * 4、不能使用当前文件夹下面的子文件的名称
+     *
+     * @param context 重命名文件名的上下文实体
+     */
+    private void checkUpdateFilenameCondition(UpdateFilenameContext context) {
+        Long fileId = context.getFileId();
+        TPanUserFile entity = getById(fileId);
+
+        if (Objects.isNull(entity)) {
+            throw new TPanBusinessException("该文件ID无效");
+        }
+
+        if (!Objects.equals(entity.getUserId(), context.getUserId())) {
+            throw new TPanBusinessException("当前登录用户没有修改该文件的权限");
+        }
+
+        if (Objects.equals(entity.getFilename(), context.getNewFilename())) {
+            throw new TPanBusinessException("新旧文件名称不能一致");
+        }
+
+        QueryWrapper<TPanUserFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", entity.getParentId());
+        queryWrapper.eq("filename", context.getNewFilename());
+        int count = count(queryWrapper);
+        if (count > 0) {
+            throw new TPanBusinessException("该文件名称已存在");
+        }
+
+        context.setEntity(entity);
+    }
+
+    /**
      * 保存用户文件的映射记录
      *
      * @param parentId       父级目录ID
@@ -108,7 +268,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * @param realFileId     真实文件ID
      * @param userId         用户ID
      * @param fileSizeDesc   文件大小描述
-     * @return
+     * @return TPanUserFile
      */
     private TPanUserFile assembleTPanUserFile(Long parentId, String filename, FolderFlagEnum folderFlagEnum, Integer fileType, Long realFileId, Long userId, String fileSizeDesc) {
         TPanUserFile entity = new TPanUserFile();

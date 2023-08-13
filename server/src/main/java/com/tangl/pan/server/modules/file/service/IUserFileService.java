@@ -1,7 +1,9 @@
 package com.tangl.pan.server.modules.file.service;
 
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
+import com.tangl.pan.server.modules.file.context.DeleteFileContext;
 import com.tangl.pan.server.modules.file.context.QueryFileListContext;
+import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
@@ -31,9 +33,24 @@ public interface IUserFileService extends IService<TPanUserFile> {
     TPanUserFile getUserRootFile(Long userId);
 
     /**
+     * 查询用户的文件列表
      *
      * @param context 查询文件列表上下文实体
-     * @return 查询用户的文件列表
+     * @return 文件列表
      */
     List<UserFileVO> getFileList(QueryFileListContext context);
+
+    /**
+     * 更新文件名称
+     *
+     * @param context 更新文件名的上下文实体
+     */
+    void updateFilename(UpdateFilenameContext context);
+
+    /**
+     * 批量删除用户文件
+     *
+     * @param context 批量删除用户文件的上下文实体
+     */
+    void deleteFile(DeleteFileContext context);
 }
