@@ -12,6 +12,8 @@ import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
+
 /**
  * @author tangl
  * @description caffeine 缓存单元测试
@@ -23,7 +25,7 @@ public class CaffeineCacheTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Autowired
+    @Resource
     private CacheAnnotationTester cacheAnnotationTester;
 
     /**
@@ -33,9 +35,9 @@ public class CaffeineCacheTest {
     public void caffeineCacheManagerTest() {
         Cache cache = cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
         assert cache != null;
-        cache.put("name", "value");
+        cache.put("name", "tangl");
         String value = cache.get("name", String.class);
-        Assert.isTrue("value".equals(value));
+        Assert.isTrue("tangl".equals(value));
     }
 
     @Test

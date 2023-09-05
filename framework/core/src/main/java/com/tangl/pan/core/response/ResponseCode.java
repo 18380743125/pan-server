@@ -5,7 +5,7 @@ import lombok.Getter;
 
 /**
  * @author tangl
- * @description
+ * @description 响应状态枚举类
  * @create 2023-06-22 14:44
  */
 @AllArgsConstructor
@@ -45,10 +45,10 @@ public enum ResponseCode {
     /**
      * 状态码
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 状态描述
      */
-    private String desc;
+    private final String desc;
 }

@@ -25,13 +25,14 @@ import java.util.concurrent.ScheduledFuture;
 @Component
 @Slf4j
 public class ScheduleManager {
+
     @Autowired
     private ThreadPoolTaskScheduler taskScheduler;
 
     /**
      * 内部正在执行的定时任务缓存
      */
-    private Map<String, ScheduleTaskHolder> cache = new ConcurrentHashMap<>();
+    private final Map<String, ScheduleTaskHolder> cache = new ConcurrentHashMap<>();
 
     /**
      * 启动一个定时任务
@@ -81,7 +82,7 @@ public class ScheduleManager {
      */
     public String changeSchedule(String key, String cron) {
         if (StringUtils.isAnyBlank(key, cron)) {
-            throw new TPanFrameworkException("定时任务的唯一标识以及新的执行表达式不能为空");
+            throw new TPanFrameworkException("定时任务的唯一标识和新的执行表达式不能为空");
         }
 
         ScheduleTaskHolder holder = cache.get(key);

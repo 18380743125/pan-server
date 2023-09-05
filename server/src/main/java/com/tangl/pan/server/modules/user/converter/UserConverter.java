@@ -15,10 +15,11 @@ import org.mapstruct.Mapping;
  */
 @Mapper(componentModel = "spring")
 public interface UserConverter {
+
     /**
      * UserRegisterPO 转 UserRegisterContext
      *
-     * @param userRegisterPO po
+     * @param userRegisterPO userRegisterPO
      * @return UserRegisterPO
      */
     UserRegisterContext userRegisterPO2UserRegisterContext(UserRegisterPO userRegisterPO);

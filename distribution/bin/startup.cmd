@@ -25,7 +25,6 @@ set "PAN_CONFIG_OPTS=--spring.config.additional-location=%CUSTOM_SEARCH_LOCATION
 rem set pan server log4j file location
 set "PAN_LOG4J_OPTS=--logging.config=%BASE_DIR%/conf/t-pan-server-logback.xml"
 
-
 set COMMAND="%JAVA%" %PAN_JVM_OPTS% %PAN_OPTS% %PAN_CONFIG_OPTS% %PAN_LOG4J_OPTS% pan.server %*
 
 echo "pan server is starting..."

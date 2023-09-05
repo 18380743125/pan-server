@@ -57,4 +57,11 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @param context 秒传上下文实体
      */
     boolean secUpload(SecUploadContext context);
+
+    /**
+     * 单文件上传
+     *
+     * @param context 单文件上传的上下文实体
+     */
+    void upload(FileUploadContext context);
 }

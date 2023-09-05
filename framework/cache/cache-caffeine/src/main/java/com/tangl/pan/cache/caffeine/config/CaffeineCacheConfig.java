@@ -12,13 +12,14 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author tangl
- * @description
+ * @description caffeine cache 配置类
  * @create 2023-07-24 11:07
  */
 @SpringBootConfiguration
 @EnableCaching
 @Slf4j
 public class CaffeineCacheConfig {
+
     @Autowired
     private CaffeineCacheProperties properties;
 

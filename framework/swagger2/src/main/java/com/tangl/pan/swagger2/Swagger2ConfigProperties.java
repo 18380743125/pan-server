@@ -3,17 +3,19 @@ package com.tangl.pan.swagger2;
 import com.tangl.pan.core.constants.TPanConstants;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
  * @author tangl
- * @description swagger 配置属性实体
+ * @description swagger2 配置属性类
  * @create 2023-06-22 22:47
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "swagger2")
+@ConfigurationProperties(value = "swagger2")
 public class Swagger2ConfigProperties {
+
     private boolean show = true;
 
     private String groupName = "t-pan";

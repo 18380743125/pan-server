@@ -16,7 +16,7 @@ import java.util.Objects;
 
 /**
  * @author tangl
- * @description HttpLogEntity构造器
+ * @description HttpLogEntity构造类
  * @create 2023-06-22 18:25
  */
 public class HttpLogEntityBuilder {
@@ -64,19 +64,19 @@ public class HttpLogEntityBuilder {
             return "unknown";
         }
         String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Forwarded-For");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Real-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
 
@@ -84,7 +84,7 @@ public class HttpLogEntityBuilder {
     }
 
     /**
-     * 获取请求头MAP
+     * 获取请求头Map
      *
      * @param request request
      * @return Map
@@ -103,7 +103,7 @@ public class HttpLogEntityBuilder {
     }
 
     /**
-     * 获取响应头MAP
+     * 获取响应头Map
      *
      * @param response response
      * @return Map

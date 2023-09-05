@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
     @Autowired
     private IUserService userService;
 
@@ -113,7 +114,6 @@ public class UserController {
         return R.success();
     }
 
-    @LoginIgnore
     @ApiOperation(
             value = "用户在线修改密码",
             notes = "该接口提供了用户在线修改密码的功能",

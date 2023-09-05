@@ -19,7 +19,7 @@ public class UpdateFilenamePO implements Serializable {
 
     @ApiModelProperty(value = "更新的文件ID", required = true)
     @NotBlank(message = "更新的文件ID不能为空")
-    private Long fileId;
+    private String fileId;
 
     @ApiModelProperty(value = "更新的文件名称", required = true)
     @NotBlank(message = "更新的文件名称不能为空")

@@ -27,10 +27,10 @@ public class JwtUtil {
     /**
      * 生成token
      *
-     * @param subject String
-     * @param claimKey String
+     * @param subject    String
+     * @param claimKey   String
      * @param claimValue Object
-     * @param expire Long
+     * @param expire     Long
      * @return String
      */
     public static String generateToken(String subject, String claimKey, Object claimValue, Long expire) {
@@ -63,5 +63,4 @@ public class JwtUtil {
             return null;
         }
     }
-
 }

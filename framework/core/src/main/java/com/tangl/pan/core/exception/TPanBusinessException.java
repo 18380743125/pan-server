@@ -10,15 +10,17 @@ import lombok.Getter;
  */
 @Getter
 public class TPanBusinessException extends RuntimeException {
+
+    private static final long serialVersionUID = 6989859219046497129L;
     /**
      * 错误码
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 错误信息
      */
-    private String message;
+    private final String message;
 
     public TPanBusinessException(ResponseCode responseCode) {
         this.code = responseCode.getCode();

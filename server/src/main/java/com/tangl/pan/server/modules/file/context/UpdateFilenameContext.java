@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class UpdateFilenameContext implements Serializable {
+
     private static final long serialVersionUID = -9000735818025178913L;
 
     /**

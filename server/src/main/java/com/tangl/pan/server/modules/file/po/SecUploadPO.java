@@ -15,10 +15,11 @@ import java.io.Serializable;
 @ApiModel("文件秒传参数实体")
 @Data
 public class SecUploadPO implements Serializable {
+
     private static final long serialVersionUID = 2539125201857072608L;
 
     @ApiModelProperty(value = "文件夹ID", required = true)
-    @NotBlank(message = "文件夹ID不能为空")
+    @NotBlank(message = "父文件夹ID不能为空")
     private String parentId;
 
     @ApiModelProperty(value = "文件名称", required = true)

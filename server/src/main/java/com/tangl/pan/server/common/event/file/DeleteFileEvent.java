@@ -1,5 +1,6 @@
 package com.tangl.pan.server.common.event.file;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,10 +15,12 @@ import java.util.List;
  */
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @ToString
 public class DeleteFileEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = -1922543273278238212L;
+
     private List<Long> fileIdList;
 
     public DeleteFileEvent(Object source, List<Long> fileIdList) {

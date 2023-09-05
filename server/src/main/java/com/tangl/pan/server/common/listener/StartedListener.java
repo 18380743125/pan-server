@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class StartedListener implements ApplicationListener<ApplicationReadyEvent> {
 
     /**
-     * 项目启动成功将在控制台打印
+     * 项目启动成功打印控制台信息
      *
      * @param applicationReadyEvent 启动事件对象
      */

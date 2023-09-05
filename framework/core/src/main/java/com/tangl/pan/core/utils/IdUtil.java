@@ -25,12 +25,12 @@ public class IdUtil {
     /**
      * 工作id 也就是机器id
      */
-    private static long workerId;
+    private static final long workerId;
 
     /**
      * 数据中心id
      */
-    private static long dataCenterId;
+    private static final long dataCenterId;
 
     /**
      * 序列号
@@ -40,52 +40,52 @@ public class IdUtil {
     /**
      * 初始时间戳
      */
-    private static long startTimestamp = 1288834974657L;
+    private static final long startTimestamp = 1288834974657L;
 
     /**
      * 工作id长度为5位
      */
-    private static long workerIdBits = 5L;
+    private static final long workerIdBits = 5L;
 
     /**
      * 数据中心id长度为5位
      */
-    private static long dataCenterIdBits = 5L;
+    private static final long dataCenterIdBits = 5L;
 
     /**
      * 工作id最大值
      */
-    private static long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    private static final long maxWorkerId = -1L ^ (-1L << workerIdBits);
 
     /**
      * 数据中心id最大值
      */
-    private static long maxDataCenterId = -1L ^ (-1L << dataCenterIdBits);
+    private static final long maxDataCenterId = -1L ^ (-1L << dataCenterIdBits);
 
     /**
      * 序列号长度
      */
-    private static long sequenceBits = 12L;
+    private static final long sequenceBits = 12L;
 
     /**
      * 序列号最大值
      */
-    private static long sequenceMask = -1L ^ (-1L << sequenceBits);
+    private static final long sequenceMask = -1L ^ (-1L << sequenceBits);
 
     /**
      * 工作id需要左移的位数，12位
      */
-    private static long workerIdShift = sequenceBits;
+    private static final long workerIdShift = sequenceBits;
 
     /**
      * 数据id需要左移位数 12+5=17位
      */
-    private static long dataCenterIdShift = sequenceBits + workerIdBits;
+    private static final long dataCenterIdShift = sequenceBits + workerIdBits;
 
     /**
      * 时间戳需要左移位数 12+5+5=22位
      */
-    private static long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
+    private static final long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
 
     /**
      * 上次时间戳，初始值为负数
@@ -178,10 +178,7 @@ public class IdUtil {
          * | 是按位或运算符，例如：x | y，只有当x，y都为0的时候结果才为0，其它情况结果都为1。
          * 因为个部分只有相应位上的值有意义，其它位上都是0，所以将各部分的值进行 | 运算就能得到最终拼接好的id
          */
-        return ((timestamp - startTimestamp) << timestampLeftShift) |
-                (dataCenterId << dataCenterIdShift) |
-                (workerId << workerIdShift) |
-                sequence;
+        return ((timestamp - startTimestamp) << timestampLeftShift) | (dataCenterId << dataCenterIdShift) | (workerId << workerIdShift) | sequence;
     }
 
     /**
@@ -235,10 +232,4 @@ public class IdUtil {
         }
         return decryptIdList.stream().map(IdUtil::decrypt).collect(Collectors.toList());
     }
-
-    public static void main(String[] args) {
-        System.out.println(encrypt(1664952265857654784L));
-        System.out.println(encrypt(get()));
-    }
-
 }

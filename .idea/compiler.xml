@@ -7,14 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="t-pan-web" />
         <module name="t-pan-cache-core" />
-        <module name="t-pan-cache-redis" />
-        <module name="t-pan-core" />
-        <module name="t-pan-mybatis-plus" />
         <module name="t-pan-schedule" />
+        <module name="t-pan-core" />
         <module name="t-pan-cache-caffeine" />
         <module name="t-pan-distribution" />
+        <module name="t-pan-storage-engine-fastdfs" />
+        <module name="t-pan-web" />
+        <module name="t-pan-cache-redis" />
+        <module name="t-pan-storage-engine-core" />
+        <module name="t-pan-mybatis-plus" />
+        <module name="t-pan-storage-engine-local" />
+        <module name="t-pan-storage-engine-oss" />
         <module name="t-pan-swagger2" />
       </profile>
       <profile name="Annotation profile for t-pan-parent" enabled="true">
@@ -50,6 +54,11 @@
       <module name="t-pan-parent" options="-parameters" />
       <module name="t-pan-schedule" options="-parameters" />
       <module name="t-pan-server" options="-parameters" />
+      <module name="t-pan-storage-engine" options="-parameters" />
+      <module name="t-pan-storage-engine-core" options="-parameters" />
+      <module name="t-pan-storage-engine-fastdfs" options="-parameters" />
+      <module name="t-pan-storage-engine-local" options="-parameters" />
+      <module name="t-pan-storage-engine-oss" options="-parameters" />
       <module name="t-pan-swagger2" options="-parameters" />
       <module name="t-pan-web" options="-parameters" />
       <module name="t5-pan-parent" options="-parameters" />

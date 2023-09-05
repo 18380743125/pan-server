@@ -16,6 +16,9 @@ import java.util.concurrent.ScheduledFuture;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScheduleTaskHolder implements Serializable {
+
+    private static final long serialVersionUID = -6261180275360645319L;
+
     /**
      * 执行任务实体
      */

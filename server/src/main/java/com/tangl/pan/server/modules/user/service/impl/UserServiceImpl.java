@@ -100,7 +100,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
             assert cache != null;
             cache.evict(UserConstants.USER_LOGIN_PREFIX + userId);
         } catch (Exception e) {
-            throw new TPanBusinessException("用户退出登录失败");
+            throw new TPanBusinessException("退出登录失败");
         }
     }
 
@@ -185,6 +185,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
         if (Objects.isNull(userFile)) {
             throw new TPanBusinessException("查询根文件夹信息失败");
         }
+
         return userConverter.assembleUserInfoVO(entity, userFile);
     }
 
@@ -317,13 +318,13 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
         String password = userLoginContext.getPassword();
         TPanUser entity = getTPanUserByUsername(username);
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException("用户名称不存在");
+            throw new TPanBusinessException("用户名不存在");
         }
         String salt = entity.getSalt();
         String encPassword = PasswordUtil.encryptPassword(salt, password);
         String dbPassword = entity.getPassword();
         if (!Objects.equals(encPassword, dbPassword)) {
-            throw new TPanBusinessException("密码信息不正确");
+            throw new TPanBusinessException("用户名或密码不正确");
         }
         userLoginContext.setEntity(entity);
     }
@@ -375,7 +376,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
 
     /**
      * 实体转换
-     * 由上下文信息转换成用户实体
+     * 上下文信息转换成用户实体
      *
      * @param userRegisterContext context
      */

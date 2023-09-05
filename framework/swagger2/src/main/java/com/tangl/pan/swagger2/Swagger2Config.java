@@ -24,6 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwaggerBootstrapUI
 @Log4j2
 public class Swagger2Config {
+
     @Autowired
     private Swagger2ConfigProperties properties;
 
@@ -38,7 +39,7 @@ public class Swagger2Config {
                 .apis(RequestHandlerSelectors.basePackage(properties.getBasePackage()))
                 .paths(PathSelectors.any())
                 .build();
-        log.info("The swagger2 have been loaded successfully");
+        log.info("The swagger2 has been loaded successfully");
         return docket;
     }
 

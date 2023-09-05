@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * @create 2023-06-22 14:22
  */
 public interface TPanConstants {
+
     /**
      * 公用的字符串分隔符
      */

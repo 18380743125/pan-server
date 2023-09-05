@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "com.tangl.pan.cache.caffeine")
 public class CaffeineCacheProperties {
+
     /**
      * 缓存初始容量
      */

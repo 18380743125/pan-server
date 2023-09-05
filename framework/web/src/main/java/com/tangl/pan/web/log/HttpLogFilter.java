@@ -34,5 +34,4 @@ public class HttpLogFilter extends OncePerRequestFilter {
         httpLogEntity.print();
         responseWrapper.copyBodyToResponse();
     }
-
 }

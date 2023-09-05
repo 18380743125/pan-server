@@ -2,11 +2,11 @@
 
     <!-- 日志文件路径 -->
     <springProperty scope="context" name="logFile" source="logging.file"/>
-    <property name="LOG_FILE" value="${logFile}"></property>
+    <property name="LOG_FILE" value="${logFile}"/>
 
     <!-- 日志打印级别 -->
     <springProperty scope="context" name="logLevel" source="logging.level.root" defaultValue="info"/>
-    <property name="LOG_LEVEL" value="${logLevel}"></property>
+    <property name="LOG_LEVEL" value="${logLevel}"/>
 
     <!-- 打印日志格式 -->
     <property name="FILE_LOG_PATTERN"

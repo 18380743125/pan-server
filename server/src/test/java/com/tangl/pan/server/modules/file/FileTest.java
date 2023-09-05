@@ -6,6 +6,7 @@ import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
+import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
@@ -16,9 +17,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +36,7 @@ import java.util.List;
 @SpringBootTest(classes = TPanServerLauncher.class)
 @Transactional
 public class FileTest {
+
     @Autowired
     private IUserFileService userFileService;
 
@@ -42,6 +47,33 @@ public class FileTest {
     private IFileService fileService;
 
     /**
+     * 测试单文件上传成功
+     */
+    @Test
+    public void testUploadSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        FileUploadContext context = new FileUploadContext();
+        MultipartFile file = generateMultipartFile();
+        context.setFile(file);
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setIdentifier("123456789");
+        context.setTotalSize(file.getSize());
+        context.setFilename(file.getOriginalFilename());
+        userFileService.upload(context);
+
+        QueryFileListContext queryFileListContext = new QueryFileListContext();
+        queryFileListContext.setDelFlag(DelFlagEnum.NO.getCode());
+        queryFileListContext.setUserId(userId);
+        queryFileListContext.setParentId(userInfoVO.getRootFileId());
+        List<UserFileVO> fileList = userFileService.getFileList(queryFileListContext);
+        Assert.notEmpty(fileList);
+        Assert.isTrue(fileList.size() == 1);
+    }
+
+    /**
      * 测试秒传成功
      */
     @Test
@@ -49,23 +81,23 @@ public class FileTest {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
 
+        // 已有的文件
         String identifier = "123456789";
-
-        TPanFile record = new TPanFile();
-        record.setFileId(IdUtil.get());
-        record.setFilename("filename");
-        record.setRealPath("realpath");
-        record.setFileSize("fileSize");
-        record.setFileSizeDesc("fileSizeDesc");
-        record.setFilePreviewContentType("");
-        record.setIdentifier(identifier);
-        record.setCreateUser(userId);
-        record.setCreateTime(new Date());
-        fileService.save(record);
+        TPanFile tPanFile = new TPanFile();
+        tPanFile.setFileId(IdUtil.get());
+        tPanFile.setFilename("filename");
+        tPanFile.setRealPath("realpath");
+        tPanFile.setFileSize("fileSize");
+        tPanFile.setFileSizeDesc("fileSizeDesc");
+        tPanFile.setFilePreviewContentType("");
+        tPanFile.setIdentifier(identifier);
+        tPanFile.setCreateUser(userId);
+        tPanFile.setCreateTime(new Date());
+        fileService.save(tPanFile);
 
         SecUploadContext context = new SecUploadContext();
         context.setIdentifier(identifier);
-        context.setFilename("filename");
+        context.setFilename("文件名");
         context.setParentId(userInfo.getRootFileId());
         context.setUserId(userId);
 
@@ -81,23 +113,23 @@ public class FileTest {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
 
+        // 已有的文件
         String identifier = "123456789";
-
-        TPanFile record = new TPanFile();
-        record.setFileId(IdUtil.get());
-        record.setFilename("filename");
-        record.setRealPath("realpath");
-        record.setFileSize("fileSize");
-        record.setFileSizeDesc("fileSizeDesc");
-        record.setFilePreviewContentType("");
-        record.setIdentifier(identifier);
-        record.setCreateUser(userId);
-        record.setCreateTime(new Date());
-        fileService.save(record);
+        TPanFile tPanFile = new TPanFile();
+        tPanFile.setFileId(IdUtil.get());
+        tPanFile.setFilename("filename");
+        tPanFile.setRealPath("realpath");
+        tPanFile.setFileSize("fileSize");
+        tPanFile.setFileSizeDesc("fileSizeDesc");
+        tPanFile.setFilePreviewContentType("");
+        tPanFile.setIdentifier(identifier);
+        tPanFile.setCreateUser(userId);
+        tPanFile.setCreateTime(new Date());
+        fileService.save(tPanFile);
 
         SecUploadContext context = new SecUploadContext();
-        context.setIdentifier(identifier + 333);
-        context.setFilename("filename");
+        context.setIdentifier(identifier + 1);
+        context.setFilename("文件名");
         context.setParentId(userInfo.getRootFileId());
         context.setUserId(userId);
 
@@ -112,6 +144,7 @@ public class FileTest {
     public void testDeleteFileFailByWrongFileId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
@@ -123,7 +156,6 @@ public class FileTest {
         List<Long> fileIdList = new ArrayList<>();
         fileIdList.add(fileId + 1);
         deleteFileContext.setFileIdList(fileIdList);
-
         userFileService.deleteFile(deleteFileContext);
     }
 
@@ -134,6 +166,7 @@ public class FileTest {
     public void testDeleteFileFailByWrongUserId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
@@ -145,7 +178,6 @@ public class FileTest {
         List<Long> fileIdList = new ArrayList<>();
         fileIdList.add(fileId);
         deleteFileContext.setFileIdList(fileIdList);
-
         userFileService.deleteFile(deleteFileContext);
     }
 
@@ -156,6 +188,7 @@ public class FileTest {
     public void testDeleteFileSuccess() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
@@ -167,7 +200,6 @@ public class FileTest {
         List<Long> fileIdList = new ArrayList<>();
         fileIdList.add(fileId);
         deleteFileContext.setFileIdList(fileIdList);
-
         userFileService.deleteFile(deleteFileContext);
     }
 
@@ -178,6 +210,7 @@ public class FileTest {
     public void testUpdateFilenameFailByWrongFileId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
@@ -185,7 +218,7 @@ public class FileTest {
         Long fileId = userFileService.createFolder(createFolderContext);
 
         UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
-        updateFilenameContext.setFileId(fileId + 6);
+        updateFilenameContext.setFileId(fileId + 1);
         updateFilenameContext.setUserId(userId);
         updateFilenameContext.setNewFilename("新的测试文件夹");
 
@@ -199,6 +232,7 @@ public class FileTest {
     public void testUpdateFilenameFailByWrongUserId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
@@ -207,7 +241,7 @@ public class FileTest {
 
         UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
         updateFilenameContext.setFileId(fileId);
-        updateFilenameContext.setUserId(userId + 9);
+        updateFilenameContext.setUserId(userId + 1);
         updateFilenameContext.setNewFilename("新的测试文件夹");
 
         userFileService.updateFilename(updateFilenameContext);
@@ -220,6 +254,7 @@ public class FileTest {
     public void testUpdateFilenameFailByWrongFilename() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
@@ -238,17 +273,17 @@ public class FileTest {
      * 该文件夹下已有该文件名称
      */
     @Test(expected = TPanBusinessException.class)
-    public void testUpdateFilenameFailByOtherWrong() {
+    public void testUpdateFilenameFailByRepeatFileName() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
 
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
-
         createFolderContext.setUserId(userId);
         Long fileId = userFileService.createFolder(createFolderContext);
 
+        // 第二个文件名称
         createFolderContext.setFolderName("测试文件夹1");
         userFileService.createFolder(createFolderContext);
 
@@ -256,7 +291,6 @@ public class FileTest {
         updateFilenameContext.setFileId(fileId);
         updateFilenameContext.setUserId(userId);
         updateFilenameContext.setNewFilename("测试文件夹1");
-
         userFileService.updateFilename(updateFilenameContext);
     }
 
@@ -265,19 +299,22 @@ public class FileTest {
      */
     @Test
     public void testUpdateFilenameSuccess() {
+        // 注册及获取用户信息
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
+        // 创建文件夹
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
         createFolderContext.setUserId(userId);
         Long fileId = userFileService.createFolder(createFolderContext);
 
+        // 更新文件名称
         UpdateFilenameContext updateFilenameContext = new UpdateFilenameContext();
         updateFilenameContext.setFileId(fileId);
         updateFilenameContext.setUserId(userId);
         updateFilenameContext.setNewFilename("测试文件夹1");
-
         userFileService.updateFilename(updateFilenameContext);
     }
 
@@ -288,9 +325,11 @@ public class FileTest {
     public void testQueryUserFileSuccess() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         QueryFileListContext context = new QueryFileListContext();
         context.setParentId(userInfo.getRootFileId());
         context.setUserId(userId);
+        context.setDelFlag(DelFlagEnum.NO.getCode());
         List<UserFileVO> fileList = userFileService.getFileList(context);
         System.out.println("fileList = " + fileList);
     }
@@ -302,18 +341,30 @@ public class FileTest {
     public void testCreateFolderSuccess() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
         CreateFolderContext createFolderContext = new CreateFolderContext();
         createFolderContext.setParentId(userInfo.getRootFileId());
         createFolderContext.setFolderName("测试文件夹");
         createFolderContext.setUserId(userId);
         userFileService.createFolder(createFolderContext);
+    }
 
-        // 查询文件列表
-        QueryFileListContext context = new QueryFileListContext();
-        context.setParentId(userInfo.getRootFileId());
-        context.setUserId(userId);
-        List<UserFileVO> fileList = userFileService.getFileList(context);
-        System.out.println("fileList = " + fileList);
+    /**
+     * 生成模拟的网络文件实体
+     *
+     * @return MultipartFile
+     */
+    private MultipartFile generateMultipartFile() {
+        MultipartFile file = null;
+        try {
+            file = new MockMultipartFile("file",
+                    "test.txt",
+                    "multipart/form-data",
+                    "test upload context".getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     /**

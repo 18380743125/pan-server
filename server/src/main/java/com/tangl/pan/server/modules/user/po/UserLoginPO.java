@@ -17,6 +17,7 @@ import java.io.Serializable;
 @ApiModel(value = "用户登录参数")
 @Data
 public class UserLoginPO implements Serializable {
+
     private static final long serialVersionUID = -1312634447049543731L;
 
     @ApiModelProperty(value = "用户名", required = true)

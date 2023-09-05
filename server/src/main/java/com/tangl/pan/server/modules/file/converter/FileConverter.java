@@ -1,18 +1,7 @@
 package com.tangl.pan.server.modules.file.converter;
 
-import com.tangl.pan.server.modules.file.context.CreateFolderContext;
-import com.tangl.pan.server.modules.file.context.DeleteFileContext;
-import com.tangl.pan.server.modules.file.context.SecUploadContext;
-import com.tangl.pan.server.modules.file.context.UpdateFilenameContext;
-import com.tangl.pan.server.modules.file.entity.TPanUserFile;
-import com.tangl.pan.server.modules.file.po.CreateFolderPO;
-import com.tangl.pan.server.modules.file.po.DeleteFilePO;
-import com.tangl.pan.server.modules.file.po.SecUploadPO;
-import com.tangl.pan.server.modules.file.po.UpdateFilenamePO;
-import com.tangl.pan.server.modules.user.context.*;
-import com.tangl.pan.server.modules.user.entity.TPanUser;
-import com.tangl.pan.server.modules.user.po.*;
-import com.tangl.pan.server.modules.user.vo.UserInfoVO;
+import com.tangl.pan.server.modules.file.context.*;
+import com.tangl.pan.server.modules.file.po.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -27,6 +16,8 @@ public interface FileConverter {
     @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
     CreateFolderContext createFolderPO2CreateFolderContext(CreateFolderPO createFolderPO);
 
+    @Mapping(target = "fileId", expression = "java(com.tangl.pan.core.utils.IdUtil.decrypt(updateFilenamePO.getFileId()))")
+    @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
     UpdateFilenameContext updateFilenamePO2UpdateFilenameContext(UpdateFilenamePO updateFilenamePO);
 
     @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
@@ -35,4 +26,11 @@ public interface FileConverter {
     @Mapping(target = "parentId", expression = "java(com.tangl.pan.core.utils.IdUtil.decrypt(secUploadPO.getParentId()))")
     @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
     SecUploadContext secUploadPO2SecUploadContext(SecUploadPO secUploadPO);
+
+    @Mapping(target = "parentId", expression = "java(com.tangl.pan.core.utils.IdUtil.decrypt(fileUploadPO.getParentId()))")
+    @Mapping(target = "userId", expression = "java(com.tangl.pan.server.common.utils.UserIdUtil.get())")
+    FileUploadContext fileUploadPO2FileUploadContext(FileUploadPO fileUploadPO);
+
+    @Mapping(target = "record", ignore = true)
+    FileSaveContext fileUploadContext2FileSaveContext(FileUploadContext context);
 }

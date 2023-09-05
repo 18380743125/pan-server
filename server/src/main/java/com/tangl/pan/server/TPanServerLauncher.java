@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication(scanBasePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH)
 @ServletComponentScan(basePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH)
-@EnableTransactionManagement
 @MapperScan(basePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH + ".server.modules.**.mapper")
+@EnableTransactionManagement
 public class TPanServerLauncher {
     public static void main(String[] args) {
         SpringApplication.run(TPanServerLauncher.class);

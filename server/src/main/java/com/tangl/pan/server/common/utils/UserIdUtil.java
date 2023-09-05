@@ -10,10 +10,11 @@ import java.util.Objects;
  * @create 2023-07-31 14:41
  */
 public class UserIdUtil {
-    private static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
+
+    private static final ThreadLocal<Long> threadLocal = new ThreadLocal<>();
 
     /**
-     * 设置当前线程的用户 ID
+     * 当前线程的用户 ID
      *
      * @param userId userId
      */

@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 public class CacheAnnotationTester {
     /**
      * 测试自适应缓存注解
+     *
      * @param name 参数
-     * @return string
      */
     @Cacheable(cacheNames = CacheConstants.T_PAN_CACHE_NAME, key = "#name", sync = true)
-    public String testCacheable(String name) {
+    public void testCacheable(String name) {
         log.info("call com.tangl.pan.cache.caffeine.test.instance.CacheAnnotationTester.testCacheable, param is {}", name);
-        return "hello" + name;
     }
 }

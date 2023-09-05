@@ -19,6 +19,7 @@ import javax.validation.ValidatorFactory;
 @SpringBootConfiguration
 @Log4j2
 public class WebValidatorConfig {
+
     private static final String FAIT_FAST_KEY = "hibernate.validator.fail_fast";
 
     @Bean

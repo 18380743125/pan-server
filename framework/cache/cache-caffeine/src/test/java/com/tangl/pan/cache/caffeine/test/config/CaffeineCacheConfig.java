@@ -20,6 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableCaching
 @ComponentScan(value = TPanConstants.BASE_COMPONENT_SCAN_PATH + ".cache.caffeine.test")
 public class CaffeineCacheConfig {
+
     @Autowired
     private CaffeineCacheProperties properties;
 

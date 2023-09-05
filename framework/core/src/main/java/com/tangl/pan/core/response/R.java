@@ -4,23 +4,25 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author tangl
- * @description 公用返回对象
+ * @description 公用响应类
  * @create 2023-06-22 14:49
  */
 // 保证 json 序列化时，如果属性值为 null，key 一起消失
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 public class R<T> implements Serializable {
+
+    private static final long serialVersionUID = -9163965353541499398L;
+
     /**
      * 状态码
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 状态说明文案

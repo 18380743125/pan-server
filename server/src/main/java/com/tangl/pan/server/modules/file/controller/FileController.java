@@ -9,10 +9,7 @@ import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.converter.FileConverter;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
-import com.tangl.pan.server.modules.file.po.CreateFolderPO;
-import com.tangl.pan.server.modules.file.po.DeleteFilePO;
-import com.tangl.pan.server.modules.file.po.SecUploadPO;
-import com.tangl.pan.server.modules.file.po.UpdateFilenamePO;
+import com.tangl.pan.server.modules.file.po.*;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.service.IUserService;
@@ -40,10 +37,10 @@ public class FileController {
     private IUserFileService userFileService;
 
     @Autowired
-    private FileConverter fileConverter;
+    private IUserService userService;
 
     @Autowired
-    private IUserService userService;
+    private FileConverter fileConverter;
 
     @ApiOperation(
             value = "查询文件列表",
@@ -52,7 +49,7 @@ public class FileController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @GetMapping("files")
-    public R<List<UserFileVO>> list(@NotBlank(message = "父文件夹ID不能为空") @RequestParam(value = "parentId", required = false) String parentId,
+    public R<List<UserFileVO>> list(@NotBlank(message = "父文件夹ID不能为空") @RequestParam(value = "parentId") String parentId,
                                     @RequestParam(value = "fileTypes", required = false, defaultValue = FileConstants.ALL_FILE_TYPE) String fileType) {
         Long realParentId = IdUtil.decrypt(parentId);
         List<Integer> fileTypesArray = null;
@@ -90,7 +87,6 @@ public class FileController {
     @PutMapping("file")
     public R<?> updateFilename(@Validated @RequestBody UpdateFilenamePO updateFilenamePO) {
         UpdateFilenameContext context = fileConverter.updateFilenamePO2UpdateFilenameContext(updateFilenamePO);
-        context.setUserId(IdUtil.get());
         userFileService.updateFilename(context);
         return R.success();
     }
@@ -104,7 +100,6 @@ public class FileController {
     @DeleteMapping("file")
     public R<?> delete(@Validated @RequestBody DeleteFilePO deleteFilePO) {
         DeleteFileContext context = fileConverter.deleteFilePO2DeleteFileContext(deleteFilePO);
-        context.setUserId(UserIdUtil.get());
         String fileIds = deleteFilePO.getFileIds();
         List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
         context.setFileIdList(fileIdList);
@@ -121,7 +116,7 @@ public class FileController {
     @DeleteMapping("file/sec-upload")
     public R<?> secUpload(@Validated @RequestBody SecUploadPO secUploadPO) {
         SecUploadContext context = fileConverter.secUploadPO2SecUploadContext(secUploadPO);
-        context.setUserId(UserIdUtil.get());
+
         boolean success = userFileService.secUpload(context);
 
         if (success) {
@@ -129,5 +124,18 @@ public class FileController {
         }
 
         return R.fail("文件唯一标识不存在，请手动执行文件上传的操作");
+    }
+
+    @ApiOperation(
+            value = "单文件上传",
+            notes = "该接口提供了单文件上传的功能",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @PostMapping("file/upload")
+    public R<?> upload(@Validated @RequestBody FileUploadPO fileUploadPO) {
+        FileUploadContext context = fileConverter.fileUploadPO2FileUploadContext(fileUploadPO);
+        userFileService.upload(context);
+        return R.success();
     }
 }

@@ -10,6 +10,7 @@ import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.event.file.DeleteFileEvent;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.*;
+import com.tangl.pan.server.modules.file.converter.FileConverter;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
@@ -25,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -42,6 +44,9 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
 
     @Autowired
     private IFileService fileService;
+
+    @Autowired
+    private FileConverter fileConverter;
 
     private ApplicationContext applicationContext;
 
@@ -134,10 +139,12 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     @Override
     public boolean secUpload(SecUploadContext context) {
         String filename = context.getFilename();
+
         TPanFile record = getFileByUserIdAndIdentifier(context);
         if (Objects.isNull(record)) {
             return false;
         }
+
         saveUserFile(context.getParentId(),
                 context.getFilename(),
                 FolderFlagEnum.NO,
@@ -147,6 +154,39 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
                 record.getFileSizeDesc()
         );
         return true;
+    }
+
+    /**
+     * 单文件上传
+     * 1、上传文件并保存实体文件记录
+     * 2、保存用户文件的关系记录
+     *
+     * @param context 单文件上传的上下文实体
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void upload(FileUploadContext context) {
+        saveFile(context);
+
+        saveUserFile(context.getParentId(),
+                context.getFilename(),
+                FolderFlagEnum.NO,
+                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())),
+                context.getRecord().getFileId(),
+                context.getUserId(),
+                context.getRecord().getFileSizeDesc());
+    }
+
+    /**
+     * 上传文件并保存实体文件记录
+     * 委托给实体文件的 service 完成该操作
+     *
+     * @param context 单文件上传的上下文实体
+     */
+    private void saveFile(FileUploadContext context) {
+        FileSaveContext fileSaveContext = fileConverter.fileUploadContext2FileSaveContext(context);
+        fileService.saveFile(fileSaveContext);
+        context.setRecord(fileSaveContext.getRecord());
     }
 
     private TPanFile getFileByUserIdAndIdentifier(SecUploadContext context) {

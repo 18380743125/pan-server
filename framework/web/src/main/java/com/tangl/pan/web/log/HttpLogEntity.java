@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * @author tangl
- * @description http 调用日志实体
+ * @description http 调用日志实体类
  * @create 2023-06-22 18:28
  */
 @NoArgsConstructor
@@ -146,4 +146,3 @@ public class HttpLogEntity {
     }
 
 }
-
