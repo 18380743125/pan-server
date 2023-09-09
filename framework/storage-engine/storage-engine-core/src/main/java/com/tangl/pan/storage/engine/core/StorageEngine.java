@@ -1,6 +1,8 @@
 package com.tangl.pan.storage.engine.core;
 
 import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
+import com.tangl.pan.storage.engine.core.context.MergeFileContext;
+import com.tangl.pan.storage.engine.core.context.StoreFileChunkContext;
 import com.tangl.pan.storage.engine.core.context.StoreFileContext;
 
 import java.io.IOException;
@@ -27,4 +29,20 @@ public interface StorageEngine {
      * @throws IOException 抛出 IO 异常，业务层去捕获
      */
     void delete(DeleteFileContext context) throws IOException;
+
+    /**
+     * 存储物理文件的分片
+     *
+     * @param context 存储物理文件分片的上下文实体
+     * @throws IOException 抛出 IO 异常，业务层去捕获
+     */
+    void storeChunk(StoreFileChunkContext context) throws IOException;
+
+    /**
+     * 合并文件分片
+     *
+     * @param context 上下文实体
+     * @throws IOException 抛出 IO 异常，业务层去捕获
+     */
+    void mergeFile(MergeFileContext context) throws IOException;
 }

@@ -11,6 +11,8 @@ import com.tangl.pan.server.modules.file.converter.FileConverter;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.po.*;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
+import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import io.swagger.annotations.ApiOperation;
@@ -138,4 +140,44 @@ public class FileController {
         userFileService.upload(context);
         return R.success();
     }
+
+    @ApiOperation(
+            value = "文件分片上传",
+            notes = "该接口提供了文件分片上传的功能",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @PostMapping("file/chunk-upload")
+    public R<FileChunkUploadVO> chunkUpload(@Validated FileChunkUploadPO fileChunkUploadPO) {
+        FileChunkUploadContext context = fileConverter.fileChunkUploadPO2FileChunkUploadContext(fileChunkUploadPO);
+        FileChunkUploadVO vo = userFileService.chunkUpload(context);
+        return R.data(vo);
+    }
+
+    @ApiOperation(
+            value = "查询已上传的文件分片列表",
+            notes = "该接口提供了查询已上传的文件分片列表的功能",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/chunk-upload")
+    public R<UploadedChunksVO> getUploadChunks(@Validated QueryUploadedChunksPO queryUploadedChunksPO) {
+        QueryUploadedChunksContext context = fileConverter.queryUploadedChunksPO2QueryUploadedChunkContext(queryUploadedChunksPO);
+        UploadedChunksVO vo = userFileService.getUploadedChunks(context);
+        return R.data(vo);
+    }
+
+    @ApiOperation(
+            value = "文件分片合并",
+            notes = "该接口提供了文件分片合并的功能",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/merge")
+    public R<?> mergeFile(@Validated @RequestBody FileChunkMergePO fileChunkMergePO) {
+        FileChunkMergeContext context = fileConverter.fileChunkMergePO2FileChunkMergeContext(fileChunkMergePO);
+        userFileService.mergeFile(context);
+        return R.success();
+    }
+
 }

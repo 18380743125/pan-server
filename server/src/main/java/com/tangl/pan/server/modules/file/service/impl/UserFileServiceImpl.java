@@ -2,6 +2,7 @@ package com.tangl.pan.server.modules.file.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
@@ -12,13 +13,17 @@ import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.converter.FileConverter;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
+import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.enums.FileTypeEnum;
 import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
+import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
+import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
@@ -44,6 +49,9 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
 
     @Autowired
     private IFileService fileService;
+
+    @Autowired
+    private IFileChunkService fileChunkService;
 
     @Autowired
     private FileConverter fileConverter;
@@ -175,6 +183,77 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
                 context.getRecord().getFileId(),
                 context.getUserId(),
                 context.getRecord().getFileSizeDesc());
+    }
+
+    /**
+     * 文件分片上传
+     * 1、上传实体文件
+     * 2、保存分片文件记录
+     * 3、校验是否全部分片上传完成
+     *
+     * @param context 文件分片上传上下文实体
+     * @return FileChunkUploadVO
+     */
+    @Override
+    public FileChunkUploadVO chunkUpload(FileChunkUploadContext context) {
+        FileChunkSaveContext fileChunkSaveContext = fileConverter.fileChunkUploadContext2FileChunkSaveContext(context);
+        fileChunkService.saveChunkFile(fileChunkSaveContext);
+        FileChunkUploadVO vo = new FileChunkUploadVO();
+        vo.setMergeFlag(fileChunkSaveContext.getMergeFlagEnum().getCode());
+        return vo;
+    }
+
+    /**
+     * 查询用户已上传的分片列表
+     * 1、查询已上传的分片列表
+     * 2、封装返回实体
+     *
+     * @param context 查询用户已上传的分片列表上下文实体
+     * @return UploadedChunksVO
+     */
+    @Override
+    public UploadedChunksVO getUploadedChunks(QueryUploadedChunksContext context) {
+        QueryWrapper<TPanFileChunk> queryWrapper = Wrappers.query();
+        queryWrapper.select("chunk_number");
+        queryWrapper.eq("identifier", context.getIdentifier());
+        queryWrapper.eq("create_user", context.getUserId());
+        queryWrapper.gt("expiration_time", new Date());
+
+        List<Integer> uploadedChunks = fileChunkService.listObjs(queryWrapper, value -> (Integer) value);
+
+        UploadedChunksVO uploadedChunksVO = new UploadedChunksVO();
+        uploadedChunksVO.setUploadedChunks(uploadedChunks);
+        return uploadedChunksVO;
+    }
+
+    /**
+     * 文件分片合并
+     * 1、文件分片物理合并
+     * 2、保存文件实体记录
+     * 3、保存文件用户关系映射
+     *
+     * @param context 文件分片合并的上下文实体
+     */
+    @Override
+    public void mergeFile(FileChunkMergeContext context) {
+        mergeFileChunkAndSaveFile(context);
+        saveUserFile(context.getParentId(),
+                context.getFilename(),
+                FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())),
+                context.getRecord().getFileId(),
+                context.getUserId(),
+                context.getRecord().getFileSizeDesc());
+    }
+
+    /**
+     * 文件分片物理合并并保存文件记录
+     *
+     * @param context 文件分片合并的上下文实体
+     */
+    private void mergeFileChunkAndSaveFile(FileChunkMergeContext context) {
+        FileChunkMergeAndSaveContext fileChunkMergeAndSaveContext = fileConverter.fileChunkMergeContext2FileChunkMergeAndSaveContext(context);
+        fileService.mergeFileChunkAndSaveFile(fileChunkMergeAndSaveContext);
+        context.setRecord(fileChunkMergeAndSaveContext.getRecord());
     }
 
     /**

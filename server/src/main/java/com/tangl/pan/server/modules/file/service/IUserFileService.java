@@ -3,6 +3,8 @@ package com.tangl.pan.server.modules.file.service;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 
 import java.util.List;
@@ -64,4 +66,27 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @param context 单文件上传的上下文实体
      */
     void upload(FileUploadContext context);
+
+    /**
+     * 文件分片上传
+     *
+     * @param context 文件分片上传上下文实体
+     * @return FileChunkUploadVO
+     */
+    FileChunkUploadVO chunkUpload(FileChunkUploadContext context);
+
+    /**
+     * 查询用户已上传的分片列表
+     *
+     * @param context 查询用户已上传的分片列表上下文实体
+     * @return UploadedChunksVO
+     */
+    UploadedChunksVO getUploadedChunks(QueryUploadedChunksContext context);
+
+    /**
+     * 文件分片合并
+     *
+     * @param context 文件分片合并的上下文实体
+     */
+    void mergeFile(FileChunkMergeContext context);
 }

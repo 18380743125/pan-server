@@ -1,18 +1,26 @@
 package com.tangl.pan.server.modules.file;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Assert;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
+import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
+import com.tangl.pan.server.modules.file.enums.MergeFlagEnum;
+import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
+import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
+import lombok.AllArgsConstructor;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author tangl
@@ -45,6 +54,114 @@ public class FileTest {
 
     @Autowired
     private IFileService fileService;
+
+    @Autowired
+    private IFileChunkService fileChunkService;
+
+    /**
+     * 文件分片上传器
+     */
+    @AllArgsConstructor
+    private static class ChunkUploader extends Thread {
+        private CountDownLatch countDownLatch;
+
+        private Integer chunk;
+
+        private Integer chunks;
+
+        private IUserFileService userFileService;
+
+        private Long userId;
+
+        private Long parentId;
+
+        /**
+         * 1、上传文件分片
+         * 2、根据上传的结果调用文件分片合并
+         */
+        @Override
+        public void run() {
+            super.run();
+            MultipartFile file = generateMultipartFile();
+            Long totalSize = file.getSize() * chunks;
+            String filename = "text.txt";
+            String identifier = "123456789";
+            FileChunkUploadContext context = new FileChunkUploadContext();
+            context.setFilename(filename);
+            context.setFile(file);
+            context.setChunkNumber(chunk);
+            context.setTotalChunks(chunks);
+            context.setUserId(userId);
+            context.setCurrentChunkSize(file.getSize());
+            context.setTotalSize(totalSize);
+            context.setIdentifier(identifier);
+
+            FileChunkUploadVO fileChunkUploadVO = userFileService.chunkUpload(context);
+
+            if (fileChunkUploadVO.getMergeFlag().equals(MergeFlagEnum.READY.getCode())) {
+                System.out.println("分片" + chunk + "监测到文件可以合并");
+
+                FileChunkMergeContext fileChunkMergeContext = new FileChunkMergeContext();
+                fileChunkMergeContext.setFilename(filename);
+                fileChunkMergeContext.setIdentifier(identifier);
+                fileChunkMergeContext.setTotalSize(totalSize);
+                fileChunkMergeContext.setParentId(parentId);
+                fileChunkMergeContext.setUserId(userId);
+
+                userFileService.mergeFile(fileChunkMergeContext);
+                countDownLatch.countDown();
+            } else {
+                countDownLatch.countDown();
+            }
+        }
+    }
+
+    /**
+     * 测试文件分片上传成功
+     */
+    @Test
+    public void uploadWithChunkTest() throws InterruptedException {
+        Long userId = register();
+        UserInfoVO userInfoVO = userService.info(userId);
+
+        CountDownLatch countDownLatch = new CountDownLatch(10);
+
+        for (int i = 0; i < 10; i++) {
+            new ChunkUploader(countDownLatch, i + 1, 10, userFileService, userId, userInfoVO.getRootFileId()).start();
+        }
+
+        countDownLatch.await();
+    }
+
+    /**
+     * 测试查询用户已上传的文件分片信息列表成功
+     */
+    @Test
+    public void testQueryUploadedChunksSuccess() {
+        Long userId = register();
+
+        String identifier = "123456789";
+
+        TPanFileChunk record = new TPanFileChunk();
+        record.setId(IdUtil.get());
+        record.setIdentifier(identifier);
+        record.setRealPath("realPath");
+        record.setChunkNumber(1);
+        record.setExpirationTime(DateUtil.offsetDay(new Date(), 1));
+        record.setCreateUser(userId);
+        record.setCreateTime(new Date());
+        boolean save = fileChunkService.save(record);
+        Assert.isTrue(save);
+
+        QueryUploadedChunksContext context = new QueryUploadedChunksContext();
+        context.setIdentifier(identifier);
+        context.setUserId(userId);
+
+        UploadedChunksVO vo = userFileService.getUploadedChunks(context);
+
+        Assert.notNull(vo);
+        Assert.notEmpty(vo.getUploadedChunks());
+    }
 
     /**
      * 测试单文件上传成功
@@ -354,7 +471,7 @@ public class FileTest {
      *
      * @return MultipartFile
      */
-    private MultipartFile generateMultipartFile() {
+    private static MultipartFile generateMultipartFile() {
         MultipartFile file = null;
         try {
             file = new MockMultipartFile("file",

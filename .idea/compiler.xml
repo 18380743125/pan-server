@@ -34,14 +34,10 @@
         <module name="t-pan-server" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="r-pan-parent" target="1.8" />
-      <module name="t5-pan-parent" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="r-pan-parent" options="-parameters" />
       <module name="t-pan-cache" options="-parameters" />
       <module name="t-pan-cache-caffeine" options="-parameters" />
       <module name="t-pan-cache-core" options="-parameters" />
@@ -61,7 +57,6 @@
       <module name="t-pan-storage-engine-oss" options="-parameters" />
       <module name="t-pan-swagger2" options="-parameters" />
       <module name="t-pan-web" options="-parameters" />
-      <module name="t5-pan-parent" options="-parameters" />
     </option>
   </component>
 </project>

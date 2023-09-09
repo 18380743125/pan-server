@@ -13,6 +13,9 @@ import java.io.RandomAccessFile;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Objects;
 
@@ -116,6 +119,43 @@ public class FileUtil {
     public static String generateDefaultStoreFileRealPath() {
         return new StringBuffer(System.getProperty("user.home"))
                 .append(File.separator)
-                .append("tpan").toString();
+                .append("tpan")
+                .toString();
+    }
+
+    public static String generateDefaultStoreFileChunkRealPath() {
+        return new StringBuffer(System.getProperty("user.home"))
+                .append(File.separator)
+                .append("tpan")
+                .append(File.separator)
+                .append("chunks")
+                .toString();
+    }
+
+    public static String generateStoreFileChunkRealPath(String basePath, String identifier, Integer chunkNumber) {
+        return new StringBuffer(basePath)
+                .append(File.separator)
+                .append(DateUtil.thisYear())
+                .append(File.separator)
+                .append(DateUtil.thisMonth() + 1)
+                .append(File.separator)
+                .append(DateUtil.thisDayOfMonth())
+                .append(File.separator)
+                .append(identifier)
+                .append(File.separator)
+                .append(UUIDUtil.getUUID())
+                .append(TPanConstants.COMMON_SEPARATOR)
+                .append(chunkNumber)
+                .toString();
+    }
+
+    /**
+     * 追加写文件
+     *
+     * @param target 写的目的文件
+     * @param source 源文件
+     */
+    public static void appendWrite(Path target, Path source) throws IOException {
+        Files.write(target, Files.readAllBytes(source), StandardOpenOption.APPEND);
     }
 }
