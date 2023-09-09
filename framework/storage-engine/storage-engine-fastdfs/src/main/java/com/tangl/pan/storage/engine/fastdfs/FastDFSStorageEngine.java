@@ -1,10 +1,7 @@
 package com.tangl.pan.storage.engine.fastdfs;
 
 import com.tangl.pan.storage.engine.core.AbstractStorageEngine;
-import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
-import com.tangl.pan.storage.engine.core.context.MergeFileContext;
-import com.tangl.pan.storage.engine.core.context.StoreFileChunkContext;
-import com.tangl.pan.storage.engine.core.context.StoreFileContext;
+import com.tangl.pan.storage.engine.core.context.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -33,6 +30,11 @@ public class FastDFSStorageEngine extends AbstractStorageEngine {
 
     @Override
     protected void doMergeFile(MergeFileContext context) throws IOException {
+
+    }
+
+    @Override
+    protected void doReadFile(ReadFileContext context) throws IOException {
 
     }
 }

@@ -89,4 +89,18 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @param context 文件分片合并的上下文实体
      */
     void mergeFile(FileChunkMergeContext context);
+
+    /**
+     * 文件下载
+     *
+     * @param context 上下文实体
+     */
+    void download(FileDownloadContext context);
+
+    /**
+     * 文件预览
+     *
+     * @param context 上下文实体
+     */
+    void preview(FilePreviewContext context);
 }

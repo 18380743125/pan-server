@@ -9,6 +9,7 @@ import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.event.file.DeleteFileEvent;
+import com.tangl.pan.server.common.utils.HttpUtil;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.converter.FileConverter;
@@ -25,14 +26,21 @@ import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
 import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
 import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import com.tangl.pan.storage.engine.core.StorageEngine;
+import com.tangl.pan.storage.engine.core.context.ReadFileContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -53,6 +61,10 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     @Autowired
     private IFileChunkService fileChunkService;
 
+    @Qualifier("localStorageEngine")
+    @Autowired
+    private StorageEngine storageEngine;
+
     @Autowired
     private FileConverter fileConverter;
 
@@ -71,13 +83,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      */
     @Override
     public Long createFolder(CreateFolderContext context) {
-        return saveUserFile(context.getParentId(),
-                context.getFolderName(),
-                FolderFlagEnum.YES,
-                null,
-                null,
-                context.getUserId(),
-                null);
+        return saveUserFile(context.getParentId(), context.getFolderName(), FolderFlagEnum.YES, null, null, context.getUserId(), null);
     }
 
     /**
@@ -153,14 +159,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             return false;
         }
 
-        saveUserFile(context.getParentId(),
-                context.getFilename(),
-                FolderFlagEnum.NO,
-                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename)),
-                record.getFileId(),
-                context.getUserId(),
-                record.getFileSizeDesc()
-        );
+        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename)), record.getFileId(), context.getUserId(), record.getFileSizeDesc());
         return true;
     }
 
@@ -176,13 +175,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     public void upload(FileUploadContext context) {
         saveFile(context);
 
-        saveUserFile(context.getParentId(),
-                context.getFilename(),
-                FolderFlagEnum.NO,
-                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())),
-                context.getRecord().getFileId(),
-                context.getUserId(),
-                context.getRecord().getFileSizeDesc());
+        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
     }
 
     /**
@@ -237,12 +230,161 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     @Override
     public void mergeFile(FileChunkMergeContext context) {
         mergeFileChunkAndSaveFile(context);
-        saveUserFile(context.getParentId(),
-                context.getFilename(),
-                FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())),
-                context.getRecord().getFileId(),
-                context.getUserId(),
-                context.getRecord().getFileSizeDesc());
+        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
+    }
+
+    /**
+     * 文件下载
+     * 1、参数校验：文件是否存在，文件是否属于该用户
+     * 2、校验该文件是不是文件夹
+     * 3、执行下载的动作
+     *
+     * @param context 上下文实体
+     */
+    @Override
+    public void download(FileDownloadContext context) {
+        TPanUserFile record = getById(context.getFileId());
+        checkOperatePermission(record, context.getUserId());
+        if (checkIsFolder(record)) {
+            throw new TPanBusinessException("文件夹暂不支持下载");
+        }
+        doDownload(record, context.getResponse());
+    }
+
+    /**
+     * 文件预览
+     * 1、参数校验：文件是否存在，文件是否属于该用户
+     * 2、校验该文件是不是文件夹
+     * 3、执行文件预览的动作
+     *
+     * @param context 上下文实体
+     */
+    @Override
+    public void preview(FilePreviewContext context) {
+        TPanUserFile record = getById(context.getFileId());
+        checkOperatePermission(record, record.getUserId());
+        if (checkIsFolder(record)) {
+            throw new TPanBusinessException("文件夹暂不支持下载");
+        }
+        doPreview(record, context.getResponse());
+    }
+
+    /**
+     * 执行文件预览的动作
+     * 1、查询文件的存储路径
+     * 2、添加跨域公共响应头
+     * 3、委托文件存储引擎读取文件内容到输出流中
+     *
+     * @param record   文件实体
+     * @param response 响应实体
+     */
+    private void doPreview(TPanUserFile record, HttpServletResponse response) {
+        Long realFileId = record.getRealFileId();
+        TPanFile realFileRecord = fileService.getById(realFileId);
+        if (Objects.isNull(realFileRecord)) {
+            throw new TPanBusinessException("当前的文件记录不存在");
+        }
+        addCommonResponseHeader(response, realFileRecord.getFilePreviewContentType());
+        readFile2OutputStream(realFileRecord.getRealPath(), response);
+    }
+
+    /**
+     * 执行下载的动作
+     * 1、查询文件的存储路径
+     * 2、添加跨域公共响应头
+     * 3、拼装下载文件的名称、长度等响应信息
+     * 4、委托文件存储引擎读取文件内容到输出流中
+     *
+     * @param record   文件实体
+     * @param response 响应实体
+     */
+    private void doDownload(TPanUserFile record, HttpServletResponse response) {
+        Long realFileId = record.getRealFileId();
+        TPanFile realFileRecord = fileService.getById(realFileId);
+        if (Objects.isNull(realFileRecord)) {
+            throw new TPanBusinessException("当前的文件记录不存在");
+        }
+        addCommonResponseHeader(response, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        addDownloadAttribute(response, record, realFileRecord);
+        readFile2OutputStream(realFileRecord.getRealPath(), response);
+    }
+
+    /**
+     * 委托文件存储引擎读取文件内容到输出流中
+     *
+     * @param realPath 文件物理存放路径
+     * @param response 响应头
+     */
+    private void readFile2OutputStream(String realPath, HttpServletResponse response) {
+        try {
+            ReadFileContext readFileContext = new ReadFileContext();
+            readFileContext.setReadPath(realPath);
+            readFileContext.setOutputStream(response.getOutputStream());
+            storageEngine.readFile(readFileContext);
+        } catch (IOException e) {
+            throw new TPanBusinessException("文件下载失败");
+        }
+    }
+
+    /**
+     * 添加文件下载的属性信息
+     *
+     * @param response       响应头
+     * @param record         文件实体记录
+     * @param realFileRecord 文件物理存放路径
+     */
+    private void addDownloadAttribute(HttpServletResponse response, TPanUserFile record, TPanFile realFileRecord) {
+        try {
+            response.setHeader(FileConstants.CONTENT_DISPOSITION_STR, FileConstants.CONTENT_DISPOSITION_VALUE_PREFIX_STR + new String(record.getFilename().getBytes(FileConstants.GB2312_STR), FileConstants.IOS_8859_1_STR));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            throw new TPanBusinessException("文件下载失败");
+        }
+        response.setContentLengthLong(Long.parseLong(realFileRecord.getFileSize()));
+    }
+
+    /**
+     * 添加公共的文件读取响应头
+     *
+     * @param response         响应对象
+     * @param contentTypeValue contentTypeValue
+     */
+    private void addCommonResponseHeader(HttpServletResponse response, String contentTypeValue) {
+        response.reset();
+        HttpUtil.addCorsResponseHeaders(response);
+        response.addHeader(FileConstants.CONTENT_TYPE_STR, contentTypeValue);
+        response.setContentType(contentTypeValue);
+    }
+
+    /**
+     * 监测当前文件记录是否是文件夹
+     *
+     * @param record 文件实体
+     * @return boolean
+     */
+    private boolean checkIsFolder(TPanUserFile record) {
+        if (Objects.isNull(record)) {
+            throw new TPanBusinessException("当前文件记录不存在");
+        }
+        return Objects.equals(record.getFolderFlag(), FolderFlagEnum.YES.getCode());
+    }
+
+
+    /**
+     * 校验用户权限
+     * 1、文件存在
+     * 2、文件记录属于该登录用户
+     *
+     * @param record 用户文件记录
+     * @param userId 用户ID
+     */
+    private void checkOperatePermission(TPanUserFile record, Long userId) {
+        if (Objects.isNull(record)) {
+            throw new TPanBusinessException("当前文件记录不存在");
+        }
+        if (!Objects.equals(record.getUserId(), userId)) {
+            throw new TPanBusinessException("你没有该文件的操作权限");
+        }
     }
 
     /**
@@ -407,13 +549,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * @param fileSizeDesc   文件大小描述
      * @return fileId
      */
-    private Long saveUserFile(Long parentId,
-                              String filename,
-                              FolderFlagEnum folderFlagEnum,
-                              Integer fileType,
-                              Long realFileId,
-                              Long userId,
-                              String fileSizeDesc) {
+    private Long saveUserFile(Long parentId, String filename, FolderFlagEnum folderFlagEnum, Integer fileType, Long realFileId, Long userId, String fileSizeDesc) {
         TPanUserFile entity = assembleTPanUserFile(parentId, filename, folderFlagEnum, fileType, realFileId, userId, fileSizeDesc);
         if (!save(entity)) {
             throw new TPanBusinessException("保存文件信息失败");
@@ -485,11 +621,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     }
 
     private String assembleNewFilename(String newFilenameSuffix, String newFilenameWithoutSuffix, int count) {
-        return newFilenameWithoutSuffix +
-                FileConstants.CN_LEFT_PARENTHESES_STR +
-                count +
-                FileConstants.CN_RIGHT_PARENTHESES_STR +
-                newFilenameSuffix;
+        return newFilenameWithoutSuffix + FileConstants.CN_LEFT_PARENTHESES_STR + count + FileConstants.CN_RIGHT_PARENTHESES_STR + newFilenameSuffix;
     }
 
     private int getDuplicateFilename(TPanUserFile entity, String newFilenameWithoutSuffix) {
@@ -502,7 +634,3 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         return count(queryWrapper);
     }
 }
-
-
-
-

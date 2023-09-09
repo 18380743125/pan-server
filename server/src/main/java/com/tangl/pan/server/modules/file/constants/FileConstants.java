@@ -30,4 +30,29 @@ public interface FileConstants {
      * 所有文件类型的标识
      */
     String ALL_FILE_TYPE = "-1";
+
+    /**
+     * Content-Type 字符串
+     */
+    String CONTENT_TYPE_STR = "Content-Type";
+
+    /**
+     * 文件内容的部署方式
+     */
+    String CONTENT_DISPOSITION_STR = "Content-Disposition";
+
+    /**
+     * 以附件的方式下载
+     */
+    String CONTENT_DISPOSITION_VALUE_PREFIX_STR = "attachment;filename=";
+
+    /**
+     * GB2312 字符串
+     */
+    String GB2312_STR = "GB2312";
+
+    /**
+     * ISO-8859 字符串
+     */
+    String IOS_8859_1_STR = "ISO-8859-1";
 }

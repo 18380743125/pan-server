@@ -6,13 +6,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -157,5 +155,23 @@ public class FileUtil {
      */
     public static void appendWrite(Path target, Path source) throws IOException {
         Files.write(target, Files.readAllBytes(source), StandardOpenOption.APPEND);
+    }
+
+    /**
+     * 利用零拷贝技术读取文件内容并写入到文件输出流中
+     *
+     * @param fileInputStream 文件输入流
+     * @param outputStream    输出流
+     * @param length          文件的长度
+     */
+    public static void writeFile2OutputStream(FileInputStream fileInputStream, OutputStream outputStream, long length) throws IOException {
+        FileChannel fileChannel = fileInputStream.getChannel();
+        WritableByteChannel writableByteChannel = Channels.newChannel(outputStream);
+        fileChannel.transferTo(TPanConstants.ZERO_INT, length, writableByteChannel);
+        outputStream.flush();
+        fileInputStream.close();
+        outputStream.close();
+        fileChannel.close();
+        writableByteChannel.close();
     }
 }

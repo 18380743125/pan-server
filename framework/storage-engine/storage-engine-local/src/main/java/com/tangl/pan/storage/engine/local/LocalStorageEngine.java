@@ -2,15 +2,13 @@ package com.tangl.pan.storage.engine.local;
 
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.storage.engine.core.AbstractStorageEngine;
-import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
-import com.tangl.pan.storage.engine.core.context.MergeFileContext;
-import com.tangl.pan.storage.engine.core.context.StoreFileChunkContext;
-import com.tangl.pan.storage.engine.core.context.StoreFileContext;
+import com.tangl.pan.storage.engine.core.context.*;
 import com.tangl.pan.storage.engine.local.config.LocalStorageEngineConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -78,5 +76,16 @@ public class LocalStorageEngine extends AbstractStorageEngine {
         }
         FileUtil.deleteFiles(chunkPathList);
         context.setRealPath(realFilePath);
+    }
+
+    /**
+     * 读取文件到输出流中
+     *
+     * @param context 上下文实体
+     */
+    @Override
+    protected void doReadFile(ReadFileContext context) throws IOException {
+        File file = new File(context.getReadPath());
+        FileUtil.writeFile2OutputStream(new FileInputStream(file), context.getOutputStream(), file.length());
     }
 }
