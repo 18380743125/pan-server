@@ -12,6 +12,7 @@ import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.po.*;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
 import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.service.IUserService;
@@ -185,7 +186,7 @@ public class FileController {
             value = "文件下载",
             notes = "该接口提供了文件下载的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     @GetMapping("file/download")
     public void download(@NotBlank(message = "文件ID不能为空") @RequestParam(value = "fileId", required = false) String fileId,
@@ -201,15 +202,71 @@ public class FileController {
             value = "文件预览",
             notes = "该接口提供了文件预览的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     @GetMapping("file/preview")
     public void preview(@NotBlank(message = "文件ID不能为空") @RequestParam(value = "fileId", required = false) String fileId,
-                         HttpServletResponse response) {
+                        HttpServletResponse response) {
         FilePreviewContext context = new FilePreviewContext();
         context.setFileId(IdUtil.decrypt(fileId));
         context.setResponse(response);
         context.setUserId(UserIdUtil.get());
         userFileService.preview(context);
+    }
+
+    @ApiOperation(
+            value = "查询文件夹树",
+            notes = "该接口提供了查询文件夹树的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/folder/tree")
+    public R<List<FolderTreeNodeVO>> getFolderTree() {
+        QueryFolderTreeContext context = new QueryFolderTreeContext();
+        context.setUserId(UserIdUtil.get());
+        List<FolderTreeNodeVO> result = userFileService.getFolderTree(context);
+        return R.data(result);
+    }
+
+    @ApiOperation(
+            value = "文件转移",
+            notes = "该接口提供了文件转移的功能",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/transfer")
+    public R<?> transferFile(@Validated @RequestBody TransferFilePO transferFilePO) {
+        String fileIds = transferFilePO.getFileIds();
+        String targetParentId = transferFilePO.getTargetParentId();
+        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+
+        TransferFileContext context = new TransferFileContext();
+        context.setFileIdList(fileIdList);
+        context.setTargetParentId(IdUtil.decrypt(targetParentId));
+        context.setUserId(UserIdUtil.get());
+
+        userFileService.transferFile(context);
+        return R.success();
+    }
+
+    @ApiOperation(
+            value = "文件复制",
+            notes = "该接口提供了文件复制的功能",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/copy")
+    public R<?> copy(@Validated @RequestBody TransferFilePO transferFilePO) {
+        String fileIds = transferFilePO.getFileIds();
+        String targetParentId = transferFilePO.getTargetParentId();
+        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+
+        TransferFileContext context = new TransferFileContext();
+        context.setFileIdList(fileIdList);
+        context.setTargetParentId(IdUtil.decrypt(targetParentId));
+        context.setUserId(UserIdUtil.get());
+
+        userFileService.transferFile(context);
+        return R.success();
     }
 }

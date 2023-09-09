@@ -4,6 +4,7 @@ import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
 import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 
@@ -103,4 +104,19 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @param context 上下文实体
      */
     void preview(FilePreviewContext context);
+
+    /**
+     * 查询用户的文件夹树
+     *
+     * @param context 上下文实体
+     * @return List<FolderTreeNodeVO>
+     */
+    List<FolderTreeNodeVO> getFolderTree(QueryFolderTreeContext context);
+
+    /**
+     * 文件转移
+     *
+     * @param context 上下文实体
+     */
+    void transferFile(TransferFileContext context);
 }

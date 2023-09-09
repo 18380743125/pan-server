@@ -2,6 +2,7 @@ package com.tangl.pan.server.modules.file;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Assert;
+import com.google.common.collect.Lists;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.TPanServerLauncher;
@@ -14,13 +15,13 @@ import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
 import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,123 @@ public class FileTest {
 
     @Autowired
     private IFileChunkService fileChunkService;
+
+    /**
+     * 测试转移文件成功
+     */
+    @Test
+    public void testTransferFileSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+        Long fileId1 = userFileService.createFolder(context);
+
+        context.setFolderName("haha");
+        context.setParentId(fileId1);
+        Long fileId2 = userFileService.createFolder(context);
+
+        context.setFolderName("tangl");
+        context.setParentId(fileId1);
+        Long fileId3 = userFileService.createFolder(context);
+
+        context.setFolderName("pan");
+        context.setParentId(fileId3);
+        Long fileId4 = userFileService.createFolder(context);
+
+        TransferFileContext transferFileContext = new TransferFileContext();
+        transferFileContext.setUserId(userId);
+        transferFileContext.setTargetParentId(fileId1);
+        transferFileContext.setFileIdList(Lists.newArrayList(fileId4));
+        userFileService.transferFile(transferFileContext);
+
+        QueryFolderTreeContext queryFolderTreeContext = new QueryFolderTreeContext();
+        queryFolderTreeContext.setUserId(userId);
+        List<FolderTreeNodeVO> folderTree = userFileService.getFolderTree(queryFolderTreeContext);
+        Assert.isTrue(folderTree.size() == 1);
+        folderTree.forEach(FolderTreeNodeVO::print);
+    }
+
+    /**
+     * 测试转移文件失败
+     * 目标文件夹是要转移文件夹以及子文件夹
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testTransferFileFail() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+        Long fileId1 = userFileService.createFolder(context);
+
+        context.setFolderName("haha");
+        context.setParentId(fileId1);
+        Long fileId2 = userFileService.createFolder(context);
+
+        context.setFolderName("tangl");
+        context.setParentId(fileId1);
+        Long fileId3 = userFileService.createFolder(context);
+
+        context.setFolderName("pan");
+        context.setParentId(fileId3);
+        Long fileId4 = userFileService.createFolder(context);
+
+        TransferFileContext transferFileContext = new TransferFileContext();
+        transferFileContext.setUserId(userId);
+        transferFileContext.setTargetParentId(fileId2);
+        transferFileContext.setFileIdList(Lists.newArrayList(fileId4, fileId2));
+        userFileService.transferFile(transferFileContext);
+
+        QueryFolderTreeContext queryFolderTreeContext = new QueryFolderTreeContext();
+        queryFolderTreeContext.setUserId(userId);
+        List<FolderTreeNodeVO> folderTree = userFileService.getFolderTree(queryFolderTreeContext);
+        Assert.isTrue(folderTree.size() == 1);
+        folderTree.forEach(FolderTreeNodeVO::print);
+    }
+
+    /**
+     * 测试查询文件夹树
+     */
+    @Test
+    public void testQueryFolderTreeSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        context.setFolderName("haha");
+        context.setParentId(fileId);
+        userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        context.setFolderName("tangl");
+        context.setParentId(fileId);
+        fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        context.setFolderName("pan");
+        context.setParentId(fileId);
+        fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        QueryFolderTreeContext queryFolderTreeContext = new QueryFolderTreeContext();
+        queryFolderTreeContext.setUserId(userId);
+        List<FolderTreeNodeVO> folderTree = userFileService.getFolderTree(queryFolderTreeContext);
+        Assert.isTrue(folderTree.size() == 1);
+        folderTree.forEach(FolderTreeNodeVO::print);
+    }
 
     /**
      * 文件分片上传器
@@ -120,7 +238,7 @@ public class FileTest {
      * 测试文件分片上传成功
      */
     @Test
-    public void uploadWithChunkTest() throws InterruptedException {
+    public void uploadWithChunkTestSuccess() throws InterruptedException {
         Long userId = register();
         UserInfoVO userInfoVO = userService.info(userId);
 
@@ -474,10 +592,7 @@ public class FileTest {
     private static MultipartFile generateMultipartFile() {
         MultipartFile file = null;
         try {
-            file = new MockMultipartFile("file",
-                    "test.txt",
-                    "multipart/form-data",
-                    "test upload context".getBytes(StandardCharsets.UTF_8));
+            file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "test upload context".getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             e.printStackTrace();
         }

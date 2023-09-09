@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
@@ -24,6 +25,7 @@ import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
 import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
+import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
 import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.storage.engine.core.StorageEngine;
@@ -41,11 +43,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author tangl
@@ -267,6 +267,163 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             throw new TPanBusinessException("文件夹暂不支持下载");
         }
         doPreview(record, context.getResponse());
+    }
+
+    /**
+     * 1、查询该用户所有文件夹列表
+     * 2、在内存中拼装文件夹树
+     *
+     * @param context 上下文实体
+     * @return List<FolderTreeNodeVO>
+     */
+    @Override
+    public List<FolderTreeNodeVO> getFolderTree(QueryFolderTreeContext context) {
+        List<TPanUserFile> folderRecords = queryFolderRecords(context.getUserId());
+        return assembleFolderTreeNodeVOList(folderRecords);
+    }
+
+    /**
+     * 文件转移
+     * 1、权限校验
+     * 2、执行动作
+     *
+     * @param context 上下文实体
+     */
+    @Override
+    public void transferFile(TransferFileContext context) {
+        checkTransferCondition(context);
+        doTransferFile(context);
+    }
+
+    /**
+     * 执行文件转移的动作
+     *
+     * @param context 上下文实体
+     */
+    private void doTransferFile(TransferFileContext context) {
+        List<TPanUserFile> prepareRecords = context.getPrepareRecords();
+        prepareRecords.forEach(record -> {
+            record.setParentId(context.getTargetParentId());
+            record.setUserId(context.getUserId());
+            record.setCreateUser(context.getUserId());
+            record.setCreateTime(new Date());
+            record.setUpdateUser(context.getUserId());
+            record.setUpdateTime(new Date());
+            handleDuplicateFilename(record);
+        });
+        if (!updateBatchById(prepareRecords)) {
+            throw new TPanBusinessException("文件转移失败");
+        }
+    }
+
+    /**
+     * 文件转移的条件校验
+     * 1、目标文件必须是文件夹
+     * 2、选中要转移的文件列表中不能含有目标文件夹以及其子文件夹中
+     *
+     * @param context 上下文实体
+     */
+    private void checkTransferCondition(TransferFileContext context) {
+        Long targetParentId = context.getTargetParentId();
+        if (!checkIsFolder(getById(targetParentId))) {
+            throw new TPanBusinessException("目标文件不是一个文件夹");
+        }
+
+        List<Long> fileIdList = context.getFileIdList();
+
+        List<TPanUserFile> prepareRecords = listByIds(fileIdList);
+        if (checkIsChildFolder(prepareRecords, targetParentId, context.getUserId())) {
+            throw new TPanBusinessException("目标文件夹不能是要转移文件夹及其子文件夹");
+        }
+        context.setPrepareRecords(prepareRecords);
+    }
+
+    /**
+     * 校验选中的文件列表当中是否含有目标文件夹 ID 以及其子文件夹 ID
+     *
+     * @param prepareRecords 要转移的文件列表
+     * @param targetParentId 目标文件夹ID
+     * @param userId         用户ID
+     * @return boolean
+     */
+    private boolean checkIsChildFolder(List<TPanUserFile> prepareRecords, Long targetParentId, Long userId) {
+        prepareRecords = prepareRecords.stream().filter(record -> Objects.equals(record.getFolderFlag(), FolderFlagEnum.YES.getCode())).collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(prepareRecords)) {
+            return false;
+        }
+
+        List<TPanUserFile> folderRecords = queryFolderRecords(userId);
+
+        Map<Long, List<TPanUserFile>> folderRecordMap = folderRecords.stream().collect(Collectors.groupingBy(TPanUserFile::getParentId));
+
+        List<TPanUserFile> unavailableFolderRecords = Lists.newArrayList();
+
+        unavailableFolderRecords.addAll(prepareRecords);
+
+        prepareRecords.forEach(record -> findAllChildFolderRecords(unavailableFolderRecords, folderRecordMap, record));
+
+        List<Long> unavailableFolderRecordIds = unavailableFolderRecords.stream().map(TPanUserFile::getFileId).collect(Collectors.toList());
+
+        return unavailableFolderRecordIds.contains(targetParentId);
+    }
+
+    /**
+     * 查找文件夹下所有子文件夹记录
+     *
+     * @param unavailableFolderRecords 不可用的文件夹记录
+     * @param folderRecordMap          父子文件夹映射
+     * @param record                   要转移的文件实体
+     */
+    private void findAllChildFolderRecords(List<TPanUserFile> unavailableFolderRecords, Map<Long, List<TPanUserFile>> folderRecordMap, TPanUserFile record) {
+        if (Objects.isNull(record)) {
+            return;
+        }
+
+        List<TPanUserFile> childFolderRecords = folderRecordMap.get(record.getFileId());
+        if (CollectionUtils.isEmpty(childFolderRecords)) {
+            return;
+        }
+
+        unavailableFolderRecords.addAll(childFolderRecords);
+        childFolderRecords.forEach(childRecord -> findAllChildFolderRecords(unavailableFolderRecords, folderRecordMap, childRecord));
+    }
+
+    /**
+     * 拼装文件夹树列表
+     *
+     * @return List<FolderTreeNodeVO>
+     */
+    private List<FolderTreeNodeVO> assembleFolderTreeNodeVOList(List<TPanUserFile> folderRecords) {
+        if (CollectionUtils.isEmpty(folderRecords)) {
+            return Lists.newArrayList();
+        }
+
+        List<FolderTreeNodeVO> mappedFolderTreeNodeVOList = folderRecords.stream().map(fileConverter::tPanUserFile2FolderTreeNodeVO).collect(Collectors.toList());
+
+        Map<Long, List<FolderTreeNodeVO>> mappedFolderTreeNodeVOMap = mappedFolderTreeNodeVOList.stream().collect(Collectors.groupingBy(FolderTreeNodeVO::getParentId));
+
+        for (FolderTreeNodeVO node : mappedFolderTreeNodeVOList) {
+            List<FolderTreeNodeVO> children = mappedFolderTreeNodeVOMap.get(node.getId());
+            if (CollectionUtils.isNotEmpty(children)) {
+                node.setChildren(children);
+            }
+        }
+
+        return mappedFolderTreeNodeVOList.stream().filter(node -> Objects.equals(node.getParentId(), FileConstants.TOP_PARENT_ID)).collect(Collectors.toList());
+    }
+
+    /**
+     * 查询用户所有有效的文件夹信息
+     *
+     * @return List<TPanUserFile>
+     */
+    private List<TPanUserFile> queryFolderRecords(Long userId) {
+        QueryWrapper<TPanUserFile> queryWrapper = Wrappers.query();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("folder_flag", FolderFlagEnum.YES.getCode());
+        queryWrapper.eq("del_flag", DelFlagEnum.NO.getCode());
+        return list(queryWrapper);
     }
 
     /**
