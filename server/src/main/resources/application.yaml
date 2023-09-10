@@ -44,3 +44,13 @@ swagger2:
   contact-url: t.bright.top
   contact-email: tl-bright@163.com
   version: 1.0
+
+com:
+  tangl:
+    storage:
+      engine:
+        fdfs:
+          connect-timeout: 600
+          tracker-list:
+            - 43.139.66.230:22122
+          group: group1

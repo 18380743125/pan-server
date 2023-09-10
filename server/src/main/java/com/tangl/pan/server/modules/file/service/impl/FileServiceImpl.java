@@ -41,7 +41,6 @@ import java.util.stream.Collectors;
 @Service
 public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> implements IFileService, ApplicationContextAware {
 
-    @Qualifier("localStorageEngine")
     @Autowired
     private StorageEngine storageEngine;
 
@@ -182,7 +181,7 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
         record.setRealPath(realPath);
         record.setFileSize(String.valueOf(totalSize));
         record.setFileSizeDesc(FileUtil.byteCountToDisplaySize(totalSize));
-        record.setFileSuffix(FileUtil.getFileSuffix(filename));
+        record.setFileSuffix(FileUtil.getFileSuffix(filename, true));
         record.setIdentifier(identifier);
         record.setCreateUser(userId);
         record.setCreateTime(new Date());

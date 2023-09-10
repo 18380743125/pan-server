@@ -59,7 +59,6 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     @Autowired
     private IFileChunkService fileChunkService;
 
-    @Qualifier("localStorageEngine")
     @Autowired
     private StorageEngine storageEngine;
 
@@ -157,7 +156,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             return false;
         }
 
-        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename)), record.getFileId(), context.getUserId(), record.getFileSizeDesc());
+        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename, true)), record.getFileId(), context.getUserId(), record.getFileSizeDesc());
         return true;
     }
 
@@ -173,7 +172,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     public void upload(FileUploadContext context) {
         saveFile(context);
 
-        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
+        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename(), true)), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
     }
 
     /**
@@ -228,7 +227,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     @Override
     public void mergeFile(FileChunkMergeContext context) {
         mergeFileChunkAndSaveFile(context);
-        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename())), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
+        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename(), true)), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
     }
 
     /**

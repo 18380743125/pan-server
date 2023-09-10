@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -28,7 +29,7 @@ public class FileUploadPO implements Serializable {
     private String identifier;
 
     @ApiModelProperty(value = "文件的总大小", required = true)
-    @NotBlank(message = "文件总大小不能为空")
+    @NotNull(message = "文件总大小不能为空")
     private Long totalSize;
 
     @ApiModelProperty(value = "文件的父文件夹ID", required = true)
@@ -36,6 +37,6 @@ public class FileUploadPO implements Serializable {
     private String parentId;
 
     @ApiModelProperty(value = "文件实体", required = true)
-    @NotBlank(message = "文件实体不能为空")
+    @NotNull(message = "文件实体不能为空")
     private MultipartFile file;
 }

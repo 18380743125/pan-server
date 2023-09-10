@@ -39,7 +39,6 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
     @Autowired
     private FileConverter fileConverter;
 
-    @Qualifier("localStorageEngine")
     @Autowired
     private StorageEngine storageEngine;
 

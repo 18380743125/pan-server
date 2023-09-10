@@ -115,7 +115,7 @@ public class FileController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    @DeleteMapping("file/sec-upload")
+    @PostMapping("file/sec-upload")
     public R<?> secUpload(@Validated @RequestBody SecUploadPO secUploadPO) {
         SecUploadContext context = fileConverter.secUploadPO2SecUploadContext(secUploadPO);
 
@@ -135,7 +135,7 @@ public class FileController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @PostMapping("file/upload")
-    public R<?> upload(@Validated @RequestBody FileUploadPO fileUploadPO) {
+    public R<?> upload(@Validated FileUploadPO fileUploadPO) {
         FileUploadContext context = fileConverter.fileUploadPO2FileUploadContext(fileUploadPO);
         userFileService.upload(context);
         return R.success();

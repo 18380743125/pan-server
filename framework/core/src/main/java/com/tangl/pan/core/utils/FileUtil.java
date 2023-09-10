@@ -23,17 +23,22 @@ import java.util.Objects;
  * @create 2023-08-13 22:46
  */
 public class FileUtil {
+
     /**
      * 根据文件名称获取后缀
      *
      * @param filename 文件名称
      * @return 文件后缀
      */
-    public static String getFileSuffix(String filename) {
+    public static String getFileSuffix(String filename, boolean isContainDot) {
         if (StringUtils.isBlank(filename) || filename.indexOf(TPanConstants.POINT_STR) == TPanConstants.MINUS_ONE_INT) {
             return StringUtils.EMPTY;
         }
-        return filename.substring(filename.lastIndexOf(TPanConstants.POINT_STR));
+        if (isContainDot) {
+            return filename.substring(filename.lastIndexOf(TPanConstants.POINT_STR));
+        } else {
+            return filename.substring(filename.lastIndexOf(TPanConstants.POINT_STR) + TPanConstants.ONE_INT);
+        }
     }
 
     /**
@@ -72,7 +77,7 @@ public class FileUtil {
      * @return 物理文件的真实路径
      */
     public static String generateStoreFileRealPath(String basePath, String filename) {
-        return basePath + File.separator + DateUtil.thisYear() + File.separator + (DateUtil.thisMonth() + 1) + File.separator + DateUtil.thisDayOfMonth() + File.separator + UUIDUtil.getUUID() + getFileSuffix(filename);
+        return basePath + File.separator + DateUtil.thisYear() + File.separator + (DateUtil.thisMonth() + 1) + File.separator + DateUtil.thisDayOfMonth() + File.separator + UUIDUtil.getUUID() + getFileSuffix(filename, true);
     }
 
     /**
