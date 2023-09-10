@@ -11,12 +11,10 @@ import com.tangl.pan.server.modules.file.converter.FileConverter;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
 import com.tangl.pan.server.modules.file.po.*;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
-import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
-import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
-import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
-import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import com.tangl.pan.server.modules.file.vo.*;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -234,7 +232,7 @@ public class FileController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    @GetMapping("file/transfer")
+    @PostMapping("file/transfer")
     public R<?> transferFile(@Validated @RequestBody TransferFilePO transferFilePO) {
         String fileIds = transferFilePO.getFileIds();
         String targetParentId = transferFilePO.getTargetParentId();
@@ -255,18 +253,57 @@ public class FileController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    @GetMapping("file/copy")
-    public R<?> copy(@Validated @RequestBody TransferFilePO transferFilePO) {
-        String fileIds = transferFilePO.getFileIds();
-        String targetParentId = transferFilePO.getTargetParentId();
+    @PostMapping("file/copy")
+    public R<?> copyFile(@Validated @RequestBody CopyFilePO copyFilePO) {
+        String fileIds = copyFilePO.getFileIds();
+        String targetParentId = copyFilePO.getTargetParentId();
         List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
 
-        TransferFileContext context = new TransferFileContext();
+        CopyFileContext context = new CopyFileContext();
         context.setFileIdList(fileIdList);
         context.setTargetParentId(IdUtil.decrypt(targetParentId));
         context.setUserId(UserIdUtil.get());
 
-        userFileService.transferFile(context);
+        userFileService.copyFile(context);
         return R.success();
+    }
+
+    @ApiOperation(
+            value = "文件搜索",
+            notes = "该接口提供了文件搜索的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/search")
+    public R<List<FileSearchResultVO>> search(@Validated FileSearchPO fileSearchPO) {
+        String fileTypes = fileSearchPO.getFileTypes();
+        FileSearchContext context = new FileSearchContext();
+        context.setKeyword(fileSearchPO.getKeyword());
+        context.setUserId(UserIdUtil.get());
+
+        if (StringUtils.isNotBlank(fileTypes) && !Objects.equals(FileConstants.ALL_FILE_TYPE, fileTypes)) {
+            List<Integer> fileTypesArray = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileTypes).stream().map(Integer::valueOf).collect(Collectors.toList());
+            context.setFileTypesArray(fileTypesArray);
+        }
+
+        List<FileSearchResultVO> result = userFileService.search(context);
+        return R.data(result);
+    }
+
+    @ApiOperation(
+            value = "查询面包屑列表",
+            notes = "该接口提供了查询面包屑列表的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("file/breadcrumbs")
+    public R<List<BreadcrumbsVO>> getBreadcrumbs(@NotBlank(message = "文件ID不能为空") @RequestParam(value = "fileId", required = false) String fileId) {
+        QueryBreadcrumbsContext context = new QueryBreadcrumbsContext();
+        context.setFileId(IdUtil.decrypt(fileId));
+        context.setUserId(UserIdUtil.get());
+
+        List<BreadcrumbsVO> result = userFileService.getBreadcrumbs(context);
+
+        return R.data(result);
     }
 }

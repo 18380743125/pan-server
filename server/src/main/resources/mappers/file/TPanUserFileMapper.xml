@@ -44,4 +44,27 @@
         </if>
         AND del_flag = #{param.delFlag}
     </select>
+
+    <select id="searchFile" resultType="com.tangl.pan.server.modules.file.vo.FileSearchResultVO">
+        SELECT
+            file_id AS fileId,
+            parent_id AS parentId,
+            filename AS filename,
+            file_size_desc AS fileSizeDesc,
+            folder_flag AS folderFlag,
+            file_type AS fileType,
+            update_time AS updateTime
+        FROM
+            t_pan_user_file
+        WHERE
+            user_id = #{param.userId}
+        AND filename LIKE CONCAT(#{param.keyword}, '%')
+        <if test="param.fileTypesArray != null and param.fileTypesArray.size() > 0">
+            AND file_type IN
+            <foreach collection="param.fileTypesArray" open="(" close=")" item="item" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        AND del_flag = 0
+    </select>
 </mapper>

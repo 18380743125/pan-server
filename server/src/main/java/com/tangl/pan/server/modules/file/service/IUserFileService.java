@@ -3,10 +3,7 @@ package com.tangl.pan.server.modules.file.service;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
-import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
-import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
-import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import com.tangl.pan.server.modules.file.vo.*;
 
 import java.util.List;
 
@@ -119,4 +116,27 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @param context 上下文实体
      */
     void transferFile(TransferFileContext context);
+
+    /**
+     * 文件复制
+     *
+     * @param context 上下文实体
+     */
+    void copyFile(CopyFileContext context);
+
+    /**
+     * 文件搜索
+     *
+     * @param context 上下文实体
+     * @return List<FileSearchResultVO>
+     */
+    List<FileSearchResultVO> search(FileSearchContext context);
+
+    /**
+     * 查询面包屑列表
+     *
+     * @param context 上下文实体
+     * @return List<BreadcrumbsVO>
+     */
+    List<BreadcrumbsVO> getBreadcrumbs(QueryBreadcrumbsContext context);
 }

@@ -14,10 +14,7 @@ import com.tangl.pan.server.modules.file.enums.MergeFlagEnum;
 import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
-import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
-import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
-import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
-import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import com.tangl.pan.server.modules.file.vo.*;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
@@ -58,6 +55,136 @@ public class FileTest {
 
     @Autowired
     private IFileChunkService fileChunkService;
+
+    /**
+     * 测试查询文件面包屑导航列表
+     */
+    @Test
+    public void testGetBreadcrumbs() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+        userFileService.createFolder(context);
+
+        context.setFolderName("haha");
+        Long fileId = userFileService.createFolder(context);
+
+        QueryBreadcrumbsContext queryBreadcrumbsContext = new QueryBreadcrumbsContext();
+        queryBreadcrumbsContext.setUserId(userId);
+        queryBreadcrumbsContext.setFileId(fileId);
+        List<BreadcrumbsVO> breadcrumbs = userFileService.getBreadcrumbs(queryBreadcrumbsContext);
+        System.out.println(breadcrumbs);
+        Assert.notNull(breadcrumbs);
+        Assert.isTrue(breadcrumbs.size() == 2);
+    }
+
+    /**
+     * 测试搜索文件
+     */
+    @Test
+    public void testSearch() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+        userFileService.createFolder(context);
+
+        context.setFolderName("haha");
+        userFileService.createFolder(context);
+
+        FileSearchContext fileSearchContext = new FileSearchContext();
+        fileSearchContext.setUserId(userId);
+        fileSearchContext.setKeyword("com");
+        fileSearchContext.setFileTypesArray(Lists.newArrayList());
+        userFileService.search(fileSearchContext);
+        List<FileSearchResultVO> fileSearchResultVOList = userFileService.search(fileSearchContext);
+        System.out.println(fileSearchResultVOList);
+    }
+
+    /**
+     * 测试复制文件成功
+     */
+    @Test
+    public void testCopyFileSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+        Long fileId1 = userFileService.createFolder(context);
+
+        context.setFolderName("haha");
+        context.setParentId(fileId1);
+        Long fileId2 = userFileService.createFolder(context);
+
+        context.setFolderName("tangl");
+        context.setParentId(fileId1);
+        Long fileId3 = userFileService.createFolder(context);
+
+        context.setFolderName("pan");
+        context.setParentId(fileId3);
+        Long fileId4 = userFileService.createFolder(context);
+
+        CopyFileContext copyFileContext = new CopyFileContext();
+        copyFileContext.setUserId(userId);
+        copyFileContext.setTargetParentId(fileId1);
+        copyFileContext.setFileIdList(Lists.newArrayList(fileId4));
+        userFileService.copyFile(copyFileContext);
+
+        QueryFolderTreeContext queryFolderTreeContext = new QueryFolderTreeContext();
+        queryFolderTreeContext.setUserId(userId);
+        List<FolderTreeNodeVO> folderTree = userFileService.getFolderTree(queryFolderTreeContext);
+        Assert.isTrue(folderTree.size() == 1);
+        folderTree.forEach(FolderTreeNodeVO::print);
+    }
+
+    /**
+     * 测试复制文件失败
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testCopyFileFail() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("com");
+        Long fileId1 = userFileService.createFolder(context);
+
+        context.setFolderName("haha");
+        context.setParentId(fileId1);
+        Long fileId2 = userFileService.createFolder(context);
+
+        context.setFolderName("tangl");
+        context.setParentId(fileId1);
+        Long fileId3 = userFileService.createFolder(context);
+
+        context.setFolderName("pan");
+        context.setParentId(fileId3);
+        Long fileId4 = userFileService.createFolder(context);
+
+        CopyFileContext copyFileContext = new CopyFileContext();
+        copyFileContext.setUserId(userId);
+        copyFileContext.setTargetParentId(fileId2);
+        copyFileContext.setFileIdList(Lists.newArrayList(fileId2, fileId4));
+        userFileService.copyFile(copyFileContext);
+
+        QueryFolderTreeContext queryFolderTreeContext = new QueryFolderTreeContext();
+        queryFolderTreeContext.setUserId(userId);
+        List<FolderTreeNodeVO> folderTree = userFileService.getFolderTree(queryFolderTreeContext);
+        Assert.isTrue(folderTree.size() == 1);
+        folderTree.forEach(FolderTreeNodeVO::print);
+    }
 
     /**
      * 测试转移文件成功
@@ -560,6 +687,12 @@ public class FileTest {
     public void testQueryUserFileSuccess() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
+
+        CreateFolderContext createFolderContext = new CreateFolderContext();
+        createFolderContext.setParentId(userInfo.getRootFileId());
+        createFolderContext.setFolderName("测试文件夹");
+        createFolderContext.setUserId(userId);
+        userFileService.createFolder(createFolderContext);
 
         QueryFileListContext context = new QueryFileListContext();
         context.setParentId(userInfo.getRootFileId());

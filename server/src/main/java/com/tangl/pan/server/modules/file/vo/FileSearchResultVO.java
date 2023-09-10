@@ -12,14 +12,14 @@ import java.util.Date;
 
 /**
  * @author tangl
- * @description 用户查询文件列表响应实体
+ * @description 用户搜索文件列表响应实体
  * @create 2023-08-10 20:47
  */
 @Data
-@ApiModel(value = "文件列表响应实体")
-public class UserFileVO implements Serializable {
+@ApiModel(value = "文件搜索列表响应实体")
+public class FileSearchResultVO implements Serializable {
 
-    private static final long serialVersionUID = -6785691577582771748L;
+    private static final long serialVersionUID = 4820907943672396844L;
 
     @ApiModelProperty(value = "文件ID")
     @JsonSerialize(using = IdEncryptSerializer.class)
@@ -28,6 +28,9 @@ public class UserFileVO implements Serializable {
     @JsonSerialize(using = IdEncryptSerializer.class)
     @ApiModelProperty(value = "父文件夹ID")
     private Long parentId;
+
+    @ApiModelProperty(value = "父文件夹名称")
+    private String parentFilename;
 
     @ApiModelProperty(value = "文件名称")
     private String filename;

@@ -10,6 +10,7 @@ import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.event.file.DeleteFileEvent;
+import com.tangl.pan.server.common.event.search.UserSearchEvent;
 import com.tangl.pan.server.common.utils.HttpUtil;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.*;
@@ -24,10 +25,7 @@ import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
-import com.tangl.pan.server.modules.file.vo.FileChunkUploadVO;
-import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
-import com.tangl.pan.server.modules.file.vo.UploadedChunksVO;
-import com.tangl.pan.server.modules.file.vo.UserFileVO;
+import com.tangl.pan.server.modules.file.vo.*;
 import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.ReadFileContext;
 import org.apache.commons.collections.CollectionUtils;
@@ -296,6 +294,185 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     }
 
     /**
+     * 文件复制
+     * 1、权限校验
+     * 2、执行动作
+     *
+     * @param context 上下文实体
+     */
+    @Override
+    public void copyFile(CopyFileContext context) {
+        checkCopyCondition(context);
+        doCopyFile(context);
+    }
+
+    /**
+     * 文件搜索
+     * 1、执行文件搜索
+     * 2、拼装文件的父文件夹名称
+     * 3、执行文件搜索后的后置动作
+     *
+     * @param context 上下文实体
+     * @return List<FileSearchResultVO>
+     */
+    @Override
+    public List<FileSearchResultVO> search(FileSearchContext context) {
+        List<FileSearchResultVO> result = doSearch(context);
+        fillParentFilename(result);
+        afterSearch(context);
+        return result;
+    }
+
+    /**
+     * 查询面包屑列表
+     * 1、获取用户的所有文件夹信息
+     * 2、拼装需要用到的面包屑列表
+     *
+     * @param context 上下文实体
+     * @return List<BreadcrumbsVO>
+     */
+    @Override
+    public List<BreadcrumbsVO> getBreadcrumbs(QueryBreadcrumbsContext context) {
+        List<TPanUserFile> folderRecords = queryFolderRecords(context.getUserId());
+        Map<Long, BreadcrumbsVO> prepareBreadcrumbsVOMap = folderRecords.stream().map(BreadcrumbsVO::transfer).collect(Collectors.toMap(BreadcrumbsVO::getId, a -> a));
+
+        BreadcrumbsVO currentNode;
+        Long fileId = context.getFileId();
+
+        List<BreadcrumbsVO> result = Lists.newLinkedList();
+
+        do {
+            currentNode = prepareBreadcrumbsVOMap.get(fileId);
+            if (Objects.nonNull(currentNode)) {
+                result.add(0, currentNode);
+                fileId = currentNode.getParentId();
+            }
+        } while (Objects.nonNull(currentNode));
+
+        return result;
+    }
+
+    /**
+     * 搜索的后置操作
+     * 1、发布文件搜索的事件
+     *
+     * @param context 上下文实体
+     */
+    private void afterSearch(FileSearchContext context) {
+        UserSearchEvent userSearchEvent = new UserSearchEvent(this, context.getKeyword(), context.getUserId());
+        applicationContext.publishEvent(userSearchEvent);
+    }
+
+    /**
+     * 填充文件列表的父文件名称
+     *
+     * @param result List<FileSearchResultVO>
+     */
+    private void fillParentFilename(List<FileSearchResultVO> result) {
+        if (CollectionUtils.isEmpty(result)) {
+            return;
+        }
+        List<Long> parentIdList = result.stream().map(FileSearchResultVO::getParentId).collect(Collectors.toList());
+        List<TPanUserFile> parentRecords = listByIds(parentIdList);
+        Map<Long, String> fileId2FilenameMap = parentRecords.stream().collect(Collectors.toMap(TPanUserFile::getFileId, TPanUserFile::getFilename));
+        result.forEach(vo -> vo.setParentFilename(fileId2FilenameMap.get(vo.getParentId())));
+    }
+
+    /**
+     * 搜索文件
+     *
+     * @param context 上下文实体
+     * @return List<FileSearchResultVO>
+     */
+    private List<FileSearchResultVO> doSearch(FileSearchContext context) {
+        return baseMapper.searchFile(context);
+    }
+
+    /**
+     * 执行文件复制的动作
+     *
+     * @param context 上下文实体
+     */
+    private void doCopyFile(CopyFileContext context) {
+        List<TPanUserFile> prepareRecords = context.getPrepareRecords();
+        if (CollectionUtils.isEmpty(prepareRecords)) {
+            throw new TPanBusinessException("选中的文件列表不能为空");
+        }
+
+        List<TPanUserFile> allRecords = Lists.newArrayList();
+        prepareRecords.forEach(record -> assembleCopyChildRecord(allRecords, record, context.getTargetParentId(), context.getUserId()));
+        if (!saveBatch(allRecords)) {
+            throw new TPanBusinessException("文件复制失败");
+        }
+    }
+
+    /**
+     * 拼装当前文件记录以及所有的子文件夹记录
+     *
+     * @param allRecords     copy 的文件记录
+     * @param record         要 copy 的文件记录
+     * @param targetParentId 拷贝到的目标文件夹
+     * @param userId         用户ID
+     */
+    private void assembleCopyChildRecord(List<TPanUserFile> allRecords, TPanUserFile record, Long targetParentId, Long userId) {
+        Long newFileId = IdUtil.get();
+        Long oldFileId = record.getFileId();
+
+        record.setParentId(targetParentId);
+        record.setFileId(newFileId);
+        record.setUserId(userId);
+        record.setCreateUser(userId);
+        record.setCreateTime(new Date());
+        record.setUpdateUser(userId);
+        record.setUpdateTime(new Date());
+        handleDuplicateFilename(record); // 处理重名
+        allRecords.add(record);
+
+        if (checkIsFolder(record)) {
+            List<TPanUserFile> childRecords = findChildRecords(oldFileId);
+            if (CollectionUtils.isEmpty(childRecords)) {
+                return;
+            }
+            childRecords.forEach(childRecord -> assembleCopyChildRecord(allRecords, childRecord, newFileId, userId));
+        }
+    }
+
+    /**
+     * 查找下一级的文件记录
+     *
+     * @param fileId 文件ID
+     * @return List<TPanUserFile>
+     */
+    private List<TPanUserFile> findChildRecords(Long fileId) {
+        QueryWrapper<TPanUserFile> queryWrapper = Wrappers.query();
+        queryWrapper.eq("parent_id", fileId);
+        queryWrapper.eq("del_flag", DelFlagEnum.NO.getCode());
+        return list(queryWrapper);
+    }
+
+    /**
+     * 文件复制的条件校验
+     * 1、目标文件夹必须是文件夹
+     * 2、选中要复制的文件列表中不能含有目标文件夹以及其子文件夹中
+     *
+     * @param context 上下文实体
+     */
+    private void checkCopyCondition(CopyFileContext context) {
+        Long targetParentId = context.getTargetParentId();
+        if (!checkIsFolder(getById(targetParentId))) {
+            throw new TPanBusinessException("目标文件夹不是一个文件夹");
+        }
+
+        List<Long> fileIdList = context.getFileIdList();
+
+        List<TPanUserFile> prepareRecords = listByIds(fileIdList);
+        if (checkIsChildFolder(prepareRecords, targetParentId, context.getUserId())) {
+            throw new TPanBusinessException("目标文件夹不能是要复制文件夹及其子文件夹");
+        }
+        context.setPrepareRecords(prepareRecords);
+    }
+
+    /**
      * 执行文件转移的动作
      *
      * @param context 上下文实体
@@ -326,7 +503,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     private void checkTransferCondition(TransferFileContext context) {
         Long targetParentId = context.getTargetParentId();
         if (!checkIsFolder(getById(targetParentId))) {
-            throw new TPanBusinessException("目标文件不是一个文件夹");
+            throw new TPanBusinessException("目标文件夹不是一个文件夹");
         }
 
         List<Long> fileIdList = context.getFileIdList();

@@ -1,8 +1,10 @@
 package com.tangl.pan.server.modules.file.mapper;
 
+import com.tangl.pan.server.modules.file.context.FileSearchContext;
 import com.tangl.pan.server.modules.file.context.QueryFileListContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tangl.pan.server.modules.file.vo.FileSearchResultVO;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +25,12 @@ public interface TPanUserFileMapper extends BaseMapper<TPanUserFile> {
      * @return List<UserFileVO>
      */
     List<UserFileVO> selectFileList(@Param("param") QueryFileListContext context);
+
+    /**
+     * 文件搜索
+     *
+     * @param context 搜索文件的上下文实体
+     * @return List<FileSearchResultVO>
+     */
+    List<FileSearchResultVO> searchFile(@Param("param") FileSearchContext context);
 }
