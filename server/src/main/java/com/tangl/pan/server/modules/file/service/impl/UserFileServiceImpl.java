@@ -38,6 +38,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -940,10 +941,10 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         int lastPointPosition = filename.lastIndexOf(TPanConstants.POINT_STR);
         if (lastPointPosition == TPanConstants.MINUS_ONE_INT) {
             newFilenameWithoutSuffix = filename;
-            newFilenameSuffix = TPanConstants.Empty_STR;
+            newFilenameSuffix = TPanConstants.EMPTY_STR;
         } else {
             newFilenameWithoutSuffix = filename.substring(0, lastPointPosition);
-            newFilenameSuffix = filename.replace(newFilenameWithoutSuffix, TPanConstants.Empty_STR);
+            newFilenameSuffix = filename.replace(newFilenameWithoutSuffix, TPanConstants.EMPTY_STR);
         }
 
         int count = getDuplicateFilename(entity, newFilenameWithoutSuffix);

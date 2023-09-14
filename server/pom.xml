@@ -64,9 +64,15 @@
 <!--            <version>1.0</version>-->
 <!--        </dependency>-->
 
+<!--        <dependency>-->
+<!--            <groupId>com.tangl.pan</groupId>-->
+<!--            <artifactId>t-pan-storage-engine-fastdfs</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-storage-engine-fastdfs</artifactId>
+            <artifactId>t-pan-storage-engine-oss</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

@@ -195,7 +195,7 @@ public abstract class AbstractStorageEngine implements StorageEngine {
      *
      * @return Cache
      */
-    private Cache getCache() {
+    protected Cache getCache() {
         if (Objects.isNull(cacheManager)) {
             throw new TPanFrameworkException("the cache manager is empty!");
         }

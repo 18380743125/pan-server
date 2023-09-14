@@ -1,5 +1,7 @@
 package com.tangl.pan.cache.redis.config;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cache.CacheManager;
@@ -37,6 +39,13 @@ public class RedisCacheConfig {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         StringRedisSerializer redisSerializer = new StringRedisSerializer();
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+
+//        GenericFastJsonRedisSerializer genericFastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
+
+
         redisTemplate.setKeySerializer(redisSerializer);
         redisTemplate.setHashKeySerializer(redisSerializer);
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
@@ -54,10 +63,17 @@ public class RedisCacheConfig {
      */
     @Bean
     public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+
+//        GenericFastJsonRedisSerializer genericFastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
+
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration
                 .defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<>(Object.class)));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
 
         RedisCacheManager cacheManager = RedisCacheManager
                 .builder(RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory))

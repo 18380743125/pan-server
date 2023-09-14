@@ -49,7 +49,7 @@ public class FileUtil {
      */
     public static String byteCountToDisplaySize(Long totalSize) {
         if (Objects.isNull(totalSize)) {
-            return TPanConstants.Empty_STR;
+            return TPanConstants.EMPTY_STR;
         }
         return FileUtils.byteCountToDisplaySize(totalSize);
     }
@@ -178,5 +178,22 @@ public class FileUtil {
         outputStream.close();
         fileChannel.close();
         writableByteChannel.close();
+    }
+
+    /**
+     * 普通流对流数据传输
+     *
+     * @param inputStream  objectContent
+     * @param outputStream 响应输出流
+     */
+    public static void writeStream2StreamNormal(InputStream inputStream, OutputStream outputStream) throws IOException {
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = inputStream.read(buffer)) != TPanConstants.MINUS_ONE_INT) {
+            outputStream.write(buffer, TPanConstants.ZERO_INT, len);
+        }
+        outputStream.flush();
+        inputStream.close();
+        outputStream.close();
     }
 }

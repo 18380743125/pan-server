@@ -45,12 +45,23 @@ swagger2:
   contact-email: tl-bright@163.com
   version: 1.0
 
+#com:
+#  tangl:
+#    storage:
+#      engine:
+#        fdfs:
+#          connect-timeout: 600
+#          tracker-list:
+#            - 43.139.66.230:22122
+#          group: group1
 com:
   tangl:
-    storage:
-      engine:
-        fdfs:
-          connect-timeout: 600
-          tracker-list:
-            - 43.139.66.230:22122
-          group: group1
+    pan:
+      storage:
+        engine:
+          oss:
+            bucket-name: t-pan-test
+            endpoint: oss-cn-chengdu.aliyuncs.com
+            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
+            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
+            auto-create-bucket: true

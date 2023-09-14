@@ -725,7 +725,11 @@ public class FileTest {
     private static MultipartFile generateMultipartFile() {
         MultipartFile file = null;
         try {
-            file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "test upload context".getBytes(StandardCharsets.UTF_8));
+            StringBuffer stringBuffer = new StringBuffer();
+            for(int i = 0; i < 1024 * 1024; i++) {
+                stringBuffer.append("a");
+            }
+            file = new MockMultipartFile("file", "test.txt", "multipart/form-data", stringBuffer.toString().getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             e.printStackTrace();
         }

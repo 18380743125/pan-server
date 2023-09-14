@@ -17,7 +17,7 @@ public interface TPanConstants {
     /**
      * 空字符串
      */
-    String Empty_STR = StringUtils.EMPTY;
+    String EMPTY_STR = StringUtils.EMPTY;
 
     /**
      * 点
@@ -69,4 +69,28 @@ public interface TPanConstants {
      */
     String BASE_COMPONENT_SCAN_PATH = "com.tangl.pan";
 
+    /**
+     * 问号常量
+     */
+    String QUESTION_MARK_STR = "?";
+
+    /**
+     * 等号常量
+     */
+    String EQUALS_MARK_STR = "=";
+
+    /**
+     * 逻辑与常量
+     */
+    String AND_MARK_STR = "&";
+
+    /**
+     * 左中括号常量
+     */
+    String LEFT_BRACKET_STR = "[";
+
+    /**
+     * 右中括号常量
+     */
+    String RIGHT_BRACKET_STR = "]";
 }
