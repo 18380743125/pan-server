@@ -7,7 +7,6 @@ import com.aliyun.oss.model.*;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.sun.corba.se.spi.ior.ObjectKey;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanFrameworkException;
 import com.tangl.pan.core.utils.FileUtil;
@@ -25,7 +24,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -40,7 +38,6 @@ public class OSSStorageEngine extends AbstractStorageEngine {
     private static final Integer TEN_THOUSAND = 10000;
 
     private static final String CACHE_KEY_TEMPLATE = "oss_cache_upload_id_%s_%s";
-
 
     private static final String IDENTIFIER_KEY = "identifier";
 
@@ -166,8 +163,8 @@ public class OSSStorageEngine extends AbstractStorageEngine {
         // 拼装文件分片的 url
         JSONObject params = new JSONObject();
         params.put(IDENTIFIER_KEY, context.getIdentifier());
-        params.put(UPLOAD_ID_KEY, entity.getUploadId());
         params.put(USER_ID_KEY, context.getUserId());
+        params.put(UPLOAD_ID_KEY, entity.getUploadId());
         params.put(E_TAG_KEY, partETag.getETag());
         params.put(PART_NUMBER_KEY, partETag.getPartNumber());
         params.put(PART_SIZE_KEY, partETag.getPartSize());

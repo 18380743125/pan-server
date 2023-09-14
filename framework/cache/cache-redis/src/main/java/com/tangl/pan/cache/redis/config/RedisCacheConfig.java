@@ -28,7 +28,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Slf4j
 public class RedisCacheConfig {
     /**
-     * 定制链接和操作 redis 的客户端工具
+     * 定制连接和操作 redis 的客户端工具
      *
      * @param redisConnectionFactory redis 链接工厂
      * @return RedisTemplate
