@@ -17,13 +17,13 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public class DeleteFileEvent extends ApplicationEvent {
+public class FileDeleteEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = -1922543273278238212L;
 
     private List<Long> fileIdList;
 
-    public DeleteFileEvent(Object source, List<Long> fileIdList) {
+    public FileDeleteEvent(Object source, List<Long> fileIdList) {
         super(source);
         this.fileIdList = fileIdList;
     }

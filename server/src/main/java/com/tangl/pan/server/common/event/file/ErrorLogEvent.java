@@ -14,6 +14,8 @@ import org.springframework.context.ApplicationEvent;
 @ToString
 public class ErrorLogEvent extends ApplicationEvent {
 
+    private static final long serialVersionUID = 4814882850368805113L;
+
     /**
      * 错误日志的内容
      */

@@ -1,0 +1,113 @@
+# Created at 2023-09-15T17:05:14.174
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: DEFAULT
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:391)
+	at java.lang.Thread.run(Thread.java:750)
+
+
+# Created at 2023-09-15T17:05:15.014
+Unexpected IOException with stream: 17:05:15.013 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:17.251
+Unexpected IOException with stream: 17:05:17.251 [main] INFO com.tangl.pan.schedule.ScheduleManager - 测试定时任务 停止成功！唯一标识为：830A03E5A8D64DCC8731917DA3BC389D
+
+
+# Created at 2023-09-15T17:05:17.252
+Unexpected IOException with stream: 17:05:17.252 [main] INFO com.tangl.pan.schedule.ScheduleManager - 测试定时任务 启动成功！唯一标识为：4BDFEA4A2BCD4267B474FB9C9D8BB7DC
+
+
+# Created at 2023-09-15T17:05:18.012
+Unexpected IOException with stream: 17:05:18.012 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:19.012
+Unexpected IOException with stream: 17:05:19.012 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:20.009
+Unexpected IOException with stream: 17:05:20.009 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:21.008
+Unexpected IOException with stream: 17:05:21.008 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:22.009
+Unexpected IOException with stream: 17:05:22.009 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:23.004
+Unexpected IOException with stream: 17:05:23.004 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:24.004
+Unexpected IOException with stream: 17:05:24.004 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:25.003
+Unexpected IOException with stream: 17:05:25.003 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:26.004
+Unexpected IOException with stream: 17:05:26.004 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:27.002
+Unexpected IOException with stream: 17:05:27.002 [taskScheduler-1] INFO com.tangl.pan.schedule.test.task.SimpleScheduleTask - 测试定时任务正在执行...
+
+
+# Created at 2023-09-15T17:05:27.253
+Unexpected IOException with stream: 17:05:27.253 [main] INFO com.tangl.pan.schedule.ScheduleManager - 测试定时任务 停止成功！唯一标识为：4BDFEA4A2BCD4267B474FB9C9D8BB7DC
+
+
+# Created at 2023-09-15T17:05:27.255
+Unexpected IOException with stream: 17:05:27.255 [main] DEBUG org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate - Retrieved ApplicationContext from cache with key [[MergedContextConfiguration@5a4041cc testClass = ScheduleTaskTest, locations = '{}', classes = '{class com.tangl.pan.schedule.test.config.ScheduleTestConfig}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@e874448, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7113b13f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@52f759d7], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]
+
+
+# Created at 2023-09-15T17:05:27.255
+Unexpected IOException with stream: 17:05:27.255 [main] DEBUG org.springframework.test.context.cache - Spring test ApplicationContext cache statistics: [DefaultContextCache@611889f4 size = 1, maxSize = 32, parentContextCount = 0, hitCount = 2, missCount = 1]
+
+
+# Created at 2023-09-15T17:05:27.256
+Unexpected IOException with stream: 17:05:27.255 [main] DEBUG org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate - Retrieved ApplicationContext from cache with key [[MergedContextConfiguration@5a4041cc testClass = ScheduleTaskTest, locations = '{}', classes = '{class com.tangl.pan.schedule.test.config.ScheduleTestConfig}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@e874448, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7113b13f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@52f759d7], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]
+
+
+# Created at 2023-09-15T17:05:27.257
+Unexpected IOException with stream: 17:05:27.256 [main] DEBUG org.springframework.test.context.cache - Spring test ApplicationContext cache statistics: [DefaultContextCache@611889f4 size = 1, maxSize = 32, parentContextCount = 0, hitCount = 3, missCount = 1]
+
+
+# Created at 2023-09-15T17:05:27.258
+Unexpected IOException with stream: 17:05:27.258 [main] DEBUG org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate - Retrieved ApplicationContext from cache with key [[MergedContextConfiguration@5a4041cc testClass = ScheduleTaskTest, locations = '{}', classes = '{class com.tangl.pan.schedule.test.config.ScheduleTestConfig}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@e874448, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7113b13f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@52f759d7], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]
+
+
+# Created at 2023-09-15T17:05:27.258
+Unexpected IOException with stream: 17:05:27.258 [main] DEBUG org.springframework.test.context.cache - Spring test ApplicationContext cache statistics: [DefaultContextCache@611889f4 size = 1, maxSize = 32, parentContextCount = 0, hitCount = 4, missCount = 1]
+
+
+# Created at 2023-09-15T17:05:27.259
+Unexpected IOException with stream: 17:05:27.259 [main] DEBUG org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate - Retrieved ApplicationContext from cache with key [[MergedContextConfiguration@5a4041cc testClass = ScheduleTaskTest, locations = '{}', classes = '{class com.tangl.pan.schedule.test.config.ScheduleTestConfig}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@e874448, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7113b13f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@52f759d7], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]
+
+
+# Created at 2023-09-15T17:05:27.260
+Unexpected IOException with stream: 17:05:27.260 [main] DEBUG org.springframework.test.context.cache - Spring test ApplicationContext cache statistics: [DefaultContextCache@611889f4 size = 1, maxSize = 32, parentContextCount = 0, hitCount = 5, missCount = 1]
+
+
+# Created at 2023-09-15T17:05:27.260
+Unexpected IOException with stream: 17:05:27.260 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - After test method: context [DefaultTestContext@768b970c testClass = ScheduleTaskTest, testInstance = com.tangl.pan.schedule.test.ScheduleTaskTest@48a242ce, testMethod = testRunSchedule@ScheduleTaskTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@5a4041cc testClass = ScheduleTaskTest, locations = '{}', classes = '{class com.tangl.pan.schedule.test.config.ScheduleTestConfig}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@e874448, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7113b13f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@52f759d7], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null], method annotated with @DirtiesContext [false] with mode [null].
+
+
+# Created at 2023-09-15T17:05:27.261
+Unexpected IOException: 6,1,com.tangl.pan.schedule.test.ScheduleTaskTest,testRunSchedule(com.tangl.pan.schedule.test.ScheduleTaskTest),null,null,null
+
+
+# Created at 2023-09-15T17:05:27.262
+Unexpected IOException with stream: 17:05:27.261 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - After test class: context [DefaultTestContext@768b970c testClass = ScheduleTaskTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [MergedContextConfiguration@5a4041cc testClass = ScheduleTaskTest, locations = '{}', classes = '{class com.tangl.pan.schedule.test.config.ScheduleTestConfig}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@e874448, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7113b13f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@52f759d7], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
+
+
+# Created at 2023-09-15T17:05:27.262
+Unexpected IOException: 2,1,org.apache.maven.surefire.junit4.JUnit4Provider,com.tangl.pan.schedule.test.ScheduleTaskTest,null,null,null
+
+

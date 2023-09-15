@@ -9,7 +9,7 @@ import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
-import com.tangl.pan.server.common.event.file.DeleteFileEvent;
+import com.tangl.pan.server.common.event.file.FileDeleteEvent;
 import com.tangl.pan.server.common.event.search.UserSearchEvent;
 import com.tangl.pan.server.common.utils.HttpUtil;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
@@ -31,20 +31,17 @@ import com.tangl.pan.storage.engine.core.context.ReadFileContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author tangl
@@ -350,6 +347,62 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         } while (Objects.nonNull(currentNode));
 
         return result;
+    }
+
+    /**
+     * 递归查询所有的子文件信息
+     *
+     * @param records 实体记录列表
+     * @return List<TPanUserFile> 包含子文件实体
+     */
+    @Override
+    public List<TPanUserFile> findAllFileRecords(List<TPanUserFile> records) {
+        List<TPanUserFile> result = Lists.newArrayList(records);
+        if (CollectionUtils.isEmpty(result)) {
+            return result;
+        }
+        long folderCount = result.stream().filter(record -> Objects.equals(record.getFolderFlag(), FolderFlagEnum.YES.getCode())).count();
+        if (folderCount == 0) {
+            return result;
+        }
+        result.forEach(record -> {
+            doFindAllChildRecords(result, record);
+        });
+        return result;
+    }
+
+    /**
+     * 递归查询所有的子文件列表
+     * 忽略是否删除标识
+     *
+     * @param result 结果
+     * @param record 文件记录
+     */
+    private void doFindAllChildRecords(List<TPanUserFile> result, TPanUserFile record) {
+        if (Objects.isNull(record) || !checkIsFolder(record)) {
+            return;
+        }
+        List<TPanUserFile> childRecords = findChildRecordsIgnoreDelFlag(record.getFileId());
+        if (CollectionUtils.isEmpty(childRecords)) {
+            return;
+        }
+        result.addAll(childRecords);
+        childRecords.stream()
+                .filter(childRecord -> Objects.equals(childRecord.getFolderFlag(), FolderFlagEnum.YES.getCode()))
+                .forEach(childRecord -> doFindAllChildRecords(result, childRecord));
+    }
+
+    /**
+     * 查询文件夹下面的文件记录，忽略是否删除标识
+     *
+     * @param fileId 文件ID
+     * @return List<TPanUserFile>
+     */
+
+    private List<TPanUserFile> findChildRecordsIgnoreDelFlag(Long fileId) {
+        QueryWrapper<TPanUserFile> queryWrapper = Wrappers.query();
+        queryWrapper.eq("parent_id", fileId);
+        return list(queryWrapper);
     }
 
     /**
@@ -764,7 +817,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      */
     private void afterFileDelete(DeleteFileContext context) {
         List<Long> fileIdList = context.getFileIdList();
-        DeleteFileEvent deleteFileEvent = new DeleteFileEvent(this, fileIdList);
+        FileDeleteEvent deleteFileEvent = new FileDeleteEvent(this, fileIdList);
         applicationContext.publishEvent(deleteFileEvent);
     }
 

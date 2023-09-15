@@ -139,4 +139,12 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @return List<BreadcrumbsVO>
      */
     List<BreadcrumbsVO> getBreadcrumbs(QueryBreadcrumbsContext context);
+
+    /**
+     * 递归查询所有的子文件信息
+     *
+     * @param records 实体记录列表
+     * @return List<TPanUserFile> 包含子文件实体
+     */
+    List<TPanUserFile> findAllFileRecords(List<TPanUserFile> records);
 }
