@@ -2,13 +2,18 @@ package com.tangl.pan.server.modules.share;
 
 import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Lists;
+import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
+import com.tangl.pan.server.modules.share.context.CancelShareContext;
+import com.tangl.pan.server.modules.share.context.CheckShareCodeContext;
 import com.tangl.pan.server.modules.share.context.CreateShareUrlContext;
+import com.tangl.pan.server.modules.share.context.QueryShareListContext;
 import com.tangl.pan.server.modules.share.enums.ShareDayTypeEnum;
 import com.tangl.pan.server.modules.share.enums.ShareTypeEnum;
 import com.tangl.pan.server.modules.share.service.IShareService;
+import com.tangl.pan.server.modules.share.vo.ShareUrlListVO;
 import com.tangl.pan.server.modules.share.vo.ShareUrlVO;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
 import com.tangl.pan.server.modules.user.service.IUserService;
@@ -20,11 +25,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * @author tangl
- * @description
+ * @description 分享模块的单元测试类
  * @create 2023-09-16 18:19
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,17 +48,208 @@ public class ShareTest {
     private IShareService shareService;
 
     /**
-     * 创建分享链接成功
+     * 校验分享码失败 - 校验码错误
      */
     @Test
-    public void createShareUrlSuccess() {
+    public void testCheckShareCodeSuccess() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
 
         CreateFolderContext context = new CreateFolderContext();
         context.setParentId(userInfoVO.getRootFileId());
         context.setUserId(userId);
-        context.setFolderName("folder-name");
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        CheckShareCodeContext checkShareCodeContext = new CheckShareCodeContext();
+        checkShareCodeContext.setShareId(vo.getShareId());
+        checkShareCodeContext.setShareCode(vo.getShareCode());
+        String token = shareService.checkShareCode(checkShareCodeContext);
+        Assert.isTrue(Objects.nonNull(token));
+    }
+
+    /**
+     * 校验分享码失败 - 校验码错误
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testCheckShareCodeByWrongShareCode() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        CheckShareCodeContext checkShareCodeContext = new CheckShareCodeContext();
+        checkShareCodeContext.setShareId(vo.getShareId());
+        checkShareCodeContext.setShareCode(vo.getShareCode() + 1);
+        shareService.checkShareCode(checkShareCodeContext);
+    }
+
+    /**
+     * 校验分享码失败 - 分享被取消
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testCheckShareCodeFailByCancelled() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        CancelShareContext cancelShareContext = new CancelShareContext();
+        cancelShareContext.setUserId(userId);
+        cancelShareContext.setShareIdList(Lists.newArrayList(vo.getShareId()));
+        shareService.cancelShare(cancelShareContext);
+
+        CheckShareCodeContext checkShareCodeContext = new CheckShareCodeContext();
+        checkShareCodeContext.setShareId(vo.getShareId());
+        checkShareCodeContext.setShareCode(vo.getShareCode());
+        shareService.checkShareCode(checkShareCodeContext);
+    }
+
+    /**
+     * 取消分享 - 成功
+     */
+    @Test
+    public void testCancelShareSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        CancelShareContext cancelShareContext = new CancelShareContext();
+        cancelShareContext.setUserId(userId);
+        cancelShareContext.setShareIdList(Lists.newArrayList(vo.getShareId()));
+        shareService.cancelShare(cancelShareContext);
+
+        QueryShareListContext queryShareListContext = new QueryShareListContext();
+        queryShareListContext.setUserId(userId);
+        List<ShareUrlListVO> shareUrlListVOS = shareService.getShares(queryShareListContext);
+        Assert.isTrue(shareUrlListVOS.isEmpty());
+    }
+
+    /**
+     * 取消分享 - 失败 - 错误的用户 ID
+     */
+    @Test(expected = TPanBusinessException.class)
+    public void testCancelShareFailByWrongUserId() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        CancelShareContext cancelShareContext = new CancelShareContext();
+        cancelShareContext.setUserId(userId + 1);
+        cancelShareContext.setShareIdList(Lists.newArrayList(vo.getShareId()));
+        shareService.cancelShare(cancelShareContext);
+    }
+
+    /**
+     * 查询分享列表成功
+     */
+    @Test
+    public void testQueryShareUrlSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        shareService.create(createShareUrlContext);
+
+        QueryShareListContext queryShareListContext = new QueryShareListContext();
+        queryShareListContext.setUserId(userId);
+        List<ShareUrlListVO> shares = shareService.getShares(queryShareListContext);
+        Assert.isTrue(shares.size() == 1);
+    }
+
+    /**
+     * 创建分享链接成功
+     */
+    @Test
+    public void testCreateShareUrlSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
 
         Long fileId = userFileService.createFolder(context);
         Assert.notNull(fileId);

@@ -2,6 +2,10 @@ package com.tangl.pan.server.modules.share.mapper;
 
 import com.tangl.pan.server.modules.share.entity.TPanShare;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tangl.pan.server.modules.share.vo.ShareUrlListVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author tangl
@@ -11,4 +15,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TPanShareMapper extends BaseMapper<TPanShare> {
 
+    /**
+     * @param userId 当前的登录用户 ID
+     * @return List<ShareUrlListVO>
+     */
+    List<ShareUrlListVO> selectShareVOListByUserId(@Param("userId") Long userId);
 }
