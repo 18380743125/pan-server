@@ -8,11 +8,13 @@ import com.tangl.pan.server.common.annotation.LoginIgnore;
 import com.tangl.pan.server.common.annotation.NeedShareCode;
 import com.tangl.pan.server.common.utils.ShareIdUtil;
 import com.tangl.pan.server.common.utils.UserIdUtil;
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.share.context.*;
 import com.tangl.pan.server.modules.share.convert.ShareConvert;
 import com.tangl.pan.server.modules.share.po.CancelSharePO;
 import com.tangl.pan.server.modules.share.po.CheckShareCodePO;
 import com.tangl.pan.server.modules.share.po.CreateShareUrlPO;
+import com.tangl.pan.server.modules.share.po.ShareSavePO;
 import com.tangl.pan.server.modules.share.vo.ShareDetailVO;
 import com.tangl.pan.server.modules.share.service.IShareService;
 import com.tangl.pan.server.modules.share.vo.ShareSimpleDetailVO;
@@ -25,6 +27,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +39,7 @@ import java.util.stream.Collectors;
  */
 @Api(tags = "分享模块")
 @RestController
+@Validated
 public class ShareController {
 
     @Autowired
@@ -138,5 +142,60 @@ public class ShareController {
         context.setShareId(IdUtil.decrypt(shareId));
         ShareSimpleDetailVO vo = shareService.simpleDetail(context);
         return R.data(vo);
+    }
+
+    @ApiOperation(
+            value = "获取下一级文件列表",
+            notes = "该接口提供了获取下一级文件列表的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @GetMapping("share/file/list")
+    @NeedShareCode
+    @LoginIgnore
+    public R<List<UserFileVO>> fileList(@NotBlank(message = "父文件夹ID不能为空") @RequestParam(value = "parentId", required = false) String parentId) {
+        QueryChildFileListContext context = new QueryChildFileListContext();
+        context.setShareId(ShareIdUtil.get());
+        context.setParentId(IdUtil.decrypt(parentId));
+        List<UserFileVO> result = shareService.fileList(context);
+        return R.data(result);
+    }
+
+    @ApiOperation(
+            value = "保存到我的网盘",
+            notes = "该接口提供了保存到我的网盘的功能",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @NeedShareCode
+    @PostMapping("share/save")
+    public R<List<UserFileVO>> saveFiles(@Validated @RequestBody ShareSavePO shareSavePO) {
+        ShareSaveContext context = new ShareSaveContext();
+        String fileIds = shareSavePO.getFileIds();
+        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        context.setFileIdList(fileIdList);
+        context.setUserId(UserIdUtil.get());
+        context.setShareId(ShareIdUtil.get());
+        context.setTargetParentId(IdUtil.decrypt(shareSavePO.getTargetParentId()));
+        shareService.saveFiles(context);
+        return R.success();
+    }
+
+    @ApiOperation(
+            value = "分享文件下载",
+            notes = "该接口提供了分享文件下载的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+    )
+    @NeedShareCode
+    @GetMapping("share/file/download")
+    public void download(@NotBlank(message = "文件ID不能为空") @RequestParam(value = "fileId", required = false) String fileId,
+                         HttpServletResponse response) {
+        ShareFileDownloadContext context = new ShareFileDownloadContext();
+        context.setResponse(response);
+        context.setFileId(IdUtil.decrypt(fileId));
+        context.setUserId(UserIdUtil.get());
+        context.setShareId(ShareIdUtil.get());
+        shareService.download(context);
     }
 }

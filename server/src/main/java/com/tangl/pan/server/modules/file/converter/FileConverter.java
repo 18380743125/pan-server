@@ -4,6 +4,7 @@ import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.po.*;
 import com.tangl.pan.server.modules.file.vo.FolderTreeNodeVO;
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.storage.engine.core.context.StoreFileChunkContext;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -58,4 +59,6 @@ public interface FileConverter {
     @Mapping(target = "id", source = "record.fileId")
     @Mapping(target = "children", expression = "java(com.google.common.collect.Lists.newArrayList())")
     FolderTreeNodeVO tPanUserFile2FolderTreeNodeVO(TPanUserFile record);
+
+    UserFileVO tPanUserFile2UserFileVO(TPanUserFile record);
 }

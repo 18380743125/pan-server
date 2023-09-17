@@ -96,6 +96,13 @@ public interface IUserFileService extends IService<TPanUserFile> {
     void download(FileDownloadContext context);
 
     /**
+     * 分享文件下载 - 不校验用户是上传用户
+     *
+     * @param context 上下文实体
+     */
+    void downloadWithoutCheckUser(FileDownloadContext context);
+
+    /**
      * 文件预览
      *
      * @param context 上下文实体
@@ -147,4 +154,20 @@ public interface IUserFileService extends IService<TPanUserFile> {
      * @return List<TPanUserFile> 包含子文件实体
      */
     List<TPanUserFile> findAllFileRecords(List<TPanUserFile> records);
+
+    /**
+     * 递归查询所有的子文件信息
+     *
+     * @param fileIdList 文件 ID 集合
+     * @return List<TPanUserFile> 包含子文件实体
+     */
+    List<TPanUserFile> findAllFileRecordsByFileIdList(List<Long> fileIdList);
+
+    /**
+     * 实体转换
+     *
+     * @param records TPanUserFile 实体列表
+     * @return List<UserFileVO>
+     */
+    List<UserFileVO> transferVOList(List<TPanUserFile> records);
 }

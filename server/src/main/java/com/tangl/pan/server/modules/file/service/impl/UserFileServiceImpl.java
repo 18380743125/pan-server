@@ -247,6 +247,26 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     }
 
     /**
+     * 文件下载
+     * 1、参数校验：文件是否存在
+     * 2、校验该文件是不是文件夹
+     * 3、执行下载的动作
+     *
+     * @param context 上下文实体
+     */
+    @Override
+    public void downloadWithoutCheckUser(FileDownloadContext context) {
+        TPanUserFile record = getById(context.getFileId());
+        if (Objects.isNull(record)) {
+            throw new TPanBusinessException("当前文件记录不存在");
+        }
+        if (checkIsFolder(record)) {
+            throw new TPanBusinessException("文件夹暂不支持下载");
+        }
+        doDownload(record, context.getResponse());
+    }
+
+    /**
      * 文件预览
      * 1、参数校验：文件是否存在，文件是否属于该用户
      * 2、校验该文件是不是文件夹
@@ -365,10 +385,34 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         if (folderCount == 0) {
             return result;
         }
-        result.forEach(record -> {
-            doFindAllChildRecords(result, record);
-        });
+        records.forEach(record -> doFindAllChildRecords(result, record));
         return result;
+    }
+
+    /**
+     * 递归查询所有的子文件信息
+     *
+     * @param fileIdList 文件 ID 集合
+     * @return List<TPanUserFile>
+     */
+    @Override
+    public List<TPanUserFile> findAllFileRecordsByFileIdList(List<Long> fileIdList) {
+        if (CollectionUtils.isEmpty(fileIdList)) {
+            return Lists.newArrayList();
+        }
+        List<TPanUserFile> records = listByIds(fileIdList);
+        if (CollectionUtils.isEmpty(records)) {
+            return Lists.newArrayList();
+        }
+        return findAllFileRecords(records);
+    }
+
+    @Override
+    public List<UserFileVO> transferVOList(List<TPanUserFile> records) {
+        if (CollectionUtils.isEmpty(records)) {
+            return Lists.newArrayList();
+        }
+        return records.stream().map(record -> fileConverter.tPanUserFile2UserFileVO(record)).collect(Collectors.toList());
     }
 
     /**

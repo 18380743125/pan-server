@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.schedule.ScheduleTask;
-import com.tangl.pan.server.common.event.file.ErrorLogEvent;
+import com.tangl.pan.server.common.event.log.ErrorLogEvent;
 import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.storage.engine.core.StorageEngine;

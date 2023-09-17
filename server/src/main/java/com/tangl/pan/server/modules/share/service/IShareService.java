@@ -1,5 +1,6 @@
 package com.tangl.pan.server.modules.share.service;
 
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.share.context.*;
 import com.tangl.pan.server.modules.share.entity.TPanShare;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -63,4 +64,33 @@ public interface IShareService extends IService<TPanShare> {
      * @return ShareSimpleDetailVO
      */
     ShareSimpleDetailVO simpleDetail(QueryShareSimpleDetailContext context);
+
+    /**
+     * 获取下一级文件列表
+     *
+     * @param context 上下文实体
+     * @return List<UserFileVO>
+     */
+    List<UserFileVO> fileList(QueryChildFileListContext context);
+
+    /**
+     * 转存到我的网盘
+     *
+     * @param context 上下文实体
+     */
+    void saveFiles(ShareSaveContext context);
+
+    /**
+     * 分享文件下载
+     *
+     * @param context 上下文实体
+     */
+    void download(ShareFileDownloadContext context);
+
+    /**
+     * 刷新受影响的对应分享的状态
+     *
+     * @param allAvailableFileIdList fileIdList
+     */
+    void refreshShareStatus(List<Long> allAvailableFileIdList);
 }

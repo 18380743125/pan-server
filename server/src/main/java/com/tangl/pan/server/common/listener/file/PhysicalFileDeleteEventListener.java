@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.server.common.event.file.ErrorLogEvent;
+import com.tangl.pan.server.common.event.log.ErrorLogEvent;
 import com.tangl.pan.server.common.event.file.PhysicalFileDeleteEvent;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -61,6 +62,7 @@ public class PhysicalFileDeleteEventListener implements ApplicationContextAware 
      * @param event 事件
      */
     @EventListener(classes = PhysicalFileDeleteEventListener.class)
+    @Async(value = "eventListenerTaskExecutor")
     public void physicalFileDelete(PhysicalFileDeleteEvent event) {
         List<TPanUserFile> allRecords = event.getAllRecords();
         if (CollectionUtils.isEmpty(allRecords)) {

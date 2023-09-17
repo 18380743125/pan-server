@@ -1,4 +1,4 @@
-package com.tangl.pan.server.common.event.file;
+package com.tangl.pan.server.common.event.log;
 
 import lombok.*;
 import org.springframework.context.ApplicationEvent;

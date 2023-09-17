@@ -6,6 +6,7 @@ import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.share.context.*;
 import com.tangl.pan.server.modules.share.enums.ShareDayTypeEnum;
 import com.tangl.pan.server.modules.share.enums.ShareTypeEnum;
@@ -47,7 +48,40 @@ public class ShareTest {
     private IShareService shareService;
 
     /**
-     * 查询分享详情成功
+     * 测试查询分享下一级的文件列表
+     */
+    @Test
+    public void testQueryShareFileListSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(userInfoVO.getRootFileId()));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        QueryChildFileListContext queryChildFileListContext = new QueryChildFileListContext();
+        queryChildFileListContext.setShareId(vo.getShareId());
+        queryChildFileListContext.setParentId(userInfoVO.getRootFileId());
+
+        List<UserFileVO> userFileVOList = shareService.fileList(queryChildFileListContext);
+        Assert.notEmpty(userFileVOList);
+        System.out.println(userFileVOList);
+    }
+
+    /**
+     * 测试查询分享详情成功
      */
     @Test
     public void testQueryShareSimpleDetailSuccess() {
@@ -78,7 +112,7 @@ public class ShareTest {
     }
 
     /**
-     * 查询分享详情成功
+     * 测试查询分享详情成功
      */
     @Test
     public void testQueryShareDetailSuccess() {
@@ -109,7 +143,7 @@ public class ShareTest {
     }
 
     /**
-     * 校验分享码成功
+     * 测试校验分享码成功
      */
     @Test
     public void testCheckShareCodeSuccess() {
@@ -140,7 +174,7 @@ public class ShareTest {
     }
 
     /**
-     * 校验分享码失败 - 校验码错误
+     * 测试校验分享码失败 - 校验码错误
      */
     @Test(expected = TPanBusinessException.class)
     public void testCheckShareCodeByWrongShareCode() {
@@ -170,7 +204,7 @@ public class ShareTest {
     }
 
     /**
-     * 校验分享码失败 - 分享被取消
+     * 测试校验分享码失败 - 分享被取消
      */
     @Test(expected = TPanBusinessException.class)
     public void testCheckShareCodeFailByCancelled() {
@@ -205,7 +239,7 @@ public class ShareTest {
     }
 
     /**
-     * 取消分享 - 成功
+     * 测试取消分享 - 成功
      */
     @Test
     public void testCancelShareSuccess() {
@@ -240,7 +274,7 @@ public class ShareTest {
     }
 
     /**
-     * 取消分享 - 失败 - 错误的用户 ID
+     * 测试取消分享 - 失败 - 错误的用户 ID
      */
     @Test(expected = TPanBusinessException.class)
     public void testCancelShareFailByWrongUserId() {
@@ -270,7 +304,7 @@ public class ShareTest {
     }
 
     /**
-     * 查询分享列表成功
+     * 测试查询分享列表成功
      */
     @Test
     public void testQueryShareUrlSuccess() {
@@ -300,7 +334,7 @@ public class ShareTest {
     }
 
     /**
-     * 创建分享链接成功
+     * 测试创建分享链接成功
      */
     @Test
     public void testCreateShareUrlSuccess() {
@@ -326,7 +360,7 @@ public class ShareTest {
     }
 
     /**
-     * 查询登录用户的基本信息
+     * 测试查询登录用户的基本信息
      *
      * @return 用户基本信息
      */
@@ -335,7 +369,7 @@ public class ShareTest {
     }
 
     /**
-     * 注册用户
+     * 测试注册用户
      *
      * @return userId
      */
@@ -345,7 +379,7 @@ public class ShareTest {
     }
 
     /**
-     * 创建注册用户的上下文实体
+     * 测试创建注册用户的上下文实体
      *
      * @return UserRegisterContext
      */

@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan(basePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH)
 @MapperScan(basePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH + ".server.modules.**.mapper")
 @EnableTransactionManagement
+@EnableAsync
 public class TPanServerLauncher {
     public static void main(String[] args) {
         SpringApplication.run(TPanServerLauncher.class);

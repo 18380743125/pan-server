@@ -9,6 +9,7 @@ import com.tangl.pan.server.modules.user.service.IUserSearchHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -30,6 +31,7 @@ public class UserSearchEventListener {
      * @param event 搜索事件
      */
     @EventListener(classes = UserSearchEvent.class)
+    @Async(value = "eventListenerTaskExecutor")
     public void saveSearchHistory(UserSearchEvent event) {
         TPanUserSearchHistory record = new TPanUserSearchHistory();
         record.setId(IdUtil.get());

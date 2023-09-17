@@ -1,11 +1,12 @@
 package com.tangl.pan.server.common.listener.log;
 
 import com.tangl.pan.core.utils.IdUtil;
-import com.tangl.pan.server.common.event.file.ErrorLogEvent;
+import com.tangl.pan.server.common.event.log.ErrorLogEvent;
 import com.tangl.pan.server.modules.log.entity.TPanErrorLog;
 import com.tangl.pan.server.modules.log.service.IErrorLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -27,6 +28,7 @@ public class ErrorLogEventListener {
      * @param event 错误日志事件对象
      */
     @EventListener(EventListener.class)
+    @Async(value = "eventListenerTaskExecutor")
     public void saveErrorLog(ErrorLogEvent event) {
         TPanErrorLog record = new TPanErrorLog();
         record.setId(IdUtil.get());
