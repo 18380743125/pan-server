@@ -15,6 +15,11 @@ public interface TPanConstants {
     String COMMON_SEPARATOR = "__,__";
 
     /**
+     * 公用加密字符串
+     */
+    String COMMON_ENCRYPT_STR = "****";
+
+    /**
      * 空字符串
      */
     String EMPTY_STR = StringUtils.EMPTY;

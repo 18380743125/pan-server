@@ -1,11 +1,10 @@
 package com.tangl.pan.server.modules.share.service;
 
-import com.tangl.pan.server.modules.share.context.CancelShareContext;
-import com.tangl.pan.server.modules.share.context.CheckShareCodeContext;
-import com.tangl.pan.server.modules.share.context.CreateShareUrlContext;
-import com.tangl.pan.server.modules.share.context.QueryShareListContext;
+import com.tangl.pan.server.modules.share.context.*;
 import com.tangl.pan.server.modules.share.entity.TPanShare;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tangl.pan.server.modules.share.vo.ShareDetailVO;
+import com.tangl.pan.server.modules.share.vo.ShareSimpleDetailVO;
 import com.tangl.pan.server.modules.share.vo.ShareUrlListVO;
 import com.tangl.pan.server.modules.share.vo.ShareUrlVO;
 
@@ -48,4 +47,20 @@ public interface IShareService extends IService<TPanShare> {
      * @return token
      */
     String checkShareCode(CheckShareCodeContext context);
+
+    /**
+     * 查询分享的详情
+     *
+     * @param context 上下文实体
+     * @return ShareDetailVO
+     */
+    ShareDetailVO detail(QueryShareDetailContext context);
+
+    /**
+     * 查询分享的简单详情
+     *
+     * @param context 上下文实体
+     * @return ShareSimpleDetailVO
+     */
+    ShareSimpleDetailVO simpleDetail(QueryShareSimpleDetailContext context);
 }

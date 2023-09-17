@@ -6,13 +6,12 @@ import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.server.TPanServerLauncher;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
-import com.tangl.pan.server.modules.share.context.CancelShareContext;
-import com.tangl.pan.server.modules.share.context.CheckShareCodeContext;
-import com.tangl.pan.server.modules.share.context.CreateShareUrlContext;
-import com.tangl.pan.server.modules.share.context.QueryShareListContext;
+import com.tangl.pan.server.modules.share.context.*;
 import com.tangl.pan.server.modules.share.enums.ShareDayTypeEnum;
 import com.tangl.pan.server.modules.share.enums.ShareTypeEnum;
 import com.tangl.pan.server.modules.share.service.IShareService;
+import com.tangl.pan.server.modules.share.vo.ShareDetailVO;
+import com.tangl.pan.server.modules.share.vo.ShareSimpleDetailVO;
 import com.tangl.pan.server.modules.share.vo.ShareUrlListVO;
 import com.tangl.pan.server.modules.share.vo.ShareUrlVO;
 import com.tangl.pan.server.modules.user.context.UserRegisterContext;
@@ -48,7 +47,69 @@ public class ShareTest {
     private IShareService shareService;
 
     /**
-     * 校验分享码失败 - 校验码错误
+     * 查询分享详情成功
+     */
+    @Test
+    public void testQueryShareSimpleDetailSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        QueryShareSimpleDetailContext queryShareDetailContext = new QueryShareSimpleDetailContext();
+        queryShareDetailContext.setShareId(vo.getShareId());
+        ShareSimpleDetailVO shareSimpleDetailVO = shareService.simpleDetail(queryShareDetailContext);
+        Assert.notNull(shareSimpleDetailVO);
+        System.out.println(shareSimpleDetailVO);
+    }
+
+    /**
+     * 查询分享详情成功
+     */
+    @Test
+    public void testQueryShareDetailSuccess() {
+        Long userId = register();
+        UserInfoVO userInfoVO = info(userId);
+
+        CreateFolderContext context = new CreateFolderContext();
+        context.setParentId(userInfoVO.getRootFileId());
+        context.setUserId(userId);
+        context.setFolderName("测试文件夹");
+
+        Long fileId = userFileService.createFolder(context);
+        Assert.notNull(fileId);
+
+        CreateShareUrlContext createShareUrlContext = new CreateShareUrlContext();
+        createShareUrlContext.setShareName("分享名称");
+        createShareUrlContext.setShareDayType(ShareDayTypeEnum.SEVEN_DAYS_VALIDITY.getCode());
+        createShareUrlContext.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        createShareUrlContext.setUserId(userId);
+        createShareUrlContext.setShareFileIdList(Lists.newArrayList(fileId));
+        ShareUrlVO vo = shareService.create(createShareUrlContext);
+
+        QueryShareDetailContext queryShareDetailContext = new QueryShareDetailContext();
+        queryShareDetailContext.setShareId(vo.getShareId());
+        ShareDetailVO detail = shareService.detail(queryShareDetailContext);
+        Assert.notNull(detail);
+        System.out.println(detail);
+    }
+
+    /**
+     * 校验分享码成功
      */
     @Test
     public void testCheckShareCodeSuccess() {

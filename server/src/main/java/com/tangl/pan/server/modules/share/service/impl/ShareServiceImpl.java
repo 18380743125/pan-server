@@ -12,6 +12,10 @@ import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.core.utils.JwtUtil;
 import com.tangl.pan.core.utils.UUIDUtil;
 import com.tangl.pan.server.common.config.PanServerConfig;
+import com.tangl.pan.server.modules.file.context.QueryFileListContext;
+import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
+import com.tangl.pan.server.modules.file.service.IUserFileService;
+import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.share.constants.ShareConstants;
 import com.tangl.pan.server.modules.share.context.*;
 import com.tangl.pan.server.modules.share.entity.TPanShare;
@@ -21,8 +25,9 @@ import com.tangl.pan.server.modules.share.enums.ShareStatusEnum;
 import com.tangl.pan.server.modules.share.service.IShareFileService;
 import com.tangl.pan.server.modules.share.service.IShareService;
 import com.tangl.pan.server.modules.share.mapper.TPanShareMapper;
-import com.tangl.pan.server.modules.share.vo.ShareUrlListVO;
-import com.tangl.pan.server.modules.share.vo.ShareUrlVO;
+import com.tangl.pan.server.modules.share.vo.*;
+import com.tangl.pan.server.modules.user.entity.TPanUser;
+import com.tangl.pan.server.modules.user.service.IUserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +51,12 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
 
     @Autowired
     private IShareFileService shareFileService;
+
+    @Autowired
+    private IUserFileService userFileService;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 创建分享链接
@@ -100,6 +111,162 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
         context.setRecord(record);
         doCheckShareCode(context);
         return generateShareToken(context);
+    }
+
+    /**
+     * 查询分享详情
+     * 1、校验分享的状态
+     * 2、初始化分享实体
+     * 3、查询分享的主体信息
+     * 4、查询分享的文件列表
+     * 5、查询分享者的信息
+     *
+     * @param context 上下文实体
+     * @return ShareDetailVO
+     */
+    @Override
+    public ShareDetailVO detail(QueryShareDetailContext context) {
+        TPanShare record = checkShareStatus(context.getShareId());
+        context.setRecord(record);
+        initShareVO(context);
+        assembleMainShareInfo(context);
+        assembleShareFilesInfo(context);
+        assembleShareUserInfo(context);
+        return context.getVo();
+    }
+
+    /**
+     * 查询分享详情
+     * 1、校验分享的状态
+     * 2、初始化简单分享实体
+     * 3、查询分享的主体信息
+     * 4、查询分享者的信息
+     *
+     * @param context 上下文实体
+     * @return ShareSimpleDetailVO
+     */
+    @Override
+    public ShareSimpleDetailVO simpleDetail(QueryShareSimpleDetailContext context) {
+        TPanShare record = checkShareStatus(context.getShareId());
+        context.setRecord(record);
+        initShareSimpleVO(context);
+        assembleMainShareSimpleInfo(context);
+        assembleShareSimpleUserInfo(context);
+        return context.getVo();
+    }
+
+    /**
+     * 拼装分享简单详情的分享者信息
+     *
+     * @param context 上下文实体
+     */
+    private void assembleShareSimpleUserInfo(QueryShareSimpleDetailContext context) {
+        TPanUser record = userService.getById(context.getRecord().getCreateUser());
+        if (Objects.isNull(record)) {
+            throw new TPanBusinessException("分享者信息查询失败");
+        }
+        ShareUserInfoVO shareUserInfoVO = new ShareUserInfoVO();
+        shareUserInfoVO.setUserId(record.getUserId());
+        shareUserInfoVO.setUsername(encryptUsername(record.getUsername()));
+
+        context.getVo().setShareUserInfoVO(shareUserInfoVO);
+    }
+
+    /**
+     * 填充分享简单主体信息
+     *
+     * @param context 上下文实体
+     */
+    private void assembleMainShareSimpleInfo(QueryShareSimpleDetailContext context) {
+        TPanShare record = context.getRecord();
+        ShareSimpleDetailVO vo = context.getVo();
+        vo.setShareId(record.getShareId());
+        vo.setShareName(record.getShareName());
+    }
+
+    /**
+     * 初始化分享简单 VO
+     *
+     * @param context 上下文实体
+     */
+    private void initShareSimpleVO(QueryShareSimpleDetailContext context) {
+        ShareSimpleDetailVO vo = new ShareSimpleDetailVO();
+        context.setVo(vo);
+    }
+
+    /**
+     * 查询分享者的信息
+     *
+     * @param context 上下文实体
+     */
+    private void assembleShareUserInfo(QueryShareDetailContext context) {
+        TPanUser record = userService.getById(context.getRecord().getCreateUser());
+        if (Objects.isNull(record)) {
+            throw new TPanBusinessException("分享者信息查询失败");
+        }
+        ShareUserInfoVO shareUserInfoVO = new ShareUserInfoVO();
+        shareUserInfoVO.setUserId(record.getUserId());
+        shareUserInfoVO.setUsername(encryptUsername(record.getUsername()));
+
+        context.getVo().setShareUserInfoVO(shareUserInfoVO);
+    }
+
+    /**
+     * 加密用户名称
+     *
+     * @param username 用户名
+     * @return String
+     */
+    private String encryptUsername(String username) {
+        StringBuffer stringBuffer = new StringBuffer(username);
+        stringBuffer.replace(TPanConstants.TWO_INT, username.length() - TPanConstants.TWO_INT, TPanConstants.COMMON_ENCRYPT_STR);
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 查询分享的文件列表
+     * 1、查询分享对应的文件 ID 集合
+     * 2、根据文件 ID 查询文件列表信息
+     *
+     * @param context 上下文实体
+     */
+    private void assembleShareFilesInfo(QueryShareDetailContext context) {
+        QueryWrapper<TPanShareFile> queryWrapper = Wrappers.query();
+        queryWrapper.select("file_id");
+        queryWrapper.eq("share_id", context.getShareId());
+        List<Long> fileIdList = shareFileService.listObjs(queryWrapper, value -> (Long) value);
+
+        QueryFileListContext queryFileListContext = new QueryFileListContext();
+        queryFileListContext.setUserId(context.getRecord().getCreateUser());
+        queryFileListContext.setDelFlag(DelFlagEnum.NO.getCode());
+        queryFileListContext.setFileIdList(fileIdList);
+        List<UserFileVO> userFileVOList = userFileService.getFileList(queryFileListContext);
+        context.getVo().setUserFileVOList(userFileVOList);
+    }
+
+    /**
+     * 查询分享的主体信息
+     *
+     * @param context 上下文实体
+     */
+    private void assembleMainShareInfo(QueryShareDetailContext context) {
+        TPanShare record = context.getRecord();
+        ShareDetailVO vo = context.getVo();
+        vo.setShareId(record.getShareId());
+        vo.setShareName(record.getShareName());
+        vo.setShareDay(record.getShareDay());
+        vo.setCreateTime(record.getCreateTime());
+        vo.setShareEndTime(record.getShareEndTime());
+    }
+
+    /**
+     * 初始化分享详情的 VO 实体
+     *
+     * @param context 上下文实体
+     */
+    private void initShareVO(QueryShareDetailContext context) {
+        ShareDetailVO vo = new ShareDetailVO();
+        context.setVo(vo);
     }
 
     /**

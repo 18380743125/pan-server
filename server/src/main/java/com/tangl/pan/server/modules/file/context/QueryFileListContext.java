@@ -34,4 +34,9 @@ public class QueryFileListContext implements Serializable {
      * 文件的删除标识
      */
     private Integer delFlag;
+
+    /**
+     * 文件 ID 集合
+     */
+    private List<Long> fileIdList;
 }

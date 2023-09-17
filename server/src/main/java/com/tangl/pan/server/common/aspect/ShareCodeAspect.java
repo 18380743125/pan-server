@@ -43,7 +43,7 @@ public class ShareCodeAspect {
     /**
      * 切点表达式
      */
-    private final static String POINT_CUT = "annotation(com.tangl.pan.server.common.annotation.NeedShareCode)";
+    private final static String POINT_CUT = "@annotation(com.tangl.pan.server.common.annotation.NeedShareCode)";
 
     @Pointcut(value = POINT_CUT)
     public void shareCodeAuth() {
