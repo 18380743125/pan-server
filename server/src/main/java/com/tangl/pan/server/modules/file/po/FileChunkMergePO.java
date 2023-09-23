@@ -10,10 +10,10 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 文件分片合并参数对象
+ * @description 文件分片合并参数实体
  * @create 2023-09-07 21:55
  */
-@ApiModel(value = "文件分片合并参数对象")
+@ApiModel(value = "文件分片合并参数实体")
 @Data
 public class FileChunkMergePO implements Serializable {
 

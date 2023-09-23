@@ -69,6 +69,7 @@ public class ShareStatusChangeListener {
                 .filter(record -> Objects.equals(record.getDelFlag(), DelFlagEnum.NO.getCode()))
                 .map(TPanUserFile::getFileId)
                 .collect(Collectors.toList());
+        allAvailableFileIdList.addAll(fileIdList);
         shareService.refreshShareStatus(allAvailableFileIdList);
     }
 }

@@ -31,7 +31,7 @@ public class FileChunkMergeContext implements Serializable {
     private Long totalSize;
 
     /**
-     * 文件的父文件夹ID
+     * 父文件夹ID
      */
     private Long parentId;
 
@@ -41,7 +41,7 @@ public class FileChunkMergeContext implements Serializable {
     private Long userId;
 
     /**
-     * 物理文件记录的ID
+     * 文件实体记录
      */
     private TPanFile record;
 }

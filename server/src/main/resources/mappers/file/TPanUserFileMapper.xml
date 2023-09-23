@@ -20,6 +20,7 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <!-- 查询用户的文件列表 -->
     <select id="selectFileList" resultType="com.tangl.pan.server.modules.file.vo.UserFileVO">
         SELECT
             file_id AS fileId,

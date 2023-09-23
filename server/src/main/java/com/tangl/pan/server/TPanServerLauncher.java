@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author tangl
- * @description 启动类
+ * @description 服务启动类
  * @create 2023-06-22 18:42
  */
 @SpringBootApplication(scanBasePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH)

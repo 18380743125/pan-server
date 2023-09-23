@@ -8,10 +8,10 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 查询用户已上传的分片列表参数实体
+ * @description 查询用户已上传的文件分片列表参数实体
  * @create 2023-09-07 11:25
  */
-@ApiModel("查询用户已上传的分片列表参数实体")
+@ApiModel("查询用户已上传的文件分片列表参数实体")
 public class QueryUploadedChunksPO implements Serializable {
 
     private static final long serialVersionUID = 4794027706833131087L;

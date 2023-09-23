@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 用户登录业务的上下文实体对象
+ * @description 用户登录的上下文实体
  * @create 2023-07-28 21:41
  */
 @Data

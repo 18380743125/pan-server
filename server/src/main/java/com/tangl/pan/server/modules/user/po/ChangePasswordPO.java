@@ -10,10 +10,10 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 用户在线修改密码参数
+ * @description 用户在线修改密码参数实体
  * @create 2023-08-01 15:32
  */
-@ApiModel(value = "用户在线修改密码参数")
+@ApiModel(value = "用户在线修改密码参数实体")
 @Data
 public class ChangePasswordPO implements Serializable {
 

@@ -39,7 +39,7 @@ public class recycleController {
             value = "获取回收站文件列表",
             notes = "该接口提供了获取回收站文件列表的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @GetMapping("recycles")
     public R<List<UserFileVO>> recycles() {
@@ -52,8 +52,8 @@ public class recycleController {
     @ApiOperation(
             value = "回收站批量还原",
             notes = "该接口提供了回收站批量还原的功能",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @PutMapping("recycle/restore")
     public R<?> restore(@Validated @RequestBody RestorePO restorePO) {
@@ -69,8 +69,8 @@ public class recycleController {
     @ApiOperation(
             value = "文件批量彻底删除",
             notes = "该接口提供了文件批量彻底删除的功能",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @DeleteMapping("recycle/restore")
     public R<?> delete(@Validated @RequestBody DeletePO deletePO) {

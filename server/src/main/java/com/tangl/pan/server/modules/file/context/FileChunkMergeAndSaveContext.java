@@ -41,7 +41,7 @@ public class FileChunkMergeAndSaveContext implements Serializable {
     private Long userId;
 
     /**
-     * 物理文件记录的ID
+     * 文件实体记录
      */
     private TPanFile record;
 

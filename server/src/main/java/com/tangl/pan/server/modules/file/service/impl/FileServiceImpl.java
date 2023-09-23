@@ -125,7 +125,6 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
             mergeFileContext.setRealPathList(realPathList);
             storageEngine.mergeFile(mergeFileContext);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new TPanBusinessException("文件分片合并失败");
         }
 
@@ -188,10 +187,10 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
     }
 
     /**
-     * 上传单文件
+     * 上传物理单文件
      * 该方法委托文件存储引擎实现
      *
-     * @param context 文件保存的上下文实体
+     * @param context 上下文实体
      */
     private void storeMultipartFile(FileSaveContext context) {
         try {
@@ -202,7 +201,6 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
             storageEngine.store(storeFileContext);
             context.setRealPath(storeFileContext.getRealPath());
         } catch (IOException e) {
-            e.printStackTrace();
             throw new TPanBusinessException("文件上传失败");
         }
     }

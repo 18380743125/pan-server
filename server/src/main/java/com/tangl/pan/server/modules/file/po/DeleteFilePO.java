@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class DeleteFilePO implements Serializable {
     private static final long serialVersionUID = 2700266833584983038L;
 
-    @ApiModelProperty(value = "要删除的文件ID，多个使用通用的分隔符分割", required = true)
+    @ApiModelProperty(value = "要删除的文件ID，多个使用通用的分隔符分隔", required = true)
     @NotBlank(message = "请选择要删除的文件")
     private String fileIds;
 }

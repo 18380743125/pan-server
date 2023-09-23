@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 @Data
 public class FileUploadContext implements Serializable {
+
     private static final long serialVersionUID = 5827412689710890833L;
 
     /**

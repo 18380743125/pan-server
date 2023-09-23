@@ -11,10 +11,10 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 提交重置密码的 PO 参数
+ * @description 用户忘记密码-重置用户密码参数实体
  * @create 2023-08-01 11:15
  */
-@ApiModel(value = "用户忘记密码-重置用户密码参数")
+@ApiModel(value = "用户忘记密码-重置用户密码参数实体")
 @Data
 public class ResetPasswordPO implements Serializable {
 

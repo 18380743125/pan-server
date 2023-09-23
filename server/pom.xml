@@ -52,27 +52,39 @@
             <version>1.0</version>
         </dependency>
 
+        <!--        <dependency>-->
+        <!--            <groupId>com.tangl.pan</groupId>-->
+        <!--            <artifactId>t-pan-cache-caffeine</artifactId>-->
+        <!--            <version>1.0</version>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>com.tangl.pan</groupId>
             <artifactId>t-pan-cache-redis</artifactId>
             <version>1.0</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.tangl.pan</groupId>-->
-<!--            <artifactId>t-pan-storage-engine-local</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.tangl.pan</groupId>-->
+        <!--            <artifactId>t-pan-storage-engine-local</artifactId>-->
+        <!--            <version>1.0</version>-->
+        <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>com.tangl.pan</groupId>-->
-<!--            <artifactId>t-pan-storage-engine-fastdfs</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.tangl.pan</groupId>-->
+        <!--            <artifactId>t-pan-storage-engine-fastdfs</artifactId>-->
+        <!--            <version>1.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
             <artifactId>t-pan-storage-engine-oss</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tangl.pan</groupId>
+            <artifactId>t-pan-bloom-filter-local</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

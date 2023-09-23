@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author tangl
- * @description 合并文件上下文实体
+ * @description 合并文件分片的上下文实体
  * @create 2023-09-09 9:35
  */
 @Data

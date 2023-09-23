@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description
+ * @description 文件秒传上下文实体
  * @create 2023-08-13 21:52
  */
 @Data
@@ -14,12 +14,12 @@ public class SecUploadContext implements Serializable {
     private static final long serialVersionUID = -6021192871589810009L;
 
     /**
-     * 文件夹 ID
+     * 文件夹ID
      */
     private Long parentId;
 
     /**
-     *  文件名称
+     * 文件名称
      */
     private String filename;
 
@@ -29,7 +29,7 @@ public class SecUploadContext implements Serializable {
     private String identifier;
 
     /**
-     * 当前登录用户 ID
+     * 当前登录用户ID
      */
     private Long userId;
 }

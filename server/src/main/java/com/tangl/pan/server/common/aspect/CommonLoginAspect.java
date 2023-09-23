@@ -45,7 +45,8 @@ public class CommonLoginAspect {
      */
     private static final String LOGIN_AUTH_REQUEST_HEADER_NAME = "Authorization";
 
-    private static final String POINT_CUT = "execution(* com.tangl.pan.server.modules.*.TestController..*(..))";
+    private static final String POINT_CUT = "execution(* com.tangl.pan.server.modules.*.controller..*(..))";
+//    private static final String POINT_CUT = "execution(* com.tangl.pan.server.modules.*.TestController..*(..))";
 
     @Autowired
     private CacheManager cacheManager;

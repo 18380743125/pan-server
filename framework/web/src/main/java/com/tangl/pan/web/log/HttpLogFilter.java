@@ -19,7 +19,7 @@ import java.io.IOException;
  * @description 打印HTTP调用日志过滤器，使用者可以按需将其注入到过滤器容器中使用
  * @create 2023-06-22 18:26
  */
-@WebFilter(filterName = "httpLogFilter")
+//@WebFilter(filterName = "httpLogFilter")
 @Slf4j
 @Order(Integer.MAX_VALUE)
 public class HttpLogFilter extends OncePerRequestFilter {

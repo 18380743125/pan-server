@@ -3,14 +3,16 @@ package com.tangl.pan.server.modules.test;
 import com.tangl.pan.core.response.R;
 import com.tangl.pan.server.common.annotation.LoginIgnore;
 import com.tangl.pan.server.common.event.test.TestEvent;
+import io.swagger.annotations.Api;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 测试处理器
+ * 测试模块控制器
  */
+@Api(tags = "测试模块")
 @RestController
 public class TestController implements ApplicationContextAware {
 

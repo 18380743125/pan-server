@@ -13,63 +13,63 @@ import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 public interface IUserService extends IService<TPanUser> {
 
     /**
-     * 用户注册业务
+     * 用户注册
      *
-     * @param userRegisterContext userRegisterContext
+     * @param context 上下文实体
      * @return userId
      */
-    Long register(UserRegisterContext userRegisterContext);
+    Long register(UserRegisterContext context);
 
     /**
-     * 用户登录业务
+     * 用户登录
      *
-     * @param userLoginContext userLoginContext
+     * @param context 上下文实体
      * @return accessToken
      */
-    String login(UserLoginContext userLoginContext);
+    String login(UserLoginContext context);
 
     /**
-     * 用户退出登录业务
+     * 用户退出登录
      *
-     * @param userId userId
+     * @param userId 用户ID
      */
     void exit(Long userId);
 
     /**
-     * 校验用户名
+     * 用户忘记密码-校验用户名
      *
-     * @param checkUsernameContext checkUsernameContext
-     * @return question
+     * @param context 上下文实体
+     * @return 密保问题
      */
-    String checkUsername(CheckUsernameContext checkUsernameContext);
+    String checkUsername(CheckUsernameContext context);
 
     /**
-     * 校验密保答案
+     * 用户忘记密码-校验密保答案
      *
-     * @param checkAnswerContext checkAnswerContext
-     * @return question
+     * @param context 上下文实体
+     * @return 校验通过后生成的 token 临时凭证
      */
-    String checkAnswer(CheckAnswerContext checkAnswerContext);
+    String checkAnswer(CheckAnswerContext context);
 
     /**
-     * 重置用户密码
+     * 用户忘记密码-重置用户密码
      *
-     * @param resetPasswordContext resetPasswordContext
+     * @param context 上下文实体
      */
-    void resetPassword(ResetPasswordContext resetPasswordContext);
+    void resetPassword(ResetPasswordContext context);
 
     /**
      * 用户在线修改密码
      *
-     * @param changePasswordContext changePasswordContext
+     * @param context 上下文实体
      */
-    void changePassword(ChangePasswordContext changePasswordContext);
+    void changePassword(ChangePasswordContext context);
 
     /**
      * 查询登录用户的基本信息
      *
-     * @param userId 用户 ID
-     * @return UserInfoVO
+     * @param userId 用户ID
+     * @return 用户的基本信息
      */
     UserInfoVO info(Long userId);
 }

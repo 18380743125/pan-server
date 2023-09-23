@@ -6,6 +6,7 @@ package com.tangl.pan.server.modules.user.constants;
  * @create 2023-07-31 13:59
  */
 public interface UserConstants {
+
     /**
      * 登录用户的用户 ID 的 key 值
      */
@@ -24,10 +25,10 @@ public interface UserConstants {
     /**
      * 一天的 ms
      */
-    Long ONE_DAY_LONG = 24L * 60L * 60L * 1000L;
+    Long ONE_DAY_LONG = 24L * 60 * 60 * 1000;
 
     /**
      * 5分钟的 ms
      */
-    Long FIVE_MINUTES_LONG = 5L * 60L * 1000L;
+    Long FIVE_MINUTES_LONG = 5L * 60 * 1000;
 }

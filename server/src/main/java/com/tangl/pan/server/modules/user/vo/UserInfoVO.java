@@ -10,10 +10,10 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description UserInfoVO
+ * @description 用户响应实体
  * @create 2023-08-01 16:56
  */
-@ApiModel(value = "用户基本信息实体")
+@ApiModel(value = "用户响应实体")
 @Data
 public class UserInfoVO implements Serializable {
 

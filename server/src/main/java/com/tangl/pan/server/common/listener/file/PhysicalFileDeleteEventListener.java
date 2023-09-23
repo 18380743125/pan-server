@@ -70,6 +70,10 @@ public class PhysicalFileDeleteEventListener implements ApplicationContextAware 
         }
         List<Long> realFileIdList = findAllUnusedRealFileIdList(allRecords);
 
+        if (CollectionUtils.isEmpty(realFileIdList)) {
+            return;
+        }
+
         List<TPanFile> realFileRecords = fileService.listByIds(realFileIdList);
 
         if (CollectionUtils.isEmpty(realFileRecords)) {

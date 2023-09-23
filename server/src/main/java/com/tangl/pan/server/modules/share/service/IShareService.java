@@ -93,4 +93,13 @@ public interface IShareService extends IService<TPanShare> {
      * @param allAvailableFileIdList fileIdList
      */
     void refreshShareStatus(List<Long> allAvailableFileIdList);
+
+    /**
+     * 滚动查询已存在的分享 ID
+     *
+     * @param startId 开始
+     * @param limit   条数
+     * @return 分享 ID 列表
+     */
+    List<Long> rollingQueryShareId(long startId, long limit);
 }

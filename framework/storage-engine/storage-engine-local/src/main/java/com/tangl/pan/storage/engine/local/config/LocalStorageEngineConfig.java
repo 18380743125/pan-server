@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author tangl
- * @description
+ * @description 本地文件存储引擎的配置类
  * @create 2023-08-15 22:04
  */
 @Component
@@ -16,9 +16,12 @@ import org.springframework.stereotype.Component;
 public class LocalStorageEngineConfig {
 
     /**
-     * 实际存放路径的前缀
+     * 文件物理存放路径的前缀
      */
     private String rootFilePath = FileUtil.generateDefaultStoreFileRealPath();
 
+    /**
+     * 分片文件物理存放路径的前缀
+     */
     private String rootFileChunkPath = FileUtil.generateDefaultStoreFileChunkRealPath();
 }

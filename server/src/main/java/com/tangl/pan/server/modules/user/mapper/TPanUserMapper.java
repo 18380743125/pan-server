@@ -13,10 +13,10 @@ import org.apache.ibatis.annotations.Param;
 public interface TPanUserMapper extends BaseMapper<TPanUser> {
 
     /**
-     * 通过用户名查询用户设置的密保问题
+     * 通过用户名查询用户的密保问题
      *
      * @param username 用户名
-     * @return question
+     * @return 密保答案
      */
     String selectQuestionByUsername(@Param("username") String username);
 }

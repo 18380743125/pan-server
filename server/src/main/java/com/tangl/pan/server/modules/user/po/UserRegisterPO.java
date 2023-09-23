@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 注册用户参数实体对象
+ * @description 注册用户参数实体
  * @create 2023-07-28 21:20
  */
 @ApiModel(value = "用户注册参数")

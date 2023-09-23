@@ -47,10 +47,10 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
      * 1、保存文件分片和记录
      * 2、判断文件分片是否全部完成
      *
-     * @param context 文件分片保存上下文实体
+     * @param context 上下文实体
      */
     @Override
-    synchronized public void saveChunkFile(FileChunkSaveContext context) {
+    public synchronized void saveChunkFile(FileChunkSaveContext context) {
         doSaveChunkFile(context);
         doJudgeMergeFile(context);
     }
@@ -58,7 +58,7 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
     /**
      * 判断文件分片是否全部完成
      *
-     * @param context 文件分片保存上下文实体
+     * @param context 上下文实体
      */
     private void doJudgeMergeFile(FileChunkSaveContext context) {
         QueryWrapper<TPanFileChunk> queryWrapper = Wrappers.query();
@@ -75,7 +75,7 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
      * 1、委托文件存储引擎存储文件分片
      * 2、保存文件分片记录
      *
-     * @param context 文件分片保存上下文实体
+     * @param context 上下文实体
      */
     private void doSaveChunkFile(FileChunkSaveContext context) {
         doStoreFileChunk(context);
@@ -85,7 +85,7 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
     /**
      * 保存文件分片记录
      *
-     * @param context 文件分片保存上下文实体
+     * @param context 上下文实体
      */
     private void doSaveRecord(FileChunkSaveContext context) {
         TPanFileChunk record = new TPanFileChunk();
@@ -108,7 +108,6 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
             storageEngine.storeChunk(storeFileChunkContext);
             context.setRealPath(storeFileChunkContext.getRealPath());
         } catch (IOException e) {
-            e.printStackTrace();
             throw new TPanBusinessException("文件分片上传失败");
         }
     }

@@ -10,12 +10,13 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 校验用户名称 PO 对象
+ * @description 用户忘记密码-校验用户名参数实体
  * @create 2023-07-31 23:04
  */
-@ApiModel(value = "用户忘记密码-校验用户名参数")
+@ApiModel(value = "用户忘记密码-校验用户名参数实体")
 @Data
 public class CheckUsernamePO implements Serializable {
+
     private static final long serialVersionUID = -5983489854679236643L;
 
     @ApiModelProperty(value = "用户名", required = true)

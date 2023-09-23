@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 查询用户已上传的分片列表的上下文实体
+ * @description 查询用户已上传的文件分片列表的上下文实体
  * @create 2023-09-07 11:28
  */
 @Data

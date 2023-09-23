@@ -16,75 +16,75 @@ public interface IUserFileService extends IService<TPanUserFile> {
     /**
      * 创建文件夹信息
      *
-     * @param context context
-     * @return long
+     * @param context 上下文实体
+     * @return 文件夹ID
      */
     Long createFolder(CreateFolderContext context);
 
     /**
      * 获取用户根文件夹信息
      *
-     * @param userId 用户 ID
-     * @return TPanUserFile
+     * @param userId 用户ID
+     * @return 用户根文件夹信息
      */
     TPanUserFile getUserRootFile(Long userId);
 
     /**
      * 查询用户的文件列表
      *
-     * @param context 查询文件列表上下文实体
-     * @return 文件列表
+     * @param context 上下文实体
+     * @return 用户的文件列表
      */
     List<UserFileVO> getFileList(QueryFileListContext context);
 
     /**
      * 更新文件名称
      *
-     * @param context 更新文件名的上下文实体
+     * @param context 上下文实体
      */
     void updateFilename(UpdateFilenameContext context);
 
     /**
      * 批量删除用户文件
      *
-     * @param context 批量删除用户文件的上下文实体
+     * @param context 上下文实体
      */
     void deleteFile(DeleteFileContext context);
 
     /**
      * 文件秒传
      *
-     * @param context 秒传上下文实体
+     * @param context 上下文实体
      */
     boolean secUpload(SecUploadContext context);
 
     /**
      * 单文件上传
      *
-     * @param context 单文件上传的上下文实体
+     * @param context 上下文实体
      */
     void upload(FileUploadContext context);
 
     /**
      * 文件分片上传
      *
-     * @param context 文件分片上传上下文实体
+     * @param context 上下文实体
      * @return FileChunkUploadVO
      */
     FileChunkUploadVO chunkUpload(FileChunkUploadContext context);
 
     /**
-     * 查询用户已上传的分片列表
+     * 查询用户已上传的文件分片列表
      *
-     * @param context 查询用户已上传的分片列表上下文实体
-     * @return UploadedChunksVO
+     * @param context 上下文实体
+     * @return 已上传的文件分片编号列表
      */
     UploadedChunksVO getUploadedChunks(QueryUploadedChunksContext context);
 
     /**
      * 文件分片合并
      *
-     * @param context 文件分片合并的上下文实体
+     * @param context 上下文实体
      */
     void mergeFile(FileChunkMergeContext context);
 

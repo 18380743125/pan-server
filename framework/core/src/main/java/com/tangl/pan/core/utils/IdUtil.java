@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.util.Enumeration;
 import java.util.List;
@@ -231,5 +232,10 @@ public class IdUtil {
             return Lists.newArrayList();
         }
         return decryptIdList.stream().map(IdUtil::decrypt).collect(Collectors.toList());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(encrypt(1705496201764237312L));
+        System.out.println(encrypt(get()));
     }
 }

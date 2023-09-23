@@ -2,7 +2,9 @@ package com.tangl.pan.server.modules.share.controller;
 
 import com.google.common.base.Splitter;
 import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.response.R;
+import com.tangl.pan.core.response.ResponseCode;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.annotation.LoginIgnore;
 import com.tangl.pan.server.common.annotation.NeedShareCode;
@@ -29,6 +31,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,8 +57,8 @@ public class ShareController {
     @ApiOperation(
             value = "创建分享链接",
             notes = "该接口提供了创建分享链接的功能",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @PostMapping("share")
     public R<ShareUrlVO> create(@Validated @RequestBody CreateShareUrlPO createShareUrlPO) {
@@ -71,7 +77,7 @@ public class ShareController {
             value = "查询分享链接列表",
             notes = "该接口提供了查询分享链接列表的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @GetMapping("shares")
     public R<List<ShareUrlListVO>> getShares() {
@@ -84,8 +90,8 @@ public class ShareController {
     @ApiOperation(
             value = "取消分享",
             notes = "该接口提供了取消分享的功能",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @DeleteMapping("share")
     public R<?> cancelShare(@Validated @RequestBody CancelSharePO cancelSharePO) {
@@ -101,8 +107,8 @@ public class ShareController {
     @ApiOperation(
             value = "校验分享码",
             notes = "该接口提供了校验分享码的功能",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @LoginIgnore
     @PostMapping("share/code/check")
@@ -118,7 +124,7 @@ public class ShareController {
             value = "查询分享详情",
             notes = "该接口提供了查询分享详情的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @LoginIgnore
     @NeedShareCode
@@ -134,12 +140,17 @@ public class ShareController {
             value = "查询分享的简单详情",
             notes = "该接口提供了查询分享的简单详情的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @LoginIgnore
     @GetMapping("share/simple")
     public R<ShareSimpleDetailVO> simpleDetail(@NotBlank(message = "分享的ID不能为空") @RequestParam(value = "shareId", required = false) String shareId) {
         QueryShareSimpleDetailContext context = new QueryShareSimpleDetailContext();
-        context.setShareId(IdUtil.decrypt(shareId));
+        try {
+            context.setShareId(IdUtil.decrypt(URLDecoder.decode(shareId, StandardCharsets.UTF_8.toString())));
+        } catch (UnsupportedEncodingException e) {
+            throw new TPanBusinessException(ResponseCode.ERROR_PARAM);
+        }
         ShareSimpleDetailVO vo = shareService.simpleDetail(context);
         return R.data(vo);
     }
@@ -148,7 +159,7 @@ public class ShareController {
             value = "获取下一级文件列表",
             notes = "该接口提供了获取下一级文件列表的功能",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @GetMapping("share/file/list")
     @NeedShareCode
@@ -164,8 +175,8 @@ public class ShareController {
     @ApiOperation(
             value = "保存到我的网盘",
             notes = "该接口提供了保存到我的网盘的功能",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @NeedShareCode
     @PostMapping("share/save")

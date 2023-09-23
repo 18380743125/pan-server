@@ -10,12 +10,13 @@
     {
       "name": "com.tangl.pan.storage.engine.local.root-file-chunk-path",
       "type": "java.lang.String",
+      "description": "分片文件物理存放路径的前缀",
       "sourceType": "com.tangl.pan.storage.engine.local.config.LocalStorageEngineConfig"
     },
     {
       "name": "com.tangl.pan.storage.engine.local.root-file-path",
       "type": "java.lang.String",
-      "description": "实际存放路径的前缀",
+      "description": "文件物理存放路径的前缀",
       "sourceType": "com.tangl.pan.storage.engine.local.config.LocalStorageEngineConfig"
     }
   ],

@@ -8,8 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="t-pan-cache-core" />
-        <module name="t-pan-schedule" />
+        <module name="t-pan-bloom-filter-core" />
         <module name="t-pan-core" />
+        <module name="t-pan-schedule" />
         <module name="t-pan-cache-caffeine" />
         <module name="t-pan-distribution" />
         <module name="t-pan-storage-engine-fastdfs" />
@@ -17,6 +18,7 @@
         <module name="t-pan-cache-redis" />
         <module name="t-pan-storage-engine-core" />
         <module name="t-pan-mybatis-plus" />
+        <module name="t-pan-bloom-filter-local" />
         <module name="t-pan-storage-engine-local" />
         <module name="t-pan-storage-engine-oss" />
         <module name="t-pan-swagger2" />
@@ -38,6 +40,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="t-pan-bloom-filter" options="-parameters" />
+      <module name="t-pan-bloom-filter-core" options="-parameters" />
+      <module name="t-pan-bloom-filter-local" options="-parameters" />
       <module name="t-pan-cache" options="-parameters" />
       <module name="t-pan-cache-caffeine" options="-parameters" />
       <module name="t-pan-cache-core" options="-parameters" />

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 文件存储引擎存储物理文件的上下文实体
+ * @description 文件存储引擎存储物理文件的上下文
  * @create 2023-08-15 21:08
  */
 @Data
@@ -26,7 +26,7 @@ public class StoreFileContext implements Serializable {
     private Long totalSize;
 
     /**
-     * 文件的输入流信息
+     * 文件的输入流
      */
     private InputStream inputStream;
 

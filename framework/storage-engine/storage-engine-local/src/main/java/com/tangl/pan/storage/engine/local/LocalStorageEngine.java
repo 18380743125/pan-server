@@ -27,7 +27,7 @@ public class LocalStorageEngine extends AbstractStorageEngine {
     /**
      * 保存物理文件的动作
      *
-     * @param context 存储物理文件的上下文实体
+     * @param context 上下文实体
      */
     @Override
     protected void doStore(StoreFileContext context) throws IOException {
@@ -56,7 +56,7 @@ public class LocalStorageEngine extends AbstractStorageEngine {
     protected void doStoreChunk(StoreFileChunkContext context) throws IOException {
         String basePath = config.getRootFileChunkPath();
         String realFilePath = FileUtil.generateStoreFileChunkRealPath(basePath, context.getIdentifier(), context.getChunkNumber());
-        FileUtil.writeStream2File(context.getInputStream(), new File(realFilePath), context.getTotalSize());
+        FileUtil.writeStream2File(context.getInputStream(), new File(realFilePath), context.getCurrentChunkSize());
         context.setRealPath(realFilePath);
     }
 

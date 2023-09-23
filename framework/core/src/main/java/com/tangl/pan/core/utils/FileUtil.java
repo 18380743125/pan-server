@@ -27,7 +27,8 @@ public class FileUtil {
     /**
      * 根据文件名称获取后缀
      *
-     * @param filename 文件名称
+     * @param filename     文件名称
+     * @param isContainDot 是否包含 dot
      * @return 文件后缀
      */
     public static String getFileSuffix(String filename, boolean isContainDot) {
@@ -77,7 +78,17 @@ public class FileUtil {
      * @return 物理文件的真实路径
      */
     public static String generateStoreFileRealPath(String basePath, String filename) {
-        return basePath + File.separator + DateUtil.thisYear() + File.separator + (DateUtil.thisMonth() + 1) + File.separator + DateUtil.thisDayOfMonth() + File.separator + UUIDUtil.getUUID() + getFileSuffix(filename, true);
+        return new StringBuffer(basePath)
+                .append(File.separator)
+                .append(DateUtil.thisYear())
+                .append(File.separator)
+                .append(DateUtil.thisMonth() + 1)
+                .append(File.separator)
+                .append(DateUtil.thisDayOfMonth())
+                .append(File.separator)
+                .append(UUIDUtil.getUUID())
+                .append(getFileSuffix(filename, true))
+                .toString();
     }
 
     /**

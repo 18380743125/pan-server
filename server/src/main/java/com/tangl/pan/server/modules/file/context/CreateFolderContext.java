@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class CreateFolderContext implements Serializable {
+
     private static final long serialVersionUID = -6583478622505132608L;
 
     /**

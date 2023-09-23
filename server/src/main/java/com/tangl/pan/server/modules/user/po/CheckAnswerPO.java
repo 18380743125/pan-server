@@ -11,10 +11,10 @@ import java.io.Serializable;
 
 /**
  * @author tangl
- * @description 校验密保答案 PO 对象
+ * @description 用户忘记密码-校验密保答案参数实体
  * @create 2023-07-31 23:34
  */
-@ApiModel(value = "用户忘记密码-重置密码参数")
+@ApiModel(value = "用户忘记密码-校验密保答案参数实体")
 @Data
 public class CheckAnswerPO implements Serializable {
 

@@ -74,11 +74,17 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 创建文件夹信息
      *
      * @param context context
-     * @return long
+     * @return 文件夹ID
      */
     @Override
     public Long createFolder(CreateFolderContext context) {
-        return saveUserFile(context.getParentId(), context.getFolderName(), FolderFlagEnum.YES, null, null, context.getUserId(), null);
+        return saveUserFile(context.getParentId(),
+                context.getFolderName(),
+                FolderFlagEnum.YES,
+                null,
+                null,
+                context.getUserId(),
+                null);
     }
 
     /**
@@ -100,8 +106,8 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     /**
      * 查询用户的文件列表
      *
-     * @param context 查询文件列表上下文实体
-     * @return List<UserFileVO>
+     * @param context 上下文实体
+     * @return 用户的文件列表
      */
     @Override
     public List<UserFileVO> getFileList(QueryFileListContext context) {
@@ -111,9 +117,9 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     /**
      * 更新文件名称
      * 1、校验更新文件名称的条件
-     * 2、执行更新文件名称的操作
+     * 2、执行更新文件名称的动作
      *
-     * @param context 重命名文件名的上下文实体
+     * @param context 上下文实体
      */
     @Override
     public void updateFilename(UpdateFilenameContext context) {
@@ -140,9 +146,9 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 文件秒传
      * 1、通过文件的唯一标识查询文件实体记录
      * 2、如果没有查到，直接返回秒传失败
-     * 3、如果查到记录，直接挂在关联关系，返回秒传成功
+     * 3、如果查到记录，直接挂载关联关系，返回秒传成功
      *
-     * @param context 秒传上下文实体
+     * @param context 上下文实体
      * @return 是否秒传成功
      */
     @Override
@@ -154,7 +160,13 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             return false;
         }
 
-        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename, true)), record.getFileId(), context.getUserId(), record.getFileSizeDesc());
+        saveUserFile(context.getParentId(),
+                context.getFilename(),
+                FolderFlagEnum.NO,
+                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(filename, true)),
+                record.getFileId(),
+                context.getUserId(),
+                record.getFileSizeDesc());
         return true;
     }
 
@@ -163,24 +175,30 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 1、上传文件并保存实体文件记录
      * 2、保存用户文件的关系记录
      *
-     * @param context 单文件上传的上下文实体
+     * @param context 上下文实体
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void upload(FileUploadContext context) {
         saveFile(context);
 
-        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename(), true)), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
+        saveUserFile(context.getParentId(),
+                context.getFilename(),
+                FolderFlagEnum.NO,
+                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename(), true)),
+                context.getRecord().getFileId(),
+                context.getUserId(),
+                context.getRecord().getFileSizeDesc());
     }
 
     /**
      * 文件分片上传
-     * 1、上传实体文件
+     * 1、上传物理分片文件
      * 2、保存分片文件记录
      * 3、校验是否全部分片上传完成
      *
-     * @param context 文件分片上传上下文实体
-     * @return FileChunkUploadVO
+     * @param context 上下文实体
+     * @return 是否需要分片合并的实体
      */
     @Override
     public FileChunkUploadVO chunkUpload(FileChunkUploadContext context) {
@@ -196,8 +214,8 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 1、查询已上传的分片列表
      * 2、封装返回实体
      *
-     * @param context 查询用户已上传的分片列表上下文实体
-     * @return UploadedChunksVO
+     * @param context 上下文实体
+     * @return 已上传的文件分片编号列表
      */
     @Override
     public UploadedChunksVO getUploadedChunks(QueryUploadedChunksContext context) {
@@ -220,12 +238,18 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 2、保存文件实体记录
      * 3、保存文件用户关系映射
      *
-     * @param context 文件分片合并的上下文实体
+     * @param context 上下文实体
      */
     @Override
     public void mergeFile(FileChunkMergeContext context) {
         mergeFileChunkAndSaveFile(context);
-        saveUserFile(context.getParentId(), context.getFilename(), FolderFlagEnum.NO, FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename(), true)), context.getRecord().getFileId(), context.getUserId(), context.getRecord().getFileSizeDesc());
+        saveUserFile(context.getParentId(),
+                context.getFilename(),
+                FolderFlagEnum.NO,
+                FileTypeEnum.getFileTypeCode(FileUtil.getFileSuffix(context.getFilename(), true)),
+                context.getRecord().getFileId(),
+                context.getUserId(),
+                context.getRecord().getFileSizeDesc());
     }
 
     /**
@@ -821,7 +845,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     /**
      * 文件分片物理合并并保存文件记录
      *
-     * @param context 文件分片合并的上下文实体
+     * @param context 上下文实体
      */
     private void mergeFileChunkAndSaveFile(FileChunkMergeContext context) {
         FileChunkMergeAndSaveContext fileChunkMergeAndSaveContext = fileConverter.fileChunkMergeContext2FileChunkMergeAndSaveContext(context);
@@ -831,9 +855,9 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
 
     /**
      * 上传文件并保存实体文件记录
-     * 委托给实体文件的 service 完成该操作
+     * 委托给文件的 service 完成该操作
      *
-     * @param context 单文件上传的上下文实体
+     * @param context 上下文实体
      */
     private void saveFile(FileUploadContext context) {
         FileSaveContext fileSaveContext = fileConverter.fileUploadContext2FileSaveContext(context);
@@ -857,7 +881,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     /**
      * 发布批量删除文件的事件，给其他模块使用
      *
-     * @param context 批量删除用户文件的上下文实体
+     * @param context 上下文实体
      */
     private void afterFileDelete(DeleteFileContext context) {
         List<Long> fileIdList = context.getFileIdList();
@@ -886,7 +910,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 1、文件 ID 合法校验
      * 2、用户拥有删除该文件的权限
      *
-     * @param context 批量删除用户文件的上下文实体
+     * @param context 上下文实体
      */
     private void checkFileDeleteCondition(DeleteFileContext context) {
         List<Long> fileIdList = context.getFileIdList();
@@ -920,7 +944,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     /**
      * 执行更新文件名称
      *
-     * @param context 重命名文件名的上下文实体
+     * @param context 上下文实体
      */
     private void doUpdateFilename(UpdateFilenameContext context) {
         TPanUserFile entity = context.getEntity();
@@ -971,16 +995,22 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     /**
      * 保存用户文件的映射记录
      *
-     * @param parentId       父级目录ID
+     * @param parentId       父文件夹ID
      * @param filename       文件名称
      * @param folderFlagEnum 是否是文件夹
      * @param fileType       文件类型
      * @param realFileId     真实文件ID
      * @param userId         用户ID
      * @param fileSizeDesc   文件大小描述
-     * @return fileId
+     * @return 文件ID
      */
-    private Long saveUserFile(Long parentId, String filename, FolderFlagEnum folderFlagEnum, Integer fileType, Long realFileId, Long userId, String fileSizeDesc) {
+    private Long saveUserFile(Long parentId,
+                              String filename,
+                              FolderFlagEnum folderFlagEnum,
+                              Integer fileType,
+                              Long realFileId,
+                              Long userId,
+                              String fileSizeDesc) {
         TPanUserFile entity = assembleTPanUserFile(parentId, filename, folderFlagEnum, fileType, realFileId, userId, fileSizeDesc);
         if (!save(entity)) {
             throw new TPanBusinessException("保存文件信息失败");
@@ -993,7 +1023,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * 1、构建并填充实体
      * 2、处理文件名一致的问题
      *
-     * @param parentId       父级目录ID
+     * @param parentId       父文件夹ID
      * @param filename       文件名称
      * @param folderFlagEnum 是否是文件夹
      * @param fileType       文件类型
@@ -1002,21 +1032,27 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * @param fileSizeDesc   文件大小描述
      * @return TPanUserFile
      */
-    private TPanUserFile assembleTPanUserFile(Long parentId, String filename, FolderFlagEnum folderFlagEnum, Integer fileType, Long realFileId, Long userId, String fileSizeDesc) {
+    private TPanUserFile assembleTPanUserFile(Long parentId,
+                                              String filename,
+                                              FolderFlagEnum folderFlagEnum,
+                                              Integer fileType,
+                                              Long realFileId,
+                                              Long userId,
+                                              String fileSizeDesc) {
         TPanUserFile entity = new TPanUserFile();
         entity.setFileId(IdUtil.get());
         entity.setUserId(userId);
-        entity.setCreateUser(userId);
-        entity.setUpdateUser(userId);
         entity.setParentId(parentId);
         entity.setRealFileId(realFileId);
+        entity.setFilename(filename);
         entity.setFolderFlag(folderFlagEnum.getCode());
-        entity.setFileType(fileType);
         entity.setFileSizeDesc(fileSizeDesc);
+        entity.setFileType(fileType);
         entity.setDelFlag(DelFlagEnum.NO.getCode());
+        entity.setCreateUser(userId);
+        entity.setUpdateUser(userId);
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
-        entity.setFilename(filename);
 
         // 处理重复的文件名称
         handleDuplicateFilename(entity);

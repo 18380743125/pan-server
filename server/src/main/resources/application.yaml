@@ -1,4 +1,5 @@
 spring:
+  # redis
   redis:
     database: 1
     host: 127.0.0.1
@@ -14,12 +15,14 @@ spring:
     multipart:
       max-file-size: 3072MB
       max-request-size: 3072MB
+  # 数据库连接
   datasource:
     username: root
     password: AI123456
     url: jdbc:mysql://127.0.0.1:3306/t_pan?characterEncoding=utf8&serverTimeZone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+# mapper.xml 位置
 mybatis-plus:
   mapper-locations: classpath:mappers/**/*.xml
 
@@ -33,6 +36,7 @@ management:
         include: '*'
         exclude: env,beans
 
+# swagger2
 swagger2:
   show: true
   group-name: ${spring.application.name}
@@ -45,6 +49,7 @@ swagger2:
   contact-email: tl-bright@163.com
   version: 1.0
 
+# fastdfs
 #com:
 #  tangl:
 #    storage:
@@ -55,6 +60,7 @@ swagger2:
 #            - 43.139.66.230:22122
 #          group: group1
 
+# oss
 com:
   tangl:
     pan:
@@ -66,3 +72,14 @@ com:
             access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
             access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
             auto-create-bucket: true
+      server:
+        chunk-file-expiration-days: 1
+        share-prefix: http://127.0.0.1:5173/share/
+      bloom:
+        filter:
+          local:
+            items:
+              - name: SHARE_SIMPLE_DETAIL
+              - funnel-type-name: LONG
+              - expected-insertions: 1000000
+              - fpp: 0.01

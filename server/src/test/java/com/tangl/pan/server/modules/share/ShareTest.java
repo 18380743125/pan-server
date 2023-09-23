@@ -47,9 +47,24 @@ public class ShareTest {
     @Autowired
     private IShareService shareService;
 
+    // 初始化数据
+    @Test
+    public void init() {
+        CreateShareUrlContext context = new CreateShareUrlContext();
+        context.setUserId(1705488558484058112L);
+        context.setShareType(ShareTypeEnum.NEED_SHARE_CODE.getCode());
+        context.setShareDayType(ShareDayTypeEnum.PERMANENT_VALIDITY.getCode());
+        context.setShareFileIdList(Lists.newArrayList(1705493127851110400L));
+//        for (int i = 0; i < 10000000; i++) {
+//            context.setShareName("测试分享" + i);
+//            shareService.create(context);
+//        }
+    }
+
     /**
      * 测试查询分享下一级的文件列表
      */
+
     @Test
     public void testQueryShareFileListSuccess() {
         Long userId = register();
@@ -81,7 +96,7 @@ public class ShareTest {
     }
 
     /**
-     * 测试查询分享详情成功
+     * 测试查询简单分享成功
      */
     @Test
     public void testQueryShareSimpleDetailSuccess() {

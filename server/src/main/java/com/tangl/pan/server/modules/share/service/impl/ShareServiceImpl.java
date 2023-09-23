@@ -6,13 +6,15 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.sun.corba.se.spi.ior.ObjectKey;
+import com.tangl.pan.bloom.filter.core.BloomFilter;
+import com.tangl.pan.bloom.filter.core.BloomFilterManager;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.response.ResponseCode;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.core.utils.JwtUtil;
 import com.tangl.pan.core.utils.UUIDUtil;
+import com.tangl.pan.server.common.cache.ManualCacheService;
 import com.tangl.pan.server.common.config.PanServerConfig;
 import com.tangl.pan.server.common.event.log.ErrorLogEvent;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
@@ -35,14 +37,20 @@ import com.tangl.pan.server.modules.share.mapper.TPanShareMapper;
 import com.tangl.pan.server.modules.share.vo.*;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
 import com.tangl.pan.server.modules.user.service.IUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,7 +60,10 @@ import java.util.stream.Collectors;
  * @createDate 2023-07-23 23:42:53
  */
 @Service
+@Slf4j
 public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> implements IShareService, ApplicationContextAware {
+
+    private static final String BLOOM_FILTER_NAME = "SHARE_SIMPLE_DETAIL";
 
     @Autowired
     private PanServerConfig config;
@@ -65,6 +76,13 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    @Qualifier(value = "shareManualCacheService")
+    private ManualCacheService<TPanShare> cacheService;
+
+    @Autowired
+    private BloomFilterManager manager;
 
     private ApplicationContext applicationContext;
 
@@ -87,7 +105,9 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     public ShareUrlVO create(CreateShareUrlContext context) {
         saveShare(context);
         saveShareFiles(context);
-        return assembleShareVO(context);
+        ShareUrlVO shareUrlVO = assembleShareVO(context);
+        afterCreate(context);
+        return shareUrlVO;
     }
 
     @Override
@@ -241,6 +261,53 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     }
 
     /**
+     * 滚动查询已存在的分享 ID
+     *
+     * @param startId 开始
+     * @param limit   条数
+     * @return 分享 ID 列表
+     */
+    @Override
+    public List<Long> rollingQueryShareId(long startId, long limit) {
+        return baseMapper.rollingQueryShareId(startId, limit);
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        return cacheService.removeById(id);
+    }
+
+    @Override
+    public boolean removeByIds(Collection<? extends Serializable> idList) {
+        return cacheService.removeByIds(idList);
+    }
+
+    @Override
+    public boolean updateById(TPanShare entity) {
+        return cacheService.updateById(entity.getShareId(), entity);
+    }
+
+
+    @Override
+    public boolean updateBatchById(Collection<TPanShare> entityList) {
+        if (CollectionUtils.isEmpty(entityList)) {
+            return true;
+        }
+        Map<Long, TPanShare> entityMap = entityList.stream().collect(Collectors.toMap(TPanShare::getShareId, e -> e));
+        return cacheService.updateByIds(entityMap);
+    }
+
+    @Override
+    public TPanShare getById(Serializable id) {
+        return cacheService.getById(id);
+    }
+
+    @Override
+    public List<TPanShare> listByIds(Collection<? extends Serializable> idList) {
+        return cacheService.getByIds(idList);
+    }
+
+    /**
      * 刷新一个分享的状态
      * 1、查询对应的分享信息，判断有效
      * 2、判断分享对应的文件以及所有的父文件信息均为正常，该种情况，把分享的状态变为正常
@@ -263,22 +330,20 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
             return;
         }
 
-        doChangeShareStatus(shareId, shareStatus);
+        doChangeShareStatus(record, shareStatus);
     }
 
     /**
      * 执行刷新分享状态的动作
      *
-     * @param shareId     分享的 ID
+     * @param record      分享的实体记录
      * @param shareStatus 分享变更的状态
      */
-    private void doChangeShareStatus(Long shareId, ShareStatusEnum shareStatus) {
-        UpdateWrapper<TPanShare> updateWrapper = Wrappers.update();
-        updateWrapper.set("share_status", shareStatus.getCode());
-        updateWrapper.eq("share_id", shareId);
-        if (!update(updateWrapper)) {
+    private void doChangeShareStatus(TPanShare record, ShareStatusEnum shareStatus) {
+        record.setShareStatus(shareStatus.getCode());
+        if (!updateById(record)) {
             ErrorLogEvent errorLogEvent = new ErrorLogEvent(this,
-                    "更新分享状态失败，请手动更改状态，分享的ID为：" + shareId + "，分享状态改为：" + shareStatus.getCode(), TPanConstants.ZERO_LONG);
+                    "更新分享状态失败，请手动更改状态，分享的ID为：" + record.getShareId() + "，分享状态改为：" + shareStatus.getCode(), TPanConstants.ZERO_LONG);
             applicationContext.publishEvent(errorLogEvent);
         }
     }
@@ -626,6 +691,20 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     }
 
     /**
+     * 创建分享链接后置处理
+     *
+     * @param context 上下文实体
+     */
+    private void afterCreate(CreateShareUrlContext context) {
+        BloomFilter<Long> bloomFilter = manager.getFilter(BLOOM_FILTER_NAME);
+        if (Objects.isNull(bloomFilter)) {
+            return;
+        }
+        bloomFilter.put(context.getRecord().getShareId());
+        log.info("create share, add share id to bloom filter, share id is {}", context.getRecord().getShareId());
+    }
+
+    /**
      * 拼装返回实体
      *
      * @param context 上下文实体
@@ -706,6 +785,12 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
         if (sharePrefix.lastIndexOf(TPanConstants.SLASH_STR) == TPanConstants.MINUS_ONE_INT) {
             sharePrefix += TPanConstants.SLASH_STR;
         }
-        return sharePrefix + shareId;
+        String shareUrl = "";
+        try {
+            shareUrl = sharePrefix + URLEncoder.encode(IdUtil.encrypt(shareId), StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return shareUrl;
     }
 }

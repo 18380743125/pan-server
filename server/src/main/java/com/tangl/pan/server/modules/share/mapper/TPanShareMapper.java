@@ -20,4 +20,13 @@ public interface TPanShareMapper extends BaseMapper<TPanShare> {
      * @return List<ShareUrlListVO>
      */
     List<ShareUrlListVO> selectShareVOListByUserId(@Param("userId") Long userId);
+
+    /**
+     * 滚动查询已存在的分享 ID
+     *
+     * @param startId 开始
+     * @param limit   条数
+     * @return 分享 ID 列表
+     */
+    List<Long> rollingQueryShareId(@Param("startId") long startId, @Param("limit") long limit);
 }

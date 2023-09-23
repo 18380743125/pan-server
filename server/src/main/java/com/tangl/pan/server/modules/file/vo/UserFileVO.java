@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * @author tangl
- * @description 用户查询文件列表响应实体
+ * @description 文件列表响应实体
  * @create 2023-08-10 20:47
  */
 @Data
