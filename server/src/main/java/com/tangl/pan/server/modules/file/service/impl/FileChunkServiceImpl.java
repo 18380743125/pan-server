@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
+import com.tangl.pan.lock.core.annotation.Lock;
 import com.tangl.pan.server.common.config.PanServerConfig;
 import com.tangl.pan.server.modules.file.context.FileChunkSaveContext;
 import com.tangl.pan.server.modules.file.converter.FileConverter;
@@ -49,8 +50,9 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
      *
      * @param context 上下文实体
      */
+    @Lock(name = "saveChunkFileLock", keys = {"#context.userId", "#context.identifier"}, expireSecond = 10L)
     @Override
-    public synchronized void saveChunkFile(FileChunkSaveContext context) {
+    public void saveChunkFile(FileChunkSaveContext context) {
         doSaveChunkFile(context);
         doJudgeMergeFile(context);
     }

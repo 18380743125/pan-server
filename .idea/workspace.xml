@@ -4,140 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:获取下一级分享文件列表 &amp; 保存至我的网盘 &amp; 监听器异步化">
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/src/main/java/com/tangl/pan/bloom/filter/core/BloomFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/src/main/java/com/tangl/pan/bloom/filter/core/BloomFilterManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/FunnelType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilterConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilterConfigItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilterManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/test/java/com/tangl/pan/bloom/filter/local/test/LocalBloomFilterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/test/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/bloom-filter/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/AbstractManualCacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/AnnotationCacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/CacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/ManualCacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/config/InterceptorConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/interceptor/BloomFilterInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/interceptor/ShareSimpleDetailBloomFilterInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/launcher/InitShareSimpleDetailLauncher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/launcher/RebuildShareSimpleDetailBloomFilterTaskLauncher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/task/RebuildShareSimpleDetailBloomFilterTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/cache/ShareCacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/keygenerator/UserIdKeyGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/t-pan.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/main/java/com/tangl/pan/cache/redis/config/RedisCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/main/java/com/tangl/pan/cache/redis/config/RedisCacheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/surefire-reports/TEST-com.tangl.pan.cache.redis.test.RedisCacheTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/surefire-reports/com.tangl.pan.cache.redis.test.RedisCacheTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/FileUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/IdUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/IdUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+    <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:缓存业务处理 &amp; 集成布隆过滤器">
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/LockConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/LockContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/annotation/Lock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/aspect/LockAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/key/AbstractKeyGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/key/KeyGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/key/StandardKeyGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-local/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-local/src/main/java/com/tangl/pan/lock/local/LocalLockConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-local/src/test/java/com/tangl/pan/lock/local/test/LocalLockTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-local/src/test/java/com/tangl/pan/lock/local/test/instance/LockTester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-redis/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-redis/src/main/java/com/tangl/pan/lock/redis/RedisLockConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-redis/src/test/java/com/tangl/pan/lock/redis/test/RedisLockTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-redis/src/test/java/com/tangl/pan/lock/redis/test/instance/LockTester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/main/java/com/tangl/pan/lock/zookeeper/ZooKeeperLockConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/main/java/com/tangl/pan/lock/zookeeper/ZooKeeperLockProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/main/resources/META-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/test/java/com/tangl/pan/lock/zookeeper/test/ZooKeeperLockTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/test/java/com/tangl/pan/lock/zookeeper/test/instance/LockTester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/test/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lock/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/SpElUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/SpElUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/framework/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/surefire-reports/2023-09-15T17-04-55_388-jvmRun1.dump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/surefire-reports/2023-09-15T17-04-55_388-jvmRun1.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/AbstractStorageEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/AbstractStorageEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/StorageEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/StorageEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/context/MergeFileContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/context/MergeFileContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/context/StoreFileContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/context/StoreFileContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/src/main/java/com/tangl/pan/storage/engine/local/LocalStorageEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/src/main/java/com/tangl/pan/storage/engine/local/LocalStorageEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/src/main/java/com/tangl/pan/storage/engine/local/config/LocalStorageEngineConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/src/main/java/com/tangl/pan/storage/engine/local/config/LocalStorageEngineConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/src/main/java/com/tangl/pan/web/log/HttpLogFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/web/src/main/java/com/tangl/pan/web/log/HttpLogFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/src/main/java/com/tangl/pan/storage/engine/oss/OSSStorageEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/src/main/java/com/tangl/pan/storage/engine/oss/OSSStorageEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/TPanServerLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/TPanServerLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/config/PanServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/config/PanServerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/file/PhysicalFileDeleteEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/file/PhysicalFileDeleteEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/share/ShareStatusChangeListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/share/ShareStatusChangeListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/CreateFolderContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/CreateFolderContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileChunkMergeAndSaveContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileChunkMergeAndSaveContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileChunkMergeContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileChunkMergeContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileSaveContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileSaveContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileUploadContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/FileUploadContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/QueryUploadedChunksContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/QueryUploadedChunksContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/SecUploadContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/context/SecUploadContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/controller/FileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/DeleteFilePO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/DeleteFilePO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/FileChunkMergePO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/FileChunkMergePO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/FileUploadPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/FileUploadPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/QueryUploadedChunksPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/QueryUploadedChunksPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/IFileChunkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/IFileChunkService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/IFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/IFileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/IUserFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/IUserFileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/FileChunkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/FileChunkServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/FileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/UserFileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/UserFileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/vo/UserFileVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/vo/UserFileVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/recycle/controller/recycleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/recycle/controller/recycleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/controller/ShareController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/controller/ShareController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/mapper/TPanShareMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/mapper/TPanShareMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/IShareService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/IShareService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/impl/ShareServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/impl/ShareServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/test/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/test/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/constants/UserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/constants/UserConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/context/CheckUsernameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/context/CheckUsernameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/context/UserLoginContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/context/UserLoginContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/converter/UserConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/converter/UserConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/mapper/TPanUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/mapper/TPanUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/ChangePasswordPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/ChangePasswordPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/CheckAnswerPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/CheckAnswerPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/CheckUsernamePO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/CheckUsernamePO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/ResetPasswordPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/ResetPasswordPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/UserLoginPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/UserLoginPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/UserRegisterPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/po/UserRegisterPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/IUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/vo/UserInfoVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/vo/UserInfoVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/banner.txt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/banner.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/file/TPanUserFileMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/file/TPanUserFileMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/log/TPanErrorLogMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/log/TPanErrorLogMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/share/TPanShareFileMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/share/TPanShareFileMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/share/TPanShareMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/share/TPanShareMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/user/TPanUserSearchHistoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/user/TPanUserSearchHistoryMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/com/tangl/pan/server/modules/share/ShareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/com/tangl/pan/server/modules/share/ShareTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,8 +54,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="AnnotationType" />
         <option value="package-info" />
+        <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -204,12 +107,13 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "20",
-    "last_opened_file_path": "C:/Project/java-project/t-pan/framework/bloom-filter/bloom-filter-local/src/main/resources",
+    "last_opened_file_path": "C:/Project/java-project/t-pan/framework/lock/lock-zookeeper/src/test",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Project/java-project/t-pan/framework/lock/lock-zookeeper/src/main/java/com/tangl/pan/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.31724137",
@@ -232,11 +136,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Project\java-project\t-pan\framework\bloom-filter\bloom-filter-local\src\main\resources" />
-      <recent name="C:\Project\java-project\t-pan\framework\storage-engine\storage-engine-oss\src\main\resources" />
-      <recent name="C:\Project\java-project\t-pan\framework\storage-engine\storage-engine-fastdfs\src\main\resources" />
-      <recent name="C:\Project\java-project\t-pan\framework\storage-engine\storage-engine-local\src\main\resources\METE-INF" />
-      <recent name="C:\Project\java-project\t-pan\server" />
+      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\test" />
+      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\test\java" />
+      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\main\resources" />
+      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-redis\src\test\java" />
+      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-local\src\test\java" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Project\java-project\t-pan\server\src\main\resources\mappers\file" />
@@ -247,96 +151,108 @@
       <recent name="com.tangl.pan.server.modules.share" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tangl.pan.lock.zookeeper" />
+      <recent name="com.tangl.pan.lock.local.test" />
       <recent name="com.tangl.pan.server.modules.share.enums" />
       <recent name="com.tangl.pan.server.modules.recycle.context" />
       <recent name="com.tangl.pan.server.modules.recycle.po" />
-      <recent name="com.tangl.pan.server.modules.file.vo" />
-      <recent name="com.tangl.pan.server.modules.file.context" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.TPanServerLauncher">
-    <configuration name="IdUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.core.utils.IdUtil" />
-      <module name="t-pan-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.core.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LocalBloomFilterTest.localBloomFilterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="t-pan-bloom-filter-local" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.bloom.filter.local.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.bloom.filter.local.test" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.bloom.filter.local.test.LocalBloomFilterTest" />
-      <option name="METHOD_NAME" value="localBloomFilterTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShareTest.testCheckShareCodeByWrongShareCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.FileTest.uploadWithChunkTestSuccess">
+    <configuration name="FileTest.uploadWithChunkTestSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="t-pan-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tangl.pan.server.modules.share.*" />
+          <option name="PATTERN" value="com.tangl.pan.server.modules.file.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.server.modules.share" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.server.modules.share.ShareTest" />
-      <option name="METHOD_NAME" value="testCheckShareCodeByWrongShareCode" />
+      <option name="PACKAGE_NAME" value="com.tangl.pan.server.modules.file" />
+      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.server.modules.file.FileTest" />
+      <option name="METHOD_NAME" value="uploadWithChunkTestSuccess" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareTest.testQueryShareSimpleDetailSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="t-pan-server" />
+    <configuration name="RedisLockTest.lockTesterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="t-pan-lock-redis" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tangl.pan.server.modules.share.*" />
+          <option name="PATTERN" value="com.tangl.pan.lock.redis.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.server.modules.share" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.server.modules.share.ShareTest" />
-      <option name="METHOD_NAME" value="testQueryShareSimpleDetailSuccess" />
+      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.redis.test" />
+      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.redis.test.RedisLockTest" />
+      <option name="METHOD_NAME" value="lockTesterTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TPanServerLauncher" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="ZooKeeperLockTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="t-pan-lock-zookeeper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.zookeeper.test" />
+      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.zookeeper.test.ZooKeeperLockTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZooKeeperLockTest.lockRegistryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="t-pan-lock-zookeeper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.zookeeper.test" />
+      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.zookeeper.test.ZooKeeperLockTest" />
+      <option name="METHOD_NAME" value="lockRegistryTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZooKeeperLockTest.lockTesterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="t-pan-lock-zookeeper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.zookeeper.test" />
+      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.zookeeper.test.ZooKeeperLockTest" />
+      <option name="METHOD_NAME" value="lockTesterTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TPanServerLauncher" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="t-pan-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tangl.pan.server.TPanServerLauncher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.TPanServerLauncher" />
-        <item itemvalue="Application.IdUtil" />
-        <item itemvalue="JUnit.LocalBloomFilterTest.localBloomFilterTest" />
-        <item itemvalue="JUnit.ShareTest.testQueryShareSimpleDetailSuccess" />
-        <item itemvalue="JUnit.ShareTest.testCheckShareCodeByWrongShareCode" />
+        <item itemvalue="JUnit.FileTest.uploadWithChunkTestSuccess" />
+        <item itemvalue="JUnit.ZooKeeperLockTest.lockTesterTest" />
+        <item itemvalue="JUnit.ZooKeeperLockTest.lockRegistryTest" />
+        <item itemvalue="JUnit.ZooKeeperLockTest" />
+        <item itemvalue="JUnit.RedisLockTest.lockTesterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -449,7 +365,10 @@
       <workItem from="1695302663041" duration="4402000" />
       <workItem from="1695345152378" duration="13876000" />
       <workItem from="1695385730109" duration="5036000" />
-      <workItem from="1695437536257" duration="31006000" />
+      <workItem from="1695437536257" duration="33559000" />
+      <workItem from="1695518384452" duration="9194000" />
+      <workItem from="1695541173023" duration="1616000" />
+      <workItem from="1695542897386" duration="2805000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>
@@ -633,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694948649740</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="feat:缓存业务处理 &amp; 集成布隆过滤器">
+      <option name="closed" value="true" />
+      <created>1695486968707</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1695486968707</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,7 +604,8 @@
     <MESSAGE value="feat:查询用户分享列表 &amp; 取消分享 &amp; 校验分享码" />
     <MESSAGE value="feat:查看分享详情" />
     <MESSAGE value="feat:获取下一级分享文件列表 &amp; 保存至我的网盘 &amp; 监听器异步化" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:获取下一级分享文件列表 &amp; 保存至我的网盘 &amp; 监听器异步化" />
+    <MESSAGE value="feat:缓存业务处理 &amp; 集成布隆过滤器" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:缓存业务处理 &amp; 集成布隆过滤器" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

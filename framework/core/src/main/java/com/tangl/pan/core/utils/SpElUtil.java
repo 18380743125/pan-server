@@ -2,6 +2,7 @@ package com.tangl.pan.core.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.expression.AnnotatedElementKey;
@@ -22,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SpElUtil {
 
-    private static final RPanExpressionEvaluator expressionEvaluator = new RPanExpressionEvaluator();
+    private static final TPanExpressionEvaluator expressionEvaluator = new TPanExpressionEvaluator();
 
     /**
      * 解析SpEl表达式
@@ -160,8 +161,9 @@ public class SpElUtil {
     /**
      * 表达式执行器对象
      */
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    private static class RPanExpressionEvaluator extends CachedExpressionEvaluator {
+    private static class TPanExpressionEvaluator extends CachedExpressionEvaluator {
         private final ParameterNameDiscoverer paramNameDiscoverer = new DefaultParameterNameDiscoverer();
         private final Map<ExpressionKey, Expression> conditionCache = new ConcurrentHashMap<>(256);
         private final Map<AnnotatedElementKey, Method> targetMethodCache = new ConcurrentHashMap<>(256);

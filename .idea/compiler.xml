@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="t-pan-cache-core" />
         <module name="t-pan-bloom-filter-core" />
+        <module name="t-pan-lock-zookeeper" />
         <module name="t-pan-core" />
         <module name="t-pan-schedule" />
         <module name="t-pan-cache-caffeine" />
@@ -19,7 +20,10 @@
         <module name="t-pan-storage-engine-core" />
         <module name="t-pan-mybatis-plus" />
         <module name="t-pan-bloom-filter-local" />
+        <module name="t-pan-lock-local" />
+        <module name="t-pan-lock-redis" />
         <module name="t-pan-storage-engine-local" />
+        <module name="t-pan-lock-core" />
         <module name="t-pan-storage-engine-oss" />
         <module name="t-pan-swagger2" />
       </profile>
@@ -50,6 +54,11 @@
       <module name="t-pan-core" options="-parameters" />
       <module name="t-pan-distribution" options="-parameters" />
       <module name="t-pan-framework" options="-parameters" />
+      <module name="t-pan-lock" options="-parameters" />
+      <module name="t-pan-lock-core" options="-parameters" />
+      <module name="t-pan-lock-local" options="-parameters" />
+      <module name="t-pan-lock-redis" options="-parameters" />
+      <module name="t-pan-lock-zookeeper" options="-parameters" />
       <module name="t-pan-mybatis-plus" options="-parameters" />
       <module name="t-pan-orm" options="-parameters" />
       <module name="t-pan-parent" options="-parameters" />

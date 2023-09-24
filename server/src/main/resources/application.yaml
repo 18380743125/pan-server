@@ -49,23 +49,17 @@ swagger2:
   contact-email: tl-bright@163.com
   version: 1.0
 
-# fastdfs
-#com:
-#  tangl:
-#    storage:
-#      engine:
-#        fdfs:
-#          connect-timeout: 600
-#          tracker-list:
-#            - 43.139.66.230:22122
-#          group: group1
-
 # oss
 com:
   tangl:
     pan:
       storage:
         engine:
+#          fdfs:
+#            connect-timeout: 600
+#            tracker-list:
+#              - 43.139.66.230:22122
+#            group: group1
           oss:
             bucket-name: t-pan-test
             endpoint: oss-cn-chengdu.aliyuncs.com

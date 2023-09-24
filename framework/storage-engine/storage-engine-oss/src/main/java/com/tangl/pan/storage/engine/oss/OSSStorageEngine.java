@@ -11,6 +11,7 @@ import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanFrameworkException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.UUIDUtil;
+import com.tangl.pan.lock.core.annotation.Lock;
 import com.tangl.pan.storage.engine.core.AbstractStorageEngine;
 import com.tangl.pan.storage.engine.core.context.*;
 import com.tangl.pan.storage.engine.oss.config.OSSStorageEngineConfig;
@@ -130,8 +131,9 @@ public class OSSStorageEngine extends AbstractStorageEngine {
      *
      * @param context 存储物理文件分片的上下文实体
      */
+    @Lock(name = "ossDoStoreChunk", keys = {"#context.userId", "#context.identifier"}, expireSecond = 10L)
     @Override
-    protected synchronized void doStoreChunk(StoreFileChunkContext context) {
+    protected void doStoreChunk(StoreFileChunkContext context) {
         if (context.getTotalChunks() > TEN_THOUSAND) {
             throw new TPanFrameworkException("分片数超过了限制，分片数不得大于：" + TEN_THOUSAND);
         }
