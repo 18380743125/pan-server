@@ -5,17 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.schedule.ScheduleTask;
-import com.tangl.pan.server.common.event.log.ErrorLogEvent;
+import com.tangl.pan.server.common.stream.channel.PanChannels;
+import com.tangl.pan.server.common.stream.event.log.ErrorLogEvent;
 import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
+import com.tangl.pan.stream.core.IStreamProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class CleanExpireFileChunkTask implements ScheduleTask, ApplicationContextAware {
+public class CleanExpireFileChunkTask implements ScheduleTask {
 
     private static final Long BATCH_SIZE = 500L;
 
@@ -41,12 +41,9 @@ public class CleanExpireFileChunkTask implements ScheduleTask, ApplicationContex
     @Autowired
     private StorageEngine storageEngine;
 
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    @Qualifier(value = "defaultStreamProducer")
+    private IStreamProducer producer;
 
     @Override
     public String getName() {
@@ -109,8 +106,8 @@ public class CleanExpireFileChunkTask implements ScheduleTask, ApplicationContex
      * @param realFilePathList 文件物理路径列表
      */
     private void saveErrorLog(List<String> realFilePathList) {
-        ErrorLogEvent errorLogEvent = new ErrorLogEvent(this, "文件物理删除失败，请手动执行文件删除！文件路径为：" + JSON.toJSONString(realFilePathList), TPanConstants.ZERO_LONG);
-        applicationContext.publishEvent(errorLogEvent);
+        ErrorLogEvent errorLogEvent = new ErrorLogEvent("文件物理删除失败，请手动执行文件删除！文件路径为：" + JSON.toJSONString(realFilePathList), TPanConstants.ZERO_LONG);
+        producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
     }
 
     /**

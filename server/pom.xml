@@ -93,6 +93,12 @@
             <artifactId>t-pan-lock-redis</artifactId>
             <version>1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.tangl.pan</groupId>
+            <artifactId>t-pan-stream-rocketmq</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

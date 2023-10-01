@@ -21,6 +21,48 @@ spring:
     password: AI123456
     url: jdbc:mysql://127.0.0.1:3306/t_pan?characterEncoding=utf8&serverTimeZone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.255.129:9876
+      bindings:
+        testInput:
+          destination: testTopic
+          group: testGroup
+        testOutput:
+          destination: testTopic
+
+        errorLogInput:
+          destination: errorLogTopic
+          group: errorLogGroup
+        errorLogOutput:
+          destination: errorLogTopic
+
+        fileDeleteInput:
+          destination: fileDeleteTopic
+          group: fileDeleteGroup
+        fileDeleteOutput:
+          destination: fileDeleteTopic
+
+        fileRestoreInput:
+          destination: fileRestoreTopic
+          group: fileRestoreGroup
+        fileRestoreOutput:
+          destination: fileRestoreTopic
+
+        physicalFileDeleteInput:
+          destination: physicalFileDeleteTopic
+          group: physicalFileDeleteGroup
+        physicalFileDeleteOutput:
+          destination: physicalFileDeleteTopic
+
+        userSearchInput:
+          destination: userSearchTopic
+          group: userSearchGroup
+        userSearchOutput:
+          destination: userSearchTopic
+
 
 # mapper.xml 位置
 mybatis-plus:
@@ -55,11 +97,11 @@ com:
     pan:
       storage:
         engine:
-#          fdfs:
-#            connect-timeout: 600
-#            tracker-list:
-#              - 43.139.66.230:22122
-#            group: group1
+          #          fdfs:
+          #            connect-timeout: 600
+          #            tracker-list:
+          #              - 43.139.66.230:22122
+          #            group: group1
           oss:
             bucket-name: t-pan-test
             endpoint: oss-cn-chengdu.aliyuncs.com

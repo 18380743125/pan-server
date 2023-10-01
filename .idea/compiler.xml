@@ -13,6 +13,7 @@
         <module name="t-pan-core" />
         <module name="t-pan-schedule" />
         <module name="t-pan-cache-caffeine" />
+        <module name="t-pan-stream-core" />
         <module name="t-pan-distribution" />
         <module name="t-pan-storage-engine-fastdfs" />
         <module name="t-pan-web" />
@@ -23,6 +24,7 @@
         <module name="t-pan-lock-local" />
         <module name="t-pan-lock-redis" />
         <module name="t-pan-storage-engine-local" />
+        <module name="t-pan-stream-rocketmq" />
         <module name="t-pan-lock-core" />
         <module name="t-pan-storage-engine-oss" />
         <module name="t-pan-swagger2" />
@@ -69,6 +71,9 @@
       <module name="t-pan-storage-engine-fastdfs" options="-parameters" />
       <module name="t-pan-storage-engine-local" options="-parameters" />
       <module name="t-pan-storage-engine-oss" options="-parameters" />
+      <module name="t-pan-stream" options="-parameters" />
+      <module name="t-pan-stream-core" options="-parameters" />
+      <module name="t-pan-stream-rocketmq" options="-parameters" />
       <module name="t-pan-swagger2" options="-parameters" />
       <module name="t-pan-web" options="-parameters" />
     </option>

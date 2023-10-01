@@ -28,6 +28,6 @@ public class TestEventListener {
     @Async(value = "eventListenerTaskExecutor")
     public void test(TestEvent event) throws InterruptedException {
         Thread.sleep(2000);
-        log.info("TestEventListener start process, th thread name is {}", Thread.currentThread().getName());
+        log.info("TestEventListenerConsumer start process, th thread name is {}", Thread.currentThread().getName());
     }
 }

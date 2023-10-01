@@ -2,7 +2,6 @@ package com.tangl.pan.server.modules.share.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
@@ -16,7 +15,8 @@ import com.tangl.pan.core.utils.JwtUtil;
 import com.tangl.pan.core.utils.UUIDUtil;
 import com.tangl.pan.server.common.cache.ManualCacheService;
 import com.tangl.pan.server.common.config.PanServerConfig;
-import com.tangl.pan.server.common.event.log.ErrorLogEvent;
+import com.tangl.pan.server.common.stream.channel.PanChannels;
+import com.tangl.pan.server.common.stream.event.log.ErrorLogEvent;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.CopyFileContext;
 import com.tangl.pan.server.modules.file.context.FileDownloadContext;
@@ -37,13 +37,12 @@ import com.tangl.pan.server.modules.share.mapper.TPanShareMapper;
 import com.tangl.pan.server.modules.share.vo.*;
 import com.tangl.pan.server.modules.user.entity.TPanUser;
 import com.tangl.pan.server.modules.user.service.IUserService;
+import com.tangl.pan.stream.core.IStreamProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +60,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> implements IShareService, ApplicationContextAware {
+public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> implements IShareService {
 
     private static final String BLOOM_FILTER_NAME = "SHARE_SIMPLE_DETAIL";
 
@@ -84,12 +83,9 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     @Autowired
     private BloomFilterManager manager;
 
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    @Qualifier(value = "defaultStreamProducer")
+    private IStreamProducer producer;
 
     /**
      * 创建分享链接
@@ -342,9 +338,9 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     private void doChangeShareStatus(TPanShare record, ShareStatusEnum shareStatus) {
         record.setShareStatus(shareStatus.getCode());
         if (!updateById(record)) {
-            ErrorLogEvent errorLogEvent = new ErrorLogEvent(this,
-                    "更新分享状态失败，请手动更改状态，分享的ID为：" + record.getShareId() + "，分享状态改为：" + shareStatus.getCode(), TPanConstants.ZERO_LONG);
-            applicationContext.publishEvent(errorLogEvent);
+            ErrorLogEvent errorLogEvent = new ErrorLogEvent("更新分享状态失败，请手动更改状态，分享的ID为：" +
+                    record.getShareId() + "，分享状态改为：" + shareStatus.getCode(), TPanConstants.ZERO_LONG);
+            producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
         }
     }
 

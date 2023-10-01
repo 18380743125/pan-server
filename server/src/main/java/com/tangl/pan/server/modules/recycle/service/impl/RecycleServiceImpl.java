@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
-import com.tangl.pan.server.common.event.file.FileRestoreEvent;
-import com.tangl.pan.server.common.event.file.PhysicalFileDeleteEvent;
+import com.tangl.pan.server.common.stream.channel.PanChannels;
+import com.tangl.pan.server.common.stream.event.file.FileRestoreEvent;
+import com.tangl.pan.server.common.stream.event.file.PhysicalFileDeleteEvent;
 import com.tangl.pan.server.modules.file.context.QueryFileListContext;
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.enums.DelFlagEnum;
@@ -15,16 +16,14 @@ import com.tangl.pan.server.modules.recycle.context.DeleteContext;
 import com.tangl.pan.server.modules.recycle.context.QueryRecycleFileListContext;
 import com.tangl.pan.server.modules.recycle.context.RestoreContext;
 import com.tangl.pan.server.modules.recycle.service.IRecycleService;
+import com.tangl.pan.stream.core.IStreamProducer;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,17 +33,14 @@ import java.util.stream.Collectors;
  * @create 2023-09-15 22:15
  */
 @Service
-public class RecycleServiceImpl implements IRecycleService, ApplicationContextAware {
-
-    private ApplicationContext applicationContext;
+public class RecycleServiceImpl implements IRecycleService {
 
     @Autowired
     private IUserFileService userFileService;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    @Qualifier(value = "defaultStreamProducer")
+    private IStreamProducer producer;
 
     @Override
     public List<UserFileVO> recycles(QueryRecycleFileListContext context) {
@@ -95,8 +91,8 @@ public class RecycleServiceImpl implements IRecycleService, ApplicationContextAw
      * @param context 上下文实体
      */
     private void afterDelete(DeleteContext context) {
-        PhysicalFileDeleteEvent event = new PhysicalFileDeleteEvent(this, context.getAllRecords());
-        applicationContext.publishEvent(event);
+        PhysicalFileDeleteEvent event = new PhysicalFileDeleteEvent(context.getAllRecords());
+        producer.sendMessage(PanChannels.PHYSICAL_FILE_DELETE_OUTPUT, event);
     }
 
     /**
@@ -143,8 +139,8 @@ public class RecycleServiceImpl implements IRecycleService, ApplicationContextAw
      * @param context 上下文实体
      */
     private void afterRestore(RestoreContext context) {
-        FileRestoreEvent event = new FileRestoreEvent(this, context.getFileIdList());
-        applicationContext.publishEvent(event);
+        FileRestoreEvent event = new FileRestoreEvent(context.getFileIdList());
+        producer.sendMessage(PanChannels.FILE_RESTORE_OUTPUT, event);
     }
 
     /**

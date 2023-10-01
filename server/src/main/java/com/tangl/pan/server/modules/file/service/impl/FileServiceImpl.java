@@ -8,7 +8,8 @@ import com.google.common.collect.Lists;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
-import com.tangl.pan.server.common.event.log.ErrorLogEvent;
+import com.tangl.pan.server.common.stream.channel.PanChannels;
+import com.tangl.pan.server.common.stream.event.log.ErrorLogEvent;
 import com.tangl.pan.server.modules.file.context.FileChunkMergeAndSaveContext;
 import com.tangl.pan.server.modules.file.context.FileSaveContext;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
@@ -20,10 +21,9 @@ import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
 import com.tangl.pan.storage.engine.core.context.MergeFileContext;
 import com.tangl.pan.storage.engine.core.context.StoreFileContext;
-import org.springframework.beans.BeansException;
+import com.tangl.pan.stream.core.IStreamProducer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-07-23 23:41:43
  */
 @Service
-public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> implements IFileService, ApplicationContextAware {
+public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> implements IFileService {
 
     @Autowired
     private StorageEngine storageEngine;
@@ -46,12 +46,9 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
     @Autowired
     private IFileChunkService fileChunkService;
 
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    @Qualifier(value = "defaultStreamProducer")
+    private IStreamProducer producer;
 
     /**
      * 上传单文件并保存实体记录
@@ -154,9 +151,8 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
                 deleteFileContext.setRealFilePathList(Lists.newArrayList(realPath));
                 storageEngine.delete(deleteFileContext);
             } catch (IOException e) {
-                e.printStackTrace();
-                ErrorLogEvent errorLogEvent = new ErrorLogEvent(this, "文件物理删除失败，请手动删除！文件路径：" + realPath, userId);
-                applicationContext.publishEvent(errorLogEvent);
+                ErrorLogEvent errorLogEvent = new ErrorLogEvent("文件物理删除失败，请手动删除！文件路径：" + realPath, userId);
+                producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
             }
         }
         return record;

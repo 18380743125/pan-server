@@ -9,8 +9,9 @@ import com.tangl.pan.core.constants.TPanConstants;
 import com.tangl.pan.core.exception.TPanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
-import com.tangl.pan.server.common.event.file.FileDeleteEvent;
-import com.tangl.pan.server.common.event.search.UserSearchEvent;
+import com.tangl.pan.server.common.stream.channel.PanChannels;
+import com.tangl.pan.server.common.stream.event.file.FileDeleteEvent;
+import com.tangl.pan.server.common.stream.event.search.UserSearchEvent;
 import com.tangl.pan.server.common.utils.HttpUtil;
 import com.tangl.pan.server.modules.file.constants.FileConstants;
 import com.tangl.pan.server.modules.file.context.*;
@@ -28,11 +29,10 @@ import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
 import com.tangl.pan.server.modules.file.vo.*;
 import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.ReadFileContext;
+import com.tangl.pan.stream.core.IStreamProducer;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-07-23 23:41:43
  */
 @Service(value = "userFileService")
-public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUserFile> implements IUserFileService, ApplicationContextAware {
+public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUserFile> implements IUserFileService {
 
     @Autowired
     private IFileService fileService;
@@ -63,12 +63,9 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     @Autowired
     private FileConverter fileConverter;
 
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    @Qualifier(value = "defaultStreamProducer")
+    private IStreamProducer producer;
 
     /**
      * 创建文件夹信息
@@ -480,8 +477,8 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      * @param context 上下文实体
      */
     private void afterSearch(FileSearchContext context) {
-        UserSearchEvent userSearchEvent = new UserSearchEvent(this, context.getKeyword(), context.getUserId());
-        applicationContext.publishEvent(userSearchEvent);
+        UserSearchEvent userSearchEvent = new UserSearchEvent(context.getKeyword(), context.getUserId());
+        producer.sendMessage(PanChannels.USER_SEARCH_OUTPUT, userSearchEvent);
     }
 
     /**
@@ -885,8 +882,8 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      */
     private void afterFileDelete(DeleteFileContext context) {
         List<Long> fileIdList = context.getFileIdList();
-        FileDeleteEvent deleteFileEvent = new FileDeleteEvent(this, fileIdList);
-        applicationContext.publishEvent(deleteFileEvent);
+        FileDeleteEvent deleteFileEvent = new FileDeleteEvent(fileIdList);
+        producer.sendMessage(PanChannels.FILE_DELETE_OUTPUT, deleteFileEvent);
     }
 
     /**
