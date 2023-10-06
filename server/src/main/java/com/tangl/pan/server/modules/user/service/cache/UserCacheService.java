@@ -32,6 +32,7 @@ public class UserCacheService implements AnnotationCacheService<TPanUser> {
     @Cacheable(cacheNames = CacheConstants.T_PAN_CACHE_NAME, keyGenerator = "userIdKeyGenerator", sync = true)
     @Override
     public TPanUser getById(Serializable id) {
+        System.out.println(id);
         return mapper.selectById(id);
     }
 

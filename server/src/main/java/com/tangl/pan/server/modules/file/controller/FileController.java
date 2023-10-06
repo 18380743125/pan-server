@@ -51,7 +51,10 @@ public class FileController {
     @GetMapping("files")
     public R<List<UserFileVO>> list(@NotBlank(message = "父文件夹ID不能为空") @RequestParam(value = "parentId", required = false) String parentId,
                                     @RequestParam(value = "fileTypes", required = false, defaultValue = FileConstants.ALL_FILE_TYPE) String fileType) {
-        Long realParentId = IdUtil.decrypt(parentId);
+        Long realParentId = -1L;
+        if (!FileConstants.ALL_FILE_TYPE.equals(parentId)) {
+            realParentId = IdUtil.decrypt(parentId);
+        }
         List<Integer> fileTypesArray = null;
         if (!Objects.equals(FileConstants.ALL_FILE_TYPE, fileType)) {
             fileTypesArray = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileType).stream().map(Integer::valueOf).collect(Collectors.toList());
@@ -62,6 +65,26 @@ public class FileController {
         context.setUserId(UserIdUtil.get());
         context.setDelFlag(DelFlagEnum.NO.getCode());
         List<UserFileVO> result = userFileService.getFileList(context);
+        return R.data(result);
+    }
+
+    @ApiOperation(
+            value = "文件搜索",
+            notes = "该接口提供了文件搜索的功能",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @GetMapping("file/search")
+    public R<List<FileSearchResultVO>> search(@Validated FileSearchPO fileSearchPO) {
+        FileSearchContext context = new FileSearchContext();
+        context.setKeyword(fileSearchPO.getKeyword());
+        context.setUserId(UserIdUtil.get());
+        String fileTypes = fileSearchPO.getFileTypes();
+        if (StringUtils.isNotBlank(fileTypes) && !Objects.equals(FileConstants.ALL_FILE_TYPE, fileTypes)) {
+            List<Integer> fileTypeArray = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileTypes).stream().map(Integer::valueOf).collect(Collectors.toList());
+            context.setFileTypesArray(fileTypeArray);
+        }
+        List<FileSearchResultVO> result = userFileService.search(context);
         return R.data(result);
     }
 
@@ -264,28 +287,6 @@ public class FileController {
 
         userFileService.copyFile(context);
         return R.success();
-    }
-
-    @ApiOperation(
-            value = "文件搜索",
-            notes = "该接口提供了文件搜索的功能",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    @GetMapping("file/search")
-    public R<List<FileSearchResultVO>> search(@Validated FileSearchPO fileSearchPO) {
-        String fileTypes = fileSearchPO.getFileTypes();
-        FileSearchContext context = new FileSearchContext();
-        context.setKeyword(fileSearchPO.getKeyword());
-        context.setUserId(UserIdUtil.get());
-
-        if (StringUtils.isNotBlank(fileTypes) && !Objects.equals(FileConstants.ALL_FILE_TYPE, fileTypes)) {
-            List<Integer> fileTypesArray = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileTypes).stream().map(Integer::valueOf).collect(Collectors.toList());
-            context.setFileTypesArray(fileTypesArray);
-        }
-
-        List<FileSearchResultVO> result = userFileService.search(context);
-        return R.data(result);
     }
 
     @ApiOperation(

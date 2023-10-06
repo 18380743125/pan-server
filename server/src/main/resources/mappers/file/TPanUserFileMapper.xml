@@ -45,7 +45,7 @@
         </if>
         <if test="param.fileTypesArray != null">
             AND file_type IN
-            <foreach collection="param.fileTypeArray" open="(" close=")" item="item" separator=",">
+            <foreach collection="param.fileTypesArray" open="(" close=")" item="item" separator=",">
                 #{item}
             </foreach>
         </if>

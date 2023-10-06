@@ -1,7 +1,7 @@
 spring:
   # redis
   redis:
-    database: 1
+    database: 0
     host: 127.0.0.1
   application:
     name: t-pan-server
@@ -95,19 +95,19 @@ swagger2:
 com:
   tangl:
     pan:
-      storage:
-        engine:
-          #          fdfs:
+#      storage:
+#        engine:
+        #          fdfs:
           #            connect-timeout: 600
           #            tracker-list:
           #              - 43.139.66.230:22122
           #            group: group1
-          oss:
-            bucket-name: t-pan-test
-            endpoint: oss-cn-chengdu.aliyuncs.com
-            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
-            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
-            auto-create-bucket: true
+#          oss:
+#            bucket-name: t-pan-test
+#            endpoint: oss-cn-chengdu.aliyuncs.com
+#            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
+#            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
+#            auto-create-bucket: true
       server:
         chunk-file-expiration-days: 1
         share-prefix: http://127.0.0.1:5173/share/

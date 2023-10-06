@@ -1,10 +1,7 @@
 package com.tangl.pan.server.common.stream.event.file;
 
 import com.tangl.pan.server.modules.file.entity.TPanUserFile;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +15,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @ToString
+@NoArgsConstructor
 public class PhysicalFileDeleteEvent implements Serializable {
 
     private static final long serialVersionUID = -6263153256233033738L;

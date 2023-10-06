@@ -26,8 +26,8 @@ swagger2:
   show: true
   group-name: ${spring.application.name}
   base-package: com.tangl.pan
-  title: r-pan-server docs
-  description: r-pan-server docs
+  title: t-pan-server docs
+  description: t-pan-server docs
   terms-of-service-url: http://127.0.0.1:${server.port}
   contact-name: tangl
   contact-url: t.bright.top

@@ -64,11 +64,11 @@
             <version>1.0</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>com.tangl.pan</groupId>-->
-        <!--            <artifactId>t-pan-storage-engine-local</artifactId>-->
-        <!--            <version>1.0</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.tangl.pan</groupId>
+            <artifactId>t-pan-storage-engine-local</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!--        <dependency>-->
         <!--            <groupId>com.tangl.pan</groupId>-->
@@ -76,11 +76,11 @@
         <!--            <version>1.0</version>-->
         <!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-storage-engine-oss</artifactId>
-            <version>1.0</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.tangl.pan</groupId>-->
+        <!--            <artifactId>t-pan-storage-engine-oss</artifactId>-->
+        <!--            <version>1.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.tangl.pan</groupId>

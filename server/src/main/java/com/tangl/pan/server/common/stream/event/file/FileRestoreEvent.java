@@ -1,8 +1,6 @@
 package com.tangl.pan.server.common.stream.event.file;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +13,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class FileRestoreEvent implements Serializable {
 
     private static final long serialVersionUID = 1373379595228122981L;

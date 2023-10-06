@@ -72,7 +72,7 @@ public class recycleController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @DeleteMapping("recycle/restore")
+    @DeleteMapping("recycle")
     public R<?> delete(@Validated @RequestBody DeletePO deletePO) {
         DeleteContext context = new DeleteContext();
         context.setUserId(UserIdUtil.get());

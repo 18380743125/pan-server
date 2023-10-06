@@ -5,54 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:集成锁模块">
-      <change afterPath="$PROJECT_DIR$/framework/stream/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-core/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-core/src/main/java/com/tangl/pan/stream/core/AbstractConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-core/src/main/java/com/tangl/pan/stream/core/AbstractStreamProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-core/src/main/java/com/tangl/pan/stream/core/DefaultStreamProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-core/src/main/java/com/tangl/pan/stream/core/IStreamProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-rocketmq/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/stream/rocketmq/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/channel/PanChannels.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/consumer/file/PhysicalFileDeleteEventConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/consumer/log/ErrorLogEventConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/consumer/search/UserSearchEventConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/consumer/share/ShareStatusChangeListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/consumer/test/TestEventListenerConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/FileDeleteEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/FileRestoreEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/PhysicalFileDeleteEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/log/ErrorLogEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/search/UserSearchEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/test/TestEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/context/QueryUserSearchHistoryContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/controller/UserSearchHistoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/vo/UserSearchHistoryVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/conf/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/conf/t-pan-server-logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/t-pan-server-logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/TPanServerLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/TPanServerLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/file/FileDeleteEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/file/FileDeleteEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/file/FileRestoreEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/file/FileRestoreEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/file/PhysicalFileDeleteEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/file/PhysicalFileDeleteEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/log/ErrorLogEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/log/ErrorLogEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/search/UserSearchEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/event/search/UserSearchEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/file/PhysicalFileDeleteEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/file/PhysicalFileDeleteEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/log/ErrorLogEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/log/ErrorLogEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/search/UserSearchEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/search/UserSearchEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/share/ShareStatusChangeListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/share/ShareStatusChangeListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/test/TestEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/test/TestEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/task/CleanExpireFileChunkTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/task/CleanExpireFileChunkTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/FileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/UserFileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/service/impl/UserFileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/recycle/service/impl/RecycleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/recycle/service/impl/RecycleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/impl/ShareServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/service/impl/ShareServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/test/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/test/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/FileDeleteEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/FileDeleteEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/FileRestoreEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/FileRestoreEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/PhysicalFileDeleteEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/stream/event/file/PhysicalFileDeleteEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/controller/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/recycle/controller/recycleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/recycle/controller/recycleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/controller/ShareController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/share/controller/ShareController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/mapper/TPanUserSearchHistoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/mapper/TPanUserSearchHistoryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/IUserSearchHistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/IUserSearchHistoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserSearchHistoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserSearchHistoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/file/TPanUserFileMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/file/TPanUserFileMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/user/TPanUserSearchHistoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/user/TPanUserSearchHistoryMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,9 +43,9 @@
       <list>
         <option value="Enum" />
         <option value="AnnotationType" />
-        <option value="Class" />
         <option value="package-info" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -104,45 +80,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Project/java-project/pan/t-pan&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Project/java-project/t-pan/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.31724137&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;c79fff50780f60ba42449fdca835532a&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "20",
+    "last_opened_file_path": "C:/Project/java-project/pan/资料/r_pan_parent",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Project/java-project/t-pan/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.31724137",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "spring.configuration.checksum": "c79fff50780f60ba42449fdca835532a",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
-      &quot;MySQL&quot;,
-      &quot;SparkSQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "MySQL",
+      "SparkSQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -163,14 +139,17 @@
       <recent name="com.tangl.pan.server.modules.share" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tangl.pan.server.modules.user.vo" />
+      <recent name="com.tangl.pan.server.modules.user.context" />
       <recent name="com.tangl.pan.lock.zookeeper" />
       <recent name="com.tangl.pan.lock.local.test" />
       <recent name="com.tangl.pan.server.modules.share.enums" />
-      <recent name="com.tangl.pan.server.modules.recycle.context" />
-      <recent name="com.tangl.pan.server.modules.recycle.po" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.TPanServerLauncher">
+    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="FileTest.uploadWithChunkTestSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="t-pan-server" />
       <extension name="coverage">
@@ -182,22 +161,6 @@
       <option name="PACKAGE_NAME" value="com.tangl.pan.server.modules.file" />
       <option name="MAIN_CLASS_NAME" value="com.tangl.pan.server.modules.file.FileTest" />
       <option name="METHOD_NAME" value="uploadWithChunkTestSuccess" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RedisLockTest.lockTesterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="t-pan-lock-redis" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.lock.redis.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.redis.test" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.redis.test.RedisLockTest" />
-      <option name="METHOD_NAME" value="lockTesterTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -260,11 +223,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests | #1" />
         <item itemvalue="JUnit.FileTest.uploadWithChunkTestSuccess" />
         <item itemvalue="JUnit.ZooKeeperLockTest.lockTesterTest" />
         <item itemvalue="JUnit.ZooKeeperLockTest.lockRegistryTest" />
         <item itemvalue="JUnit.ZooKeeperLockTest" />
-        <item itemvalue="JUnit.RedisLockTest.lockTesterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -390,6 +353,19 @@
       <workItem from="1695996703240" duration="82000" />
       <workItem from="1695998307508" duration="140000" />
       <workItem from="1695999712433" duration="13000" />
+      <workItem from="1696123512780" duration="144000" />
+      <workItem from="1696411533443" duration="105000" />
+      <workItem from="1696429573111" duration="330000" />
+      <workItem from="1696429975997" duration="363000" />
+      <workItem from="1696430347165" duration="8000" />
+      <workItem from="1696430629445" duration="16000" />
+      <workItem from="1696430983069" duration="251000" />
+      <workItem from="1696468692347" duration="1982000" />
+      <workItem from="1696473543358" duration="1029000" />
+      <workItem from="1696474605523" duration="6000" />
+      <workItem from="1696475177637" duration="532000" />
+      <workItem from="1696580245452" duration="5707000" />
+      <workItem from="1696586879973" duration="11378000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>

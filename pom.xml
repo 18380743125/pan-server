@@ -9,9 +9,12 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.tangl.pan</groupId>
     <artifactId>t-pan-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+
     <name>t-pan-parent</name>
     <description>t pan server side</description>
     <modules>
@@ -19,7 +22,6 @@
         <module>server</module>
         <module>distribution</module>
     </modules>
-    <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>
