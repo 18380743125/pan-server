@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="t_pan@localhost">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.49">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.51">
     <root id="1"/>
     <collation id="2" parent="1" name="armscii8_general_ci">
       <Charset>armscii8</Charset>
@@ -921,8 +921,7 @@
     </schema>
     <schema id="294" parent="1" name="t_pan">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-09-24.00:15:30</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-09-23.08:15:30</LocalIntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-09-23.08:15:30</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_bin</CollationName>
     </schema>
     <schema id="295" parent="1" name="wiki">

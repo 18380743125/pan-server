@@ -23,7 +23,7 @@ rem set pan server spring config location
 set "PAN_CONFIG_OPTS=--spring.config.additional-location=%CUSTOM_SEARCH_LOCATIONS%"
 
 rem set pan server log4j file location
-set "PAN_LOG4J_OPTS=--logging.config=%BASE_DIR%/conf/t-pan-server-logback.xml"
+set "PAN_LOG4J_OPTS=--logging.config=%BASE_DIR%/conf/logback.xml"
 
 set COMMAND="%JAVA%" %PAN_JVM_OPTS% %PAN_OPTS% %PAN_CONFIG_OPTS% %PAN_LOG4J_OPTS% pan.server %*
 

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.tangl.pan</groupId>
-        <artifactId>t-pan-framework</artifactId>
+        <artifactId>framework</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>t-pan-cache</artifactId>
+    <artifactId>cache</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>cache-core</module>

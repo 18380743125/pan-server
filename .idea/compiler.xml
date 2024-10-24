@@ -10,24 +10,24 @@
         <module name="t-pan-cache-core" />
         <module name="t-pan-bloom-filter-core" />
         <module name="t-pan-lock-zookeeper" />
-        <module name="t-pan-core" />
-        <module name="t-pan-schedule" />
+        <module name="swagger2" />
         <module name="t-pan-cache-caffeine" />
         <module name="t-pan-stream-core" />
-        <module name="t-pan-distribution" />
+        <module name="distribution" />
         <module name="t-pan-storage-engine-fastdfs" />
-        <module name="t-pan-web" />
         <module name="t-pan-cache-redis" />
+        <module name="core" />
+        <module name="schedule" />
         <module name="t-pan-storage-engine-core" />
         <module name="t-pan-mybatis-plus" />
         <module name="t-pan-bloom-filter-local" />
         <module name="t-pan-lock-local" />
         <module name="t-pan-lock-redis" />
+        <module name="web" />
         <module name="t-pan-storage-engine-local" />
         <module name="t-pan-stream-rocketmq" />
         <module name="t-pan-lock-core" />
         <module name="t-pan-storage-engine-oss" />
-        <module name="t-pan-swagger2" />
       </profile>
       <profile name="Annotation profile for t-pan-parent" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -39,43 +39,43 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
-        <module name="t-pan-server" />
+        <module name="server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="t-pan-bloom-filter" options="-parameters" />
+      <module name="bloom-filter" options="-parameters" />
+      <module name="cache" options="-parameters" />
+      <module name="coco-pan" options="-parameters" />
+      <module name="core" options="-parameters" />
+      <module name="distribution" options="-parameters" />
+      <module name="framework" options="-parameters" />
+      <module name="lock" options="-parameters" />
+      <module name="orm" options="-parameters" />
+      <module name="schedule" options="-parameters" />
+      <module name="server" options="-parameters" />
+      <module name="storage-engine" options="-parameters" />
+      <module name="stream" options="-parameters" />
+      <module name="swagger2" options="-parameters" />
       <module name="t-pan-bloom-filter-core" options="-parameters" />
       <module name="t-pan-bloom-filter-local" options="-parameters" />
-      <module name="t-pan-cache" options="-parameters" />
       <module name="t-pan-cache-caffeine" options="-parameters" />
       <module name="t-pan-cache-core" options="-parameters" />
       <module name="t-pan-cache-redis" options="-parameters" />
-      <module name="t-pan-core" options="-parameters" />
-      <module name="t-pan-distribution" options="-parameters" />
-      <module name="t-pan-framework" options="-parameters" />
-      <module name="t-pan-lock" options="-parameters" />
       <module name="t-pan-lock-core" options="-parameters" />
       <module name="t-pan-lock-local" options="-parameters" />
       <module name="t-pan-lock-redis" options="-parameters" />
       <module name="t-pan-lock-zookeeper" options="-parameters" />
       <module name="t-pan-mybatis-plus" options="-parameters" />
-      <module name="t-pan-orm" options="-parameters" />
-      <module name="t-pan-parent" options="-parameters" />
-      <module name="t-pan-schedule" options="-parameters" />
-      <module name="t-pan-server" options="-parameters" />
-      <module name="t-pan-storage-engine" options="-parameters" />
       <module name="t-pan-storage-engine-core" options="-parameters" />
       <module name="t-pan-storage-engine-fastdfs" options="-parameters" />
       <module name="t-pan-storage-engine-local" options="-parameters" />
       <module name="t-pan-storage-engine-oss" options="-parameters" />
-      <module name="t-pan-stream" options="-parameters" />
       <module name="t-pan-stream-core" options="-parameters" />
       <module name="t-pan-stream-rocketmq" options="-parameters" />
-      <module name="t-pan-swagger2" options="-parameters" />
-      <module name="t-pan-web" options="-parameters" />
+      <module name="web" options="-parameters" />
     </option>
   </component>
 </project>
