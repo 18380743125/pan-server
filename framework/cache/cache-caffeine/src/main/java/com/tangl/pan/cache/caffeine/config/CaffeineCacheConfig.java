@@ -11,9 +11,7 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 
 /**
- * @author tangl
- * @description caffeine cache 配置类
- * @create 2023-07-24 11:07
+ * caffeine cache 配置类
  */
 @SpringBootConfiguration
 @EnableCaching

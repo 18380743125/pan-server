@@ -4,17 +4,20 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * 用户分享文件表
- * @TableName t_pan_share_file
+ *
+ * @TableName pan_share_file
  */
-@TableName(value ="t_pan_share_file")
+@TableName(value = "pan_share_file")
 @Data
-public class TPanShareFile implements Serializable {
+public class PanShareFile implements Serializable {
     /**
      * 主键
      */

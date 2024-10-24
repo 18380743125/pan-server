@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 校验分享码参数实体
- * @create 2023-09-16 22:35
- */
 @ApiModel(value = "校验分享码参数实体")
 @Data
 public class CheckShareCodePO implements Serializable {

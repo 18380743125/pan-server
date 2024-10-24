@@ -1,9 +1,7 @@
 package com.tangl.pan.server.modules.user.constants;
 
 /**
- * @author tangl
- * @description 用户模块的常量类
- * @create 2023-07-31 13:59
+ * 用户模块的常量类
  */
 public interface UserConstants {
 

@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 文件重命名参数对象
- * @create 2023-08-13 11:53
- */
 @ApiModel("文件重命名参数对象")
 @Data
 public class UpdateFilenamePO implements Serializable {

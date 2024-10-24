@@ -4,12 +4,10 @@ import com.tangl.pan.core.response.ResponseCode;
 import lombok.Getter;
 
 /**
- * @author tangl
- * @description 自定义全局业务异常类
- * @create 2023-06-22 15:07
+ * 自定义全局业务异常类
  */
 @Getter
-public class TPanBusinessException extends RuntimeException {
+public class PanBusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 6989859219046497129L;
     /**
@@ -22,22 +20,22 @@ public class TPanBusinessException extends RuntimeException {
      */
     private final String message;
 
-    public TPanBusinessException(ResponseCode responseCode) {
+    public PanBusinessException(ResponseCode responseCode) {
         this.code = responseCode.getCode();
         this.message = responseCode.getDesc();
     }
 
-    public TPanBusinessException(Integer code, String message) {
+    public PanBusinessException(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public TPanBusinessException(String message) {
+    public PanBusinessException(String message) {
         this.code = ResponseCode.ERROR_PARAM.getCode();
         this.message = message;
     }
 
-    public TPanBusinessException() {
+    public PanBusinessException() {
         this.code = ResponseCode.ERROR_PARAM.getCode();
         this.message = ResponseCode.ERROR_PARAM.getDesc();
     }

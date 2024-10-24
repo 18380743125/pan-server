@@ -2,8 +2,8 @@ package com.tangl.pan.server.modules.recycle;
 
 import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.exception.TPanBusinessException;
-import com.tangl.pan.server.TPanServerLauncher;
+import com.tangl.pan.core.exception.PanBusinessException;
+import com.tangl.pan.server.PanServerLauncher;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
 import com.tangl.pan.server.modules.file.context.DeleteFileContext;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
@@ -26,12 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 回收站模块单元测试类
- * @create 2023-09-15 22:27
+ * 回收站模块单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = TPanServerLauncher.class)
+@SpringBootTest(classes = PanServerLauncher.class)
 @Transactional
 public class RecycleTest {
 
@@ -67,7 +65,7 @@ public class RecycleTest {
     /**
      * 文件彻底删除 - 失败
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testDeleteFileWrongWithUserId() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -87,7 +85,7 @@ public class RecycleTest {
     /**
      * 测试文件还原失败 - 无权限访问
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testRestoreFileWrongWithNoPermission() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -109,7 +107,7 @@ public class RecycleTest {
     /**
      * 测试文件还原失败 - 同名文件 - 还原列表
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testRestoreFileWrongWithSameFilename1() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -134,7 +132,7 @@ public class RecycleTest {
     /**
      * 测试文件还原失败 - 同名文件 - 父文件夹中已存在该名
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testRestoreFileWrongWithSameFilename2() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);

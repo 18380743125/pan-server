@@ -6,9 +6,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
 /**
- * @author tangl
- * @description 事件通道定义类
- * @create 2023-09-24 21:34
+ * 事件通道定义类
  */
 public interface PanChannels {
 

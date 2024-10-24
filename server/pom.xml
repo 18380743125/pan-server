@@ -147,7 +147,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.tangl.pan.server.TPanServerLauncher</mainClass>
+                    <mainClass>com.tangl.pan.server.PanServerLauncher</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>

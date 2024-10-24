@@ -5,9 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description caffeine cache 配置属性类
- * @create 2023-07-24 10:59
+ * caffeine cache 配置属性类
  */
 @Data
 @Component

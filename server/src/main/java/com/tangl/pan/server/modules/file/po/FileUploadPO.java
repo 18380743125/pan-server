@@ -9,11 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 单文件上传参数实体
- * @create 2023-08-14 21:56
- */
 @ApiModel(value = "单文件上传参数实体")
 @Data
 public class FileUploadPO implements Serializable {

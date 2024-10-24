@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件复制操作的上下文实体
- * @create 2023-09-09 22:22
+ * 文件复制操作的上下文实体
  */
 @Data
 public class CopyFileContext implements Serializable {

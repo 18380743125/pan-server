@@ -15,9 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 /**
- * @author tangl
- * @description caffeine 缓存单元测试
- * @create 2023-07-24 11:37
+ * caffeine 缓存单元测试
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = CaffeineCacheConfig.class)
@@ -41,7 +39,7 @@ public class CaffeineCacheTest {
     }
 
     @Test
-    public void  caffeineCacheAnnotationTest() {
+    public void caffeineCacheAnnotationTest() {
         for (int i = 0; i < 2; i++) {
             cacheAnnotationTester.testCacheable("tangl");
         }

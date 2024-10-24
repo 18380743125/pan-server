@@ -3,7 +3,7 @@ package com.tangl.pan.server.common.cache;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.google.common.collect.Lists;
 import com.tangl.pan.cache.core.constants.CacheConstants;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 手动处理缓存的公用顶级父类
- * @create 2023-09-22 20:33
+ * 手动处理缓存的公用顶级父类
  */
 public abstract class AbstractManualCacheService<V> implements ManualCacheService<V> {
 
@@ -124,7 +122,7 @@ public abstract class AbstractManualCacheService<V> implements ManualCacheServic
     @Override
     public Cache getCache() {
         if (Objects.isNull(cacheManager)) {
-            throw new TPanFrameworkException("the cache manager is empty!");
+            throw new PanFrameworkException("the cache manager is empty!");
         }
         return cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
     }

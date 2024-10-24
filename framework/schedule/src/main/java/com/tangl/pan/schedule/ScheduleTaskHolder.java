@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * @author tangl
- * @description 定时任务和定时任务结果的缓存对象
- * @create 2023-07-25 21:18
+ * 定时任务和定时任务结果的缓存对象
  */
 @Data
 @NoArgsConstructor

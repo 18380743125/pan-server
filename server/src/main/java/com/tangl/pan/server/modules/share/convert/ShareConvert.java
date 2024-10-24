@@ -6,9 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * @author tangl
- * @description 分享模块实体转化工具类
- * @create 2023-09-16 15:39
+ * 分享模块实体转化工具类
  */
 @Mapper(componentModel = "spring")
 public interface ShareConvert {

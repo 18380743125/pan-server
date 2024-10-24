@@ -6,15 +6,14 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description redis cache注解测试实体
- * @create 2023-07-25 18:17
+ * redis cache注解测试实体
  */
 @Component
 @Slf4j
 public class CacheAnnotationTester {
     /**
      * 测试自适应缓存注解
+     *
      * @param name 参数
      * @return string
      */

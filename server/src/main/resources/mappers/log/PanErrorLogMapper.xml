@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tangl.pan.server.modules.log.mapper.TPanErrorLogMapper">
+<mapper namespace="com.tangl.pan.server.modules.log.mapper.PanErrorLogMapper">
 
-    <resultMap id="BaseResultMap" type="com.tangl.pan.server.modules.log.entity.TPanErrorLog">
+    <resultMap id="BaseResultMap" type="com.tangl.pan.server.modules.log.entity.PanErrorLog">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="logContent" column="log_content" jdbcType="VARCHAR"/>
         <result property="logStatus" column="log_status" jdbcType="TINYINT"/>

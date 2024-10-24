@@ -3,17 +3,20 @@ package com.tangl.pan.server.modules.user.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * 用户信息表
- * @TableName t_pan_user
+ *
+ * @TableName pan_user
  */
-@TableName(value ="t_pan_user")
+@TableName(value = "pan_user")
 @Data
-public class TPanUser implements Serializable {
+public class PanUser implements Serializable {
     /**
      * 用户id
      */

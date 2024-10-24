@@ -8,9 +8,7 @@ import lombok.Getter;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author tangl
- * @description 数据类型通道枚举类
- * @create 2023-09-23 21:12
+ * 数据类型通道枚举类
  */
 @AllArgsConstructor
 @Getter

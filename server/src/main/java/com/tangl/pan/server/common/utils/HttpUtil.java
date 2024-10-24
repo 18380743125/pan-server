@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Http工具类
- * Created by RubinChu on 2021/1/19 17:54
  */
 public class HttpUtil {
 

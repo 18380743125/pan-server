@@ -2,8 +2,8 @@ package com.tangl.pan.server.modules.share;
 
 import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.exception.TPanBusinessException;
-import com.tangl.pan.server.TPanServerLauncher;
+import com.tangl.pan.core.exception.PanBusinessException;
+import com.tangl.pan.server.PanServerLauncher;
 import com.tangl.pan.server.modules.file.context.CreateFolderContext;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
@@ -29,12 +29,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 分享模块的单元测试类
- * @create 2023-09-16 18:19
+ * 分享模块的单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = TPanServerLauncher.class)
+@SpringBootTest(classes = PanServerLauncher.class)
 @Transactional
 public class ShareTest {
 
@@ -191,7 +189,7 @@ public class ShareTest {
     /**
      * 测试校验分享码失败 - 校验码错误
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testCheckShareCodeByWrongShareCode() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -221,7 +219,7 @@ public class ShareTest {
     /**
      * 测试校验分享码失败 - 分享被取消
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testCheckShareCodeFailByCancelled() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -291,7 +289,7 @@ public class ShareTest {
     /**
      * 测试取消分享 - 失败 - 错误的用户 ID
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testCancelShareFailByWrongUserId() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);

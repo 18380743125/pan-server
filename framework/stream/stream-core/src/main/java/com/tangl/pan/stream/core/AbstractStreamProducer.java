@@ -1,7 +1,7 @@
 package com.tangl.pan.stream.core;
 
 import com.google.common.collect.Maps;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 消息发送者顶级抽象父类
- * @create 2023-09-24 17:55
+ * 消息发送者顶级抽象父类
  */
 public abstract class AbstractStreamProducer implements IStreamProducer {
 
@@ -64,15 +62,15 @@ public abstract class AbstractStreamProducer implements IStreamProducer {
     @Override
     public boolean sendMessage(String channelName, Object deploy, Map<String, Object> headers) {
         if (StringUtils.isBlank(channelName) || Objects.isNull(deploy)) {
-            throw new TPanFrameworkException("the channelName or deploy can not be empty!");
+            throw new PanFrameworkException("the channelName or deploy can not be empty!");
         }
         if (MapUtils.isEmpty(channelMap)) {
-            throw new TPanFrameworkException("the channelMap can not be empty!");
+            throw new PanFrameworkException("the channelMap can not be empty!");
         }
 
         MessageChannel channel = channelMap.get(channelName);
         if (Objects.isNull(channel)) {
-            throw new TPanFrameworkException("the channel named" + channelName + " can not be found!");
+            throw new PanFrameworkException("the channel named" + channelName + " can not be found!");
         }
         Message<Object> message = MessageBuilder.createMessage(deploy, new MessageHeaders(headers));
         preSend(message);

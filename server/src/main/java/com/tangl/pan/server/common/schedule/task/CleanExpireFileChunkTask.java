@@ -3,7 +3,7 @@ package com.tangl.pan.server.common.schedule.task;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import com.tangl.pan.schedule.ScheduleTask;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
 import com.tangl.pan.server.common.stream.event.log.ErrorLogEvent;
@@ -25,9 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 清理文件分片过期的任务
- * @create 2023-09-14 21:45
+ * 清理文件分片过期的任务
  */
 @Component
 @Slf4j
@@ -106,7 +104,7 @@ public class CleanExpireFileChunkTask implements ScheduleTask {
      * @param realFilePathList 文件物理路径列表
      */
     private void saveErrorLog(List<String> realFilePathList) {
-        ErrorLogEvent errorLogEvent = new ErrorLogEvent("文件物理删除失败，请手动执行文件删除！文件路径为：" + JSON.toJSONString(realFilePathList), TPanConstants.ZERO_LONG);
+        ErrorLogEvent errorLogEvent = new ErrorLogEvent("文件物理删除失败，请手动执行文件删除！文件路径为：" + JSON.toJSONString(realFilePathList), PanConstants.ZERO_LONG);
         producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
     }
 

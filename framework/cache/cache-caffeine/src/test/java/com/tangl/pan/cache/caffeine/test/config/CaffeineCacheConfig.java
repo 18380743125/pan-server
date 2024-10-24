@@ -2,7 +2,7 @@ package com.tangl.pan.cache.caffeine.test.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.tangl.pan.cache.core.constants.CacheConstants;
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cache.CacheManager;
@@ -11,14 +11,9 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-/**
- * @author tangl
- * @description
- * @create 2023-07-24 11:07
- */
 @SpringBootConfiguration
 @EnableCaching
-@ComponentScan(value = TPanConstants.BASE_COMPONENT_SCAN_PATH + ".cache.caffeine.test")
+@ComponentScan(value = PanConstants.BASE_COMPONENT_SCAN_PATH + ".cache.caffeine.test")
 public class CaffeineCacheConfig {
 
     @Autowired

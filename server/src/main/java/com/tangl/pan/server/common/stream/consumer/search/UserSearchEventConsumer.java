@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
 import com.tangl.pan.server.common.stream.event.search.UserSearchEvent;
-import com.tangl.pan.server.modules.user.entity.TPanUserSearchHistory;
+import com.tangl.pan.server.modules.user.entity.PanUserSearchHistory;
 import com.tangl.pan.server.modules.user.service.IUserSearchHistoryService;
 import com.tangl.pan.stream.core.AbstractConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @author tangl
- * @description 用户搜索文件事件监听器
- * @create 2023-09-10 10:30
+ * 用户搜索文件事件监听器
  */
 @Component
 public class UserSearchEventConsumer extends AbstractConsumer {
@@ -39,7 +37,7 @@ public class UserSearchEventConsumer extends AbstractConsumer {
         }
         printLog(message);
         UserSearchEvent event = message.getPayload();
-        TPanUserSearchHistory record = new TPanUserSearchHistory();
+        PanUserSearchHistory record = new PanUserSearchHistory();
         record.setId(IdUtil.get());
         record.setUserId(event.getUserId());
         record.setSearchContent(event.getKeyword());
@@ -48,7 +46,7 @@ public class UserSearchEventConsumer extends AbstractConsumer {
         try {
             userSearchHistoryService.save(record);
         } catch (DuplicateKeyException e) {
-            UpdateWrapper<TPanUserSearchHistory> updateWrapper = Wrappers.update();
+            UpdateWrapper<PanUserSearchHistory> updateWrapper = Wrappers.update();
             updateWrapper.eq("user_id", event.getUserId());
             updateWrapper.eq("search_content", event.getKeyword());
             updateWrapper.set("update_time", new Date());

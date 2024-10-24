@@ -6,11 +6,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-06 18:02
- */
 @ApiModel("文件分片上传的响应实体")
 @Data
 public class FileChunkUploadVO implements Serializable {

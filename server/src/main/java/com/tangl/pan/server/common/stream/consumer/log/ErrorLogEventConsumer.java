@@ -3,7 +3,7 @@ package com.tangl.pan.server.common.stream.consumer.log;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
 import com.tangl.pan.server.common.stream.event.log.ErrorLogEvent;
-import com.tangl.pan.server.modules.log.entity.TPanErrorLog;
+import com.tangl.pan.server.modules.log.entity.PanErrorLog;
 import com.tangl.pan.server.modules.log.service.IErrorLogService;
 import com.tangl.pan.stream.core.AbstractConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @author tangl
- * @description 系统错误日志监听器
- * @create 2023-09-04 21:54
+ * 系统错误日志监听器
  */
 @Component
 public class ErrorLogEventConsumer extends AbstractConsumer {
@@ -33,12 +31,12 @@ public class ErrorLogEventConsumer extends AbstractConsumer {
     @StreamListener(PanChannels.ERROR_LOG_INPUT)
     @Async(value = "eventListenerTaskExecutor")
     public void saveErrorLog(Message<ErrorLogEvent> message) {
-        if(isEmptyMessage(message)) {
+        if (isEmptyMessage(message)) {
             return;
         }
         printLog(message);
         ErrorLogEvent event = message.getPayload();
-        TPanErrorLog record = new TPanErrorLog();
+        PanErrorLog record = new PanErrorLog();
         record.setId(IdUtil.get());
         record.setLogContent(event.getErrorMsg());
         record.setLogStatus(0);

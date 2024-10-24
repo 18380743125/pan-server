@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.tangl.pan.bloom.filter.core.BloomFilter;
 import com.tangl.pan.bloom.filter.core.BloomFilterManager;
-import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.constants.PanConstants;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.response.ResponseCode;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.core.utils.JwtUtil;
@@ -27,15 +27,15 @@ import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.share.constants.ShareConstants;
 import com.tangl.pan.server.modules.share.context.*;
-import com.tangl.pan.server.modules.share.entity.TPanShare;
-import com.tangl.pan.server.modules.share.entity.TPanShareFile;
+import com.tangl.pan.server.modules.share.entity.PanShare;
+import com.tangl.pan.server.modules.share.entity.PanShareFile;
 import com.tangl.pan.server.modules.share.enums.ShareDayTypeEnum;
 import com.tangl.pan.server.modules.share.enums.ShareStatusEnum;
 import com.tangl.pan.server.modules.share.service.IShareFileService;
 import com.tangl.pan.server.modules.share.service.IShareService;
-import com.tangl.pan.server.modules.share.mapper.TPanShareMapper;
+import com.tangl.pan.server.modules.share.mapper.PanShareMapper;
 import com.tangl.pan.server.modules.share.vo.*;
-import com.tangl.pan.server.modules.user.entity.TPanUser;
+import com.tangl.pan.server.modules.user.entity.PanUser;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.stream.core.IStreamProducer;
 import lombok.extern.slf4j.Slf4j;
@@ -54,13 +54,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author 25050
- * @description 针对表【t_pan_share(用户分享表)】的数据库操作Service实现
- * @createDate 2023-07-23 23:42:53
+ * 分享业务层
  */
 @Service
 @Slf4j
-public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> implements IShareService {
+public class ShareServiceImpl extends ServiceImpl<PanShareMapper, PanShare> implements IShareService {
 
     private static final String BLOOM_FILTER_NAME = "SHARE_SIMPLE_DETAIL";
 
@@ -78,7 +76,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
 
     @Autowired
     @Qualifier(value = "shareManualCacheService")
-    private ManualCacheService<TPanShare> cacheService;
+    private ManualCacheService<PanShare> cacheService;
 
     @Autowired
     private BloomFilterManager manager;
@@ -96,7 +94,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      * @return ShareUrlVO
      */
-    @Transactional(rollbackFor = TPanBusinessException.class)
+    @Transactional(rollbackFor = PanBusinessException.class)
     @Override
     public ShareUrlVO create(CreateShareUrlContext context) {
         saveShare(context);
@@ -119,7 +117,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      *
      * @param context 上下文实体
      */
-    @Transactional(rollbackFor = TPanBusinessException.class)
+    @Transactional(rollbackFor = PanBusinessException.class)
     @Override
     public void cancelShare(CancelShareContext context) {
         checkUserCancelSharePermission(context);
@@ -138,7 +136,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      */
     @Override
     public String checkShareCode(CheckShareCodeContext context) {
-        TPanShare record = checkShareStatus(context.getShareId());
+        PanShare record = checkShareStatus(context.getShareId());
         context.setRecord(record);
         doCheckShareCode(context);
         return generateShareToken(context);
@@ -157,7 +155,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      */
     @Override
     public ShareDetailVO detail(QueryShareDetailContext context) {
-        TPanShare record = checkShareStatus(context.getShareId());
+        PanShare record = checkShareStatus(context.getShareId());
         context.setRecord(record);
         initShareVO(context);
         assembleMainShareInfo(context);
@@ -178,7 +176,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      */
     @Override
     public ShareSimpleDetailVO simpleDetail(QueryShareSimpleDetailContext context) {
-        TPanShare record = checkShareStatus(context.getShareId());
+        PanShare record = checkShareStatus(context.getShareId());
         context.setRecord(record);
         initShareSimpleVO(context);
         assembleMainShareSimpleInfo(context);
@@ -197,7 +195,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      */
     @Override
     public List<UserFileVO> fileList(QueryChildFileListContext context) {
-        TPanShare record = checkShareStatus(context.getShareId());
+        PanShare record = checkShareStatus(context.getShareId());
         context.setRecord(record);
         List<UserFileVO> allShareUserFileRecords = checkFileIdOnShareStatusAndGetAllShareUserFiles(context.getShareId(), Lists.newArrayList(context.getParentId()));
         Map<Long, List<UserFileVO>> parentIdFileListMap = allShareUserFileRecords.stream().collect(Collectors.groupingBy(UserFileVO::getParentId));
@@ -279,27 +277,27 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     }
 
     @Override
-    public boolean updateById(TPanShare entity) {
+    public boolean updateById(PanShare entity) {
         return cacheService.updateById(entity.getShareId(), entity);
     }
 
 
     @Override
-    public boolean updateBatchById(Collection<TPanShare> entityList) {
+    public boolean updateBatchById(Collection<PanShare> entityList) {
         if (CollectionUtils.isEmpty(entityList)) {
             return true;
         }
-        Map<Long, TPanShare> entityMap = entityList.stream().collect(Collectors.toMap(TPanShare::getShareId, e -> e));
+        Map<Long, PanShare> entityMap = entityList.stream().collect(Collectors.toMap(PanShare::getShareId, e -> e));
         return cacheService.updateByIds(entityMap);
     }
 
     @Override
-    public TPanShare getById(Serializable id) {
+    public PanShare getById(Serializable id) {
         return cacheService.getById(id);
     }
 
     @Override
-    public List<TPanShare> listByIds(Collection<? extends Serializable> idList) {
+    public List<PanShare> listByIds(Collection<? extends Serializable> idList) {
         return cacheService.getByIds(idList);
     }
 
@@ -312,7 +310,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param shareId 分享 ID
      */
     private void refreshOneShareStatus(Long shareId) {
-        TPanShare record = getById(shareId);
+        PanShare record = getById(shareId);
         if (Objects.isNull(record)) {
             return;
         }
@@ -335,11 +333,11 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param record      分享的实体记录
      * @param shareStatus 分享变更的状态
      */
-    private void doChangeShareStatus(TPanShare record, ShareStatusEnum shareStatus) {
+    private void doChangeShareStatus(PanShare record, ShareStatusEnum shareStatus) {
         record.setShareStatus(shareStatus.getCode());
         if (!updateById(record)) {
             ErrorLogEvent errorLogEvent = new ErrorLogEvent("更新分享状态失败，请手动更改状态，分享的ID为：" +
-                    record.getShareId() + "，分享状态改为：" + shareStatus.getCode(), TPanConstants.ZERO_LONG);
+                    record.getShareId() + "，分享状态改为：" + shareStatus.getCode(), PanConstants.ZERO_LONG);
             producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
         }
     }
@@ -388,7 +386,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @return 受影响的分享的 ID 列表
      */
     private List<Long> getShareIdListByFileIdList(List<Long> allAvailableFileIdList) {
-        QueryWrapper<TPanShareFile> queryWrapper = Wrappers.query();
+        QueryWrapper<PanShareFile> queryWrapper = Wrappers.query();
         queryWrapper.select("share_id");
         queryWrapper.in("file_id", allAvailableFileIdList);
         return shareFileService.listObjs(queryWrapper, value -> (Long) value);
@@ -460,7 +458,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
             return userFileService.transferVOList(allFileRecords);
         }
 
-        throw new TPanBusinessException(ResponseCode.SHARE_FILE_MISS);
+        throw new PanBusinessException(ResponseCode.SHARE_FILE_MISS);
     }
 
     /**
@@ -469,9 +467,9 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      */
     private void assembleShareSimpleUserInfo(QueryShareSimpleDetailContext context) {
-        TPanUser record = userService.getById(context.getRecord().getCreateUser());
+        PanUser record = userService.getById(context.getRecord().getCreateUser());
         if (Objects.isNull(record)) {
-            throw new TPanBusinessException("分享者信息查询失败");
+            throw new PanBusinessException("分享者信息查询失败");
         }
         ShareUserInfoVO shareUserInfoVO = new ShareUserInfoVO();
         shareUserInfoVO.setUserId(record.getUserId());
@@ -486,7 +484,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      */
     private void assembleMainShareSimpleInfo(QueryShareSimpleDetailContext context) {
-        TPanShare record = context.getRecord();
+        PanShare record = context.getRecord();
         ShareSimpleDetailVO vo = context.getVo();
         vo.setShareId(record.getShareId());
         vo.setShareName(record.getShareName());
@@ -508,9 +506,9 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      */
     private void assembleShareUserInfo(QueryShareDetailContext context) {
-        TPanUser record = userService.getById(context.getRecord().getCreateUser());
+        PanUser record = userService.getById(context.getRecord().getCreateUser());
         if (Objects.isNull(record)) {
-            throw new TPanBusinessException("分享者信息查询失败");
+            throw new PanBusinessException("分享者信息查询失败");
         }
         ShareUserInfoVO shareUserInfoVO = new ShareUserInfoVO();
         shareUserInfoVO.setUserId(record.getUserId());
@@ -527,7 +525,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      */
     private String encryptUsername(String username) {
         StringBuffer stringBuffer = new StringBuffer(username);
-        stringBuffer.replace(TPanConstants.TWO_INT, username.length() - TPanConstants.TWO_INT, TPanConstants.COMMON_ENCRYPT_STR);
+        stringBuffer.replace(PanConstants.TWO_INT, username.length() - PanConstants.TWO_INT, PanConstants.COMMON_ENCRYPT_STR);
         return stringBuffer.toString();
     }
 
@@ -559,7 +557,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
         if (Objects.isNull(shareId)) {
             return Lists.newArrayList();
         }
-        QueryWrapper<TPanShareFile> queryWrapper = Wrappers.query();
+        QueryWrapper<PanShareFile> queryWrapper = Wrappers.query();
         queryWrapper.select("file_id");
         queryWrapper.eq("share_id", shareId);
         return shareFileService.listObjs(queryWrapper, value -> (Long) value);
@@ -571,7 +569,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      */
     private void assembleMainShareInfo(QueryShareDetailContext context) {
-        TPanShare record = context.getRecord();
+        PanShare record = context.getRecord();
         ShareDetailVO vo = context.getVo();
         vo.setShareId(record.getShareId());
         vo.setShareName(record.getShareName());
@@ -597,7 +595,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @return token
      */
     private String generateShareToken(CheckShareCodeContext context) {
-        TPanShare record = context.getRecord();
+        PanShare record = context.getRecord();
         return JwtUtil.generateToken(UUIDUtil.getUUID(), ShareConstants.SHARE_ID, record.getShareId(), ShareConstants.ONE_HOUR_LONG);
     }
 
@@ -607,9 +605,9 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      */
     private void doCheckShareCode(CheckShareCodeContext context) {
-        TPanShare record = context.getRecord();
+        PanShare record = context.getRecord();
         if (!Objects.equals(record.getShareCode(), context.getShareCode())) {
-            throw new TPanBusinessException("分享码错误");
+            throw new PanBusinessException("分享码错误");
         }
     }
 
@@ -619,14 +617,14 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param shareId 分享的 ID
      * @return 分享的实体记录
      */
-    private TPanShare checkShareStatus(Long shareId) {
-        TPanShare record = getById(shareId);
+    private PanShare checkShareStatus(Long shareId) {
+        PanShare record = getById(shareId);
         if (Objects.isNull(record)) {
-            throw new TPanBusinessException(ResponseCode.SHARE_CANCELLED);
+            throw new PanBusinessException(ResponseCode.SHARE_CANCELLED);
         }
 
         if (Objects.equals(ShareStatusEnum.FILE_DELETE.getCode(), record.getShareStatus())) {
-            throw new TPanBusinessException(ResponseCode.SHARE_FILE_MISS);
+            throw new PanBusinessException(ResponseCode.SHARE_FILE_MISS);
         }
 
         if (Objects.equals(ShareDayTypeEnum.PERMANENT_VALIDITY.getCode(), record.getShareDayType())) {
@@ -634,7 +632,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
         }
 
         if (record.getShareEndTime().before(new Date())) {
-            throw new TPanBusinessException(ResponseCode.SHARE_EXPIRE);
+            throw new PanBusinessException(ResponseCode.SHARE_EXPIRE);
         }
         return record;
     }
@@ -647,11 +645,11 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     private void doCancelShareFiles(CancelShareContext context) {
         List<Long> shareIdList = context.getShareIdList();
         Long userId = context.getUserId();
-        QueryWrapper<TPanShareFile> queryWrapper = Wrappers.query();
+        QueryWrapper<PanShareFile> queryWrapper = Wrappers.query();
         queryWrapper.in("share_id", shareIdList);
         queryWrapper.eq("create_user", userId);
         if (!shareFileService.remove(queryWrapper)) {
-            throw new TPanBusinessException("取消分享失败");
+            throw new PanBusinessException("取消分享失败");
         }
     }
 
@@ -663,7 +661,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     private void doCancelShare(CancelShareContext context) {
         List<Long> shareIdList = context.getShareIdList();
         if (!removeByIds(shareIdList)) {
-            throw new TPanBusinessException("取消分享失败");
+            throw new PanBusinessException("取消分享失败");
         }
     }
 
@@ -675,13 +673,13 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
     private void checkUserCancelSharePermission(CancelShareContext context) {
         List<Long> shareIdList = context.getShareIdList();
         Long userId = context.getUserId();
-        List<TPanShare> records = listByIds(shareIdList);
+        List<PanShare> records = listByIds(shareIdList);
         if (CollectionUtils.isEmpty(records)) {
-            throw new TPanBusinessException("无权限取消分享");
+            throw new PanBusinessException("无权限取消分享");
         }
-        for (TPanShare record : records) {
+        for (PanShare record : records) {
             if (!Objects.equals(record.getCreateUser(), userId)) {
-                throw new TPanBusinessException("无权限取消分享");
+                throw new PanBusinessException("无权限取消分享");
             }
         }
     }
@@ -707,7 +705,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @return ShareUrlVO
      */
     private ShareUrlVO assembleShareVO(CreateShareUrlContext context) {
-        TPanShare record = context.getRecord();
+        PanShare record = context.getRecord();
         ShareUrlVO shareUrlVO = new ShareUrlVO();
         shareUrlVO.setShareId(record.getShareId());
         shareUrlVO.setShareName(record.getShareName());
@@ -736,14 +734,14 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      * @param context 上下文实体
      */
     private void saveShare(CreateShareUrlContext context) {
-        TPanShare record = new TPanShare();
+        PanShare record = new PanShare();
         record.setShareId(IdUtil.get());
         record.setShareName(context.getShareName());
         record.setShareType(context.getShareType());
         record.setShareDayType(context.getShareDayType());
         Integer shareDays = ShareDayTypeEnum.getShareDaysByCode(context.getShareDayType());
-        if (Objects.equals(shareDays, TPanConstants.MINUS_ONE_INT)) {
-            throw new TPanBusinessException("分享天数类型非法");
+        if (Objects.equals(shareDays, PanConstants.MINUS_ONE_INT)) {
+            throw new PanBusinessException("分享天数类型非法");
         }
         record.setShareDay(shareDays);
         record.setShareEndTime(DateUtil.offsetDay(new Date(), shareDays));
@@ -753,7 +751,7 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
         record.setCreateUser(context.getUserId());
         record.setCreateTime(new Date());
         if (!save(record)) {
-            throw new TPanBusinessException("保存分享信息失败");
+            throw new PanBusinessException("保存分享信息失败");
         }
         context.setRecord(record);
     }
@@ -775,11 +773,11 @@ public class ShareServiceImpl extends ServiceImpl<TPanShareMapper, TPanShare> im
      */
     private String createShareUrl(Long shareId) {
         if (Objects.isNull(shareId)) {
-            throw new TPanBusinessException("分享的ID不能为空");
+            throw new PanBusinessException("分享的ID不能为空");
         }
         String sharePrefix = config.getSharePrefix();
-        if (sharePrefix.lastIndexOf(TPanConstants.SLASH_STR) == TPanConstants.MINUS_ONE_INT) {
-            sharePrefix += TPanConstants.SLASH_STR;
+        if (sharePrefix.lastIndexOf(PanConstants.SLASH_STR) == PanConstants.MINUS_ONE_INT) {
+            sharePrefix += PanConstants.SLASH_STR;
         }
         String shareUrl = "";
         try {

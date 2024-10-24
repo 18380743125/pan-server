@@ -1,8 +1,8 @@
 package com.tangl.pan.server.modules.share.controller;
 
 import com.google.common.base.Splitter;
-import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.constants.PanConstants;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.response.R;
 import com.tangl.pan.core.response.ResponseCode;
 import com.tangl.pan.core.utils.IdUtil;
@@ -38,9 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 分享模块控制器
- * @create 2023-09-16 15:37
+ * 分享模块控制器
  */
 @Api(tags = "分享模块")
 @RestController
@@ -64,7 +62,7 @@ public class ShareController {
         CreateShareUrlContext context = shareConvert.createShareUrlPO2CreateShareUrlContext(createShareUrlPO);
 
         String shareFileIds = createShareUrlPO.getShareFileIds();
-        List<Long> shareFileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(shareFileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> shareFileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(shareFileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
 
         context.setShareFileIdList(shareFileIdList);
 
@@ -97,7 +95,7 @@ public class ShareController {
         CancelShareContext context = new CancelShareContext();
         context.setUserId(UserIdUtil.get());
         String shareIds = cancelSharePO.getShareIds();
-        List<Long> shareIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(shareIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> shareIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(shareIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
         context.setShareIdList(shareIdList);
         shareService.cancelShare(context);
         return R.success();
@@ -148,7 +146,7 @@ public class ShareController {
         try {
             context.setShareId(IdUtil.decrypt(URLDecoder.decode(shareId, StandardCharsets.UTF_8.toString())));
         } catch (UnsupportedEncodingException e) {
-            throw new TPanBusinessException(ResponseCode.ERROR_PARAM);
+            throw new PanBusinessException(ResponseCode.ERROR_PARAM);
         }
         ShareSimpleDetailVO vo = shareService.simpleDetail(context);
         return R.data(vo);
@@ -182,7 +180,7 @@ public class ShareController {
     public R<List<UserFileVO>> saveFiles(@Validated @RequestBody ShareSavePO shareSavePO) {
         ShareSaveContext context = new ShareSaveContext();
         String fileIds = shareSavePO.getFileIds();
-        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> fileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
         context.setFileIdList(fileIdList);
         context.setUserId(UserIdUtil.get());
         context.setShareId(ShareIdUtil.get());

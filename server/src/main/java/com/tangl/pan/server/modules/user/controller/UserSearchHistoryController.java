@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 用户搜索历史控制器
- * @create 2023-10-06 21:47
+ * 用户搜索历史控制器
  */
 @Api(tags = "用户搜索历史模块")
 @RestController

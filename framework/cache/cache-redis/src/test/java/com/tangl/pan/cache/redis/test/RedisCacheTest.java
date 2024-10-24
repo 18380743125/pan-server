@@ -12,11 +12,6 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @author tangl
- * @description
- * @create 2023-07-25 18:23
- */
 @SpringBootTest(classes = RedisCacheTest.class)
 @SpringBootApplication
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,7 +35,7 @@ public class RedisCacheTest {
     }
 
     @Test
-    public void  caffeineCacheAnnotationTest() {
+    public void caffeineCacheAnnotationTest() {
         for (int i = 0; i < 2; i++) {
             cacheAnnotationTester.testCacheable("tangl");
         }

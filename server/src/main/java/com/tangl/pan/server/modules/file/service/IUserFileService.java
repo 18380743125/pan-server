@@ -8,9 +8,7 @@ import com.tangl.pan.server.modules.file.vo.*;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 用户文件业务层
- * @createDate 2023-07-23 23:41:43
+ * 用户文件业务层
  */
 public interface IUserFileService extends IService<TPanUserFile> {
     /**

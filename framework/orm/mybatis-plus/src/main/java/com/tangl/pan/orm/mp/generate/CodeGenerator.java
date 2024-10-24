@@ -19,9 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author tangl
- * @description mp 代码生成工具, 可以选择安装 MyBatisX 插件生成, 或者执行该类工具方法生成
- * @create 2023-07-23 22:24
+ * mp 代码生成工具, 可以选择安装 MyBatisX 插件生成, 或者执行该类工具方法生成
  */
 public class CodeGenerator {
     /**

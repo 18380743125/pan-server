@@ -1,9 +1,7 @@
 package com.tangl.pan.server.modules.share.constants;
 
 /**
- * @author tangl
- * @description 分享模块的常量类
- * @create 2023-09-16 22:57
+ * 分享模块的常量类
  */
 public interface ShareConstants {
 

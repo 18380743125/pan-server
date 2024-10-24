@@ -10,11 +10,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author tangl
- * @description 分享链接列表实体
- * @create 2023-09-16 18:35
- */
 @ApiModel("分享链接列表实体")
 @Data
 public class ShareUrlListVO implements Serializable {

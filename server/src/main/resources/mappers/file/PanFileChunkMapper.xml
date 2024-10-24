@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tangl.pan.server.modules.file.mapper.TPanFileChunkMapper">
+<mapper namespace="com.tangl.pan.server.modules.file.mapper.PanFileChunkMapper">
 
     <resultMap id="BaseResultMap" type="com.tangl.pan.server.modules.file.entity.TPanFileChunk">
         <id property="id" column="id" jdbcType="BIGINT"/>

@@ -7,11 +7,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @author tangl
- * @description 查询用户已上传的分片列表响应实体
- * @create 2023-09-07 11:30
- */
 @ApiModel("查询用户已上传的分片列表响应实体")
 @Data
 public class UploadedChunksVO implements Serializable {

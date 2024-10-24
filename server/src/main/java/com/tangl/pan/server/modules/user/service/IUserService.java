@@ -1,16 +1,14 @@
 package com.tangl.pan.server.modules.user.service;
 
 import com.tangl.pan.server.modules.user.context.*;
-import com.tangl.pan.server.modules.user.entity.TPanUser;
+import com.tangl.pan.server.modules.user.entity.PanUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 
 /**
- * @author tangl
- * @description 用户业务层
- * @createDate 2023-07-23 23:38:02
+ * 用户业务层2
  */
-public interface IUserService extends IService<TPanUser> {
+public interface IUserService extends IService<PanUser> {
 
     /**
      * 用户注册

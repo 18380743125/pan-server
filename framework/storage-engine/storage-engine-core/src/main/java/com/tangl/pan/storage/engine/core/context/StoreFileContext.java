@@ -6,9 +6,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件存储引擎存储物理文件的上下文
- * @create 2023-08-15 21:08
+ * 文件存储引擎存储物理文件的上下文
  */
 @Data
 public class StoreFileContext implements Serializable {

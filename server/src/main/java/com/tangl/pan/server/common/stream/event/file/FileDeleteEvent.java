@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件删除事件
- * @create 2023-08-13 17:48
+ * 文件删除事件
  */
 @Getter
 @Setter

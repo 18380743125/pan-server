@@ -10,9 +10,7 @@ import org.springframework.integration.zookeeper.config.CuratorFrameworkFactoryB
 import org.springframework.integration.zookeeper.lock.ZookeeperLockRegistry;
 
 /**
- * @author tangl
- * @description 基于 zookeeper 的分布式锁配置类
- * @create 2023-09-24 16:04
+ * 基于 zookeeper 的分布式锁配置类
  */
 @SpringBootConfiguration
 @Slf4j

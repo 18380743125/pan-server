@@ -4,11 +4,6 @@ import com.tangl.pan.schedule.ScheduleTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-/**
- * @author tangl
- * @description
- * @create 2023-07-25 21:43
- */
 @Component
 @Slf4j
 public class SimpleScheduleTask implements ScheduleTask {

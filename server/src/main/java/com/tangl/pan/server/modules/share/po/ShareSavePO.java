@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 保存到我的网盘参数实体
- * @create 2023-09-17 16:17
- */
 @ApiModel(value = "保存到我的网盘参数实体")
 @Data
 public class ShareSavePO implements Serializable {

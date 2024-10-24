@@ -1,7 +1,7 @@
 package com.tangl.pan.server.modules.recycle.controller;
 
 import com.google.common.base.Splitter;
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import com.tangl.pan.core.response.R;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.utils.UserIdUtil;
@@ -23,9 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 回收站模块控制器
- * @create 2023-09-15 22:14
+ * 回收站模块控制器
  */
 @RestController
 @Api(tags = "回收站模块")
@@ -60,7 +58,7 @@ public class recycleController {
         RestoreContext context = new RestoreContext();
         context.setUserId(UserIdUtil.get());
         String fileIds = restorePO.getFileIds();
-        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> fileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
         context.setFileIdList(fileIdList);
         recycleService.restore(context);
         return R.success();
@@ -77,7 +75,7 @@ public class recycleController {
         DeleteContext context = new DeleteContext();
         context.setUserId(UserIdUtil.get());
         String fileIds = deletePO.getFileIds();
-        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> fileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
         context.setFileIdList(fileIdList);
         recycleService.delete(context);
         return R.success();

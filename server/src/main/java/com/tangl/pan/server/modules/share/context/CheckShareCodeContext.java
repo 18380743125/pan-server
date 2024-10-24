@@ -1,14 +1,12 @@
 package com.tangl.pan.server.modules.share.context;
 
-import com.tangl.pan.server.modules.share.entity.TPanShare;
+import com.tangl.pan.server.modules.share.entity.PanShare;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 校验分享码的上下文实体
- * @create 2023-09-16 22:38
+ * 校验分享码的上下文实体
  */
 @Data
 public class CheckShareCodeContext implements Serializable {
@@ -28,5 +26,5 @@ public class CheckShareCodeContext implements Serializable {
     /**
      * 分享的实体记录
      */
-    private TPanShare record;
+    private PanShare record;
 }

@@ -8,11 +8,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 用户响应实体
- * @create 2023-08-01 16:56
- */
 @ApiModel(value = "用户响应实体")
 @Data
 public class UserInfoVO implements Serializable {

@@ -1,7 +1,7 @@
 package com.tangl.pan.storage.engine.oss.config;
 
 import com.aliyun.oss.OSSClient;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description OSS文件存储引擎配置类
- * @create 2023-09-12 22:07
+ * OSS文件存储引擎配置类
  */
 @Component
 @Data
@@ -36,7 +34,7 @@ public class OSSStorageEngineConfig {
     @Bean(destroyMethod = "shutdown")
     public OSSClient ossClient() {
         if (StringUtils.isAnyBlank(getEndpoint(), getAccessKeyId(), getAccessKeySecret(), getBucketName())) {
-            throw new TPanFrameworkException("the oss config is missed!");
+            throw new PanFrameworkException("the oss config is missed!");
         }
         return new OSSClient(getEndpoint(), getAccessKeyId(), getAccessKeySecret());
     }

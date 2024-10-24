@@ -10,11 +10,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-10 11:21
- */
 @ApiModel("面包屑列表展示实体")
 @Data
 public class BreadcrumbsVO implements Serializable {

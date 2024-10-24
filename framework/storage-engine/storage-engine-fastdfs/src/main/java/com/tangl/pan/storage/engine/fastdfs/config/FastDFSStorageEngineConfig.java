@@ -4,7 +4,7 @@ import com.github.tobato.fastdfs.conn.ConnectionPoolConfig;
 import com.github.tobato.fastdfs.conn.FdfsConnectionPool;
 import com.github.tobato.fastdfs.conn.PooledConnectionFactory;
 import com.github.tobato.fastdfs.conn.TrackerConnectionManager;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;
 import org.assertj.core.util.Lists;
@@ -18,9 +18,7 @@ import org.springframework.jmx.support.RegistrationPolicy;
 import java.util.List;
 
 /**
- * @author tangl
- * @description FastDFS文件存储配置类
- * @create 2023-09-10 21:55
+ * FastDFS文件存储配置类
  */
 @SpringBootConfiguration
 @Data
@@ -65,7 +63,7 @@ public class FastDFSStorageEngineConfig {
     public TrackerConnectionManager trackerConnectionManager(FdfsConnectionPool fdfsConnectionPool) {
         TrackerConnectionManager manager = new TrackerConnectionManager(fdfsConnectionPool);
         if (CollectionUtils.isEmpty(getTrackerList())) {
-            throw new TPanFrameworkException("the tracker list is empty!");
+            throw new PanFrameworkException("the tracker list is empty!");
         }
         manager.setTrackerList(getTrackerList());
         return manager;

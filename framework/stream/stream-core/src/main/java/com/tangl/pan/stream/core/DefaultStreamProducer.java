@@ -4,9 +4,7 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description 默认的消息发送实体
- * @create 2023-09-24 18:08
+ * 默认的消息发送实体
  */
 @Component(value = "defaultStreamProducer")
 public class DefaultStreamProducer extends AbstractStreamProducer {

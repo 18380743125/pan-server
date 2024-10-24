@@ -1,6 +1,6 @@
 package com.tangl.pan.web.validator;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.boot.SpringBootConfiguration;
@@ -12,9 +12,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- * @author tangl
- * @description 统一的参数校验器
- * @create 2023-06-23 16:53
+ * 统一的参数校验器
  */
 @SpringBootConfiguration
 @Log4j2
@@ -38,7 +36,7 @@ public class WebValidatorConfig {
     private Validator tPanValidator() {
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
                 .configure()
-                .addProperty(FAIT_FAST_KEY, TPanConstants.TRUE_STR)
+                .addProperty(FAIT_FAST_KEY, PanConstants.TRUE_STR)
                 .buildValidatorFactory();
         return validatorFactory.getValidator();
     }

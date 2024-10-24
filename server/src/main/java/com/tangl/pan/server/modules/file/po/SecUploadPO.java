@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 文件秒传参数实体
- * @create 2023-08-13 21:52
- */
 @ApiModel("文件秒传参数实体")
 @Data
 public class SecUploadPO implements Serializable {

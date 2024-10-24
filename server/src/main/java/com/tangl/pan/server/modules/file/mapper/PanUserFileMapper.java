@@ -11,12 +11,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author tangl
- * @description t_pan_user_file (用户文件信息表) 的数据库操作 Mapper
- * @create 2023-07-23 23:41:43
- * @entity com.tangl.pan.server.modules.file.entity.TPanUserFile
+ * pan_user_file (用户文件信息表) 的数据库操作 Mapper
  */
-public interface TPanUserFileMapper extends BaseMapper<TPanUserFile> {
+public interface PanUserFileMapper extends BaseMapper<TPanUserFile> {
 
     /**
      * 查询用户的文件列表

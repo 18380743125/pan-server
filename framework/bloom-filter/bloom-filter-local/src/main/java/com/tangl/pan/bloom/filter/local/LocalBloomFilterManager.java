@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author tangl
- * @description 本地布隆过滤器的管理器
- * @create 2023-09-23 21:35
+ * 本地布隆过滤器的管理器
  */
 @Component
 public class LocalBloomFilterManager<T> implements BloomFilterManager, InitializingBean {

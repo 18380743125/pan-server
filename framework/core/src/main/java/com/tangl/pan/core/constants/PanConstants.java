@@ -3,11 +3,9 @@ package com.tangl.pan.core.constants;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author tangl
- * @description 公用基础常量类
- * @create 2023-06-22 14:22
+ * 公用基础常量类
  */
-public interface TPanConstants {
+public interface PanConstants {
 
     /**
      * 公用的字符串分隔符

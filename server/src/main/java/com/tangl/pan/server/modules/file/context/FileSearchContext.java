@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件搜索上下文实体
- * @create 2023-09-10 9:58
+ * 文件搜索上下文实体
  */
 @Data
 public class FileSearchContext implements Serializable {

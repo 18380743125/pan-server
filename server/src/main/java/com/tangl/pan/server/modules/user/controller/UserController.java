@@ -17,9 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author tangl
- * @description 用户模块的控制器
- * @create 2023-07-28 21:10
+ * 用户模块的控制器
  */
 @Api(tags = "用户模块")
 @RestController
@@ -32,12 +30,7 @@ public class UserController {
     @Autowired
     private UserConverter userConverter;
 
-    @ApiOperation(
-            value = "用户注册接口",
-            notes = "该接口提供了用户注册的功能, 实现了幂等性注册的逻辑, 可以放心多并发调用",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户注册接口", notes = "该接口提供了用户注册的功能, 实现了幂等性注册的逻辑, 可以放心多并发调用", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @LoginIgnore
     @PostMapping("register")
     public R<?> register(@Validated @RequestBody UserRegisterPO userRegisterPO) {
@@ -46,12 +39,7 @@ public class UserController {
         return R.data(IdUtil.encrypt(userId));
     }
 
-    @ApiOperation(
-            value = "用户登录接口",
-            notes = "该接口提供了用户登录的功能, 成功登录之后, 会返回有时效性的 accessToken 供后续服务使用",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户登录接口", notes = "该接口提供了用户登录的功能, 成功登录之后, 会返回有时效性的 accessToken 供后续服务使用", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @LoginIgnore
     @PostMapping("login")
     public R<?> login(@Validated @RequestBody UserLoginPO userLoginPO) {
@@ -60,12 +48,7 @@ public class UserController {
         return R.data(accessToken);
     }
 
-    @ApiOperation(
-            value = "用户登出接口",
-            notes = "该接口提供了用户登出的功能",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户登出接口", notes = "该接口提供了用户登出的功能", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("exit")
     public R<?> exit() {
         userService.exit(UserIdUtil.get());
@@ -73,12 +56,7 @@ public class UserController {
     }
 
     @LoginIgnore
-    @ApiOperation(
-            value = "用户忘记密码-校验用户名",
-            notes = "该接口提供了用户忘记密码-校验用户名的功能",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户忘记密码-校验用户名", notes = "该接口提供了用户忘记密码-校验用户名的功能", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("username/check")
     public R<?> checkUsername(@Validated @RequestBody CheckUsernamePO checkUsernamePO) {
         CheckUsernameContext context = userConverter.checkUsernamePO2CheckUsernameContext(checkUsernamePO);
@@ -87,12 +65,7 @@ public class UserController {
     }
 
     @LoginIgnore
-    @ApiOperation(
-            value = "用户忘记密码-校验密保答案",
-            notes = "该接口提供了用户忘记密码-校验密保答案的功能",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户忘记密码-校验密保答案", notes = "该接口提供了用户忘记密码-校验密保答案的功能", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("answer/check")
     public R<?> checkAnswer(@Validated @RequestBody CheckAnswerPO checkAnswerPO) {
         CheckAnswerContext context = userConverter.checkAnswerPO2CheckAnswerContext(checkAnswerPO);
@@ -101,12 +74,7 @@ public class UserController {
     }
 
     @LoginIgnore
-    @ApiOperation(
-            value = "用户忘记密码-重置用户密码",
-            notes = "该接口提供了用户忘记密码-重置用户密码的功能",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户忘记密码-重置用户密码", notes = "该接口提供了用户忘记密码-重置用户密码的功能", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("password/reset")
     public R<?> resetPassword(@Validated @RequestBody ResetPasswordPO resetPasswordPO) {
         ResetPasswordContext context = userConverter.resetPasswordPO2ResetPasswordContext(resetPasswordPO);
@@ -114,12 +82,7 @@ public class UserController {
         return R.success();
     }
 
-    @ApiOperation(
-            value = "用户在线修改密码",
-            notes = "该接口提供了用户在线修改密码的功能",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "用户在线修改密码", notes = "该接口提供了用户在线修改密码的功能", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("password/change")
     public R<?> changePassword(@Validated @RequestBody ChangePasswordPO changePasswordPO) {
         ChangePasswordContext context = userConverter.changePasswordPO2ChangePasswordContext(changePasswordPO);
@@ -128,12 +91,7 @@ public class UserController {
         return R.success();
     }
 
-    @ApiOperation(
-            value = "查询登录用户的基本信息",
-            notes = "该接口提供了查询登录用户的基本信息的功能",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @ApiOperation(value = "查询登录用户的基本信息", notes = "该接口提供了查询登录用户的基本信息的功能", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/")
     public R<UserInfoVO> info() {
         UserInfoVO vo = userService.info(UserIdUtil.get());

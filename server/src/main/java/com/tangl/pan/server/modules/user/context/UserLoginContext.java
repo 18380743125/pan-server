@@ -1,14 +1,12 @@
 package com.tangl.pan.server.modules.user.context;
 
-import com.tangl.pan.server.modules.user.entity.TPanUser;
+import com.tangl.pan.server.modules.user.entity.PanUser;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 用户登录的上下文实体
- * @create 2023-07-28 21:41
+ * 用户登录的上下文实体
  */
 @Data
 public class UserLoginContext implements Serializable {
@@ -28,7 +26,7 @@ public class UserLoginContext implements Serializable {
     /**
      * 用户实体对象
      */
-    private TPanUser entity;
+    private PanUser entity;
 
     /**
      * 登录成功之后的凭证信息

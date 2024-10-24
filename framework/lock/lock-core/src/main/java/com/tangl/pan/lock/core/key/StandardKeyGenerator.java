@@ -14,9 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 标准的 key 生成器
- * @create 2023-09-24 9:36
+ * 标准的 key 生成器
  */
 @Component
 public class StandardKeyGenerator extends AbstractKeyGenerator {

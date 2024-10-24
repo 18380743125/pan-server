@@ -4,9 +4,7 @@ import com.google.common.hash.Funnel;
 import com.tangl.pan.bloom.filter.core.BloomFilter;
 
 /**
- * @author tangl
- * @description 本地实现的布隆过滤器
- * @create 2023-09-23 21:29
+ * 本地实现的布隆过滤器
  */
 public class LocalBloomFilter<T> implements BloomFilter<T> {
 

@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 查询文件列表上下文实体
- * @create 2023-08-10 21:13
+ * 查询文件列表上下文实体
  */
 @Data
 public class QueryFileListContext implements Serializable {

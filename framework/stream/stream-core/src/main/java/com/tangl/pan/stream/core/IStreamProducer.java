@@ -3,9 +3,7 @@ package com.tangl.pan.stream.core;
 import java.util.Map;
 
 /**
- * @author tangl
- * @description 消息发送者顶级接口
- * @create 2023-09-24 17:52
+ * 消息发送者顶级接口
  */
 public interface IStreamProducer {
 

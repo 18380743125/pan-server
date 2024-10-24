@@ -2,7 +2,7 @@ package com.tangl.pan.server.modules.share.service;
 
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.server.modules.share.context.*;
-import com.tangl.pan.server.modules.share.entity.TPanShare;
+import com.tangl.pan.server.modules.share.entity.PanShare;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tangl.pan.server.modules.share.vo.ShareDetailVO;
 import com.tangl.pan.server.modules.share.vo.ShareSimpleDetailVO;
@@ -12,11 +12,9 @@ import com.tangl.pan.server.modules.share.vo.ShareUrlVO;
 import java.util.List;
 
 /**
- * @author 25050
- * @description 针对表【t_pan_share(用户分享表)】的数据库操作Service
- * @createDate 2023-07-23 23:42:53
+ * 分享业务层
  */
-public interface IShareService extends IService<TPanShare> {
+public interface IShareService extends IService<PanShare> {
 
     /**
      * 创建分享链接

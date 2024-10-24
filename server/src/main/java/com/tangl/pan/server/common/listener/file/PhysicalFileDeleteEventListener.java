@@ -1,39 +1,34 @@
-//package com.tangl.pan.server.common.listener.file;
+// package com.tangl.pan.server.common.listener.file;
 //
-//import com.alibaba.fastjson.JSON;
-//import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-//import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-//import com.tangl.pan.core.constants.TPanConstants;
-//import com.tangl.pan.server.common.event.log.ErrorLogEvent;
-//import com.tangl.pan.server.common.event.file.PhysicalFileDeleteEvent;
-//import com.tangl.pan.server.modules.file.entity.TPanFile;
-//import com.tangl.pan.server.modules.file.entity.TPanUserFile;
-//import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
-//import com.tangl.pan.server.modules.file.service.IFileService;
-//import com.tangl.pan.server.modules.file.service.IUserFileService;
-//import com.tangl.pan.storage.engine.core.StorageEngine;
-//import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
-//import org.apache.commons.collections.CollectionUtils;
-//import org.springframework.beans.BeansException;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.ApplicationContext;
-//import org.springframework.context.ApplicationContextAware;
-//import org.springframework.context.event.EventListener;
-//import org.springframework.scheduling.annotation.Async;
-//import org.springframework.stereotype.Component;
+// import com.alibaba.fastjson.JSON;
+// import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+// import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+// import com.tangl.pan.core.constants.PanConstants;
+// import com.tangl.pan.server.common.event.log.ErrorLogEvent;
+// import com.tangl.pan.server.common.event.file.PhysicalFileDeleteEvent;
+// import com.tangl.pan.server.modules.file.entity.TPanFile;
+// import com.tangl.pan.server.modules.file.entity.TPanUserFile;
+// import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
+// import com.tangl.pan.server.modules.file.service.IFileService;
+// import com.tangl.pan.server.modules.file.service.IUserFileService;
+// import com.tangl.pan.storage.engine.core.StorageEngine;
+// import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
+// import org.apache.commons.collections.CollectionUtils;
+// import org.springframework.beans.BeansException;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.context.ApplicationContext;
+// import org.springframework.context.ApplicationContextAware;
+// import org.springframework.context.event.EventListener;
+// import org.springframework.scheduling.annotation.Async;
+// import org.springframework.stereotype.Component;
 //
-//import java.io.IOException;
-//import java.util.List;
-//import java.util.Objects;
-//import java.util.stream.Collectors;
+// import java.io.IOException;
+// import java.util.List;
+// import java.util.Objects;
+// import java.util.stream.Collectors;
 //
-///**
-// * @author tangl
-// * @description
-// * @create 2023-09-16 0:46
-// */
-//@Component
-//public class PhysicalFileDeleteEventListener implements ApplicationContextAware {
+// @Component
+// public class PhysicalFileDeleteEventListener implements ApplicationContextAware {
 //
 //    @Autowired
 //    private IFileService fileService;
@@ -81,14 +76,14 @@
 //        }
 //
 //        if (!fileService.removeByIds(realFileIdList)) {
-//            ErrorLogEvent errorLogEvent = new ErrorLogEvent(this, "文件实体记录：" + JSON.toJSONString(realFileIdList) + "，物理删除失败，请执行手动删除", TPanConstants.ZERO_LONG);
+//            ErrorLogEvent errorLogEvent = new ErrorLogEvent(this, "文件实体记录：" + JSON.toJSONString(realFileIdList) + "，物理删除失败，请执行手动删除", PanConstants.ZERO_LONG);
 //            applicationContext.publishEvent(errorLogEvent);
 //            return;
 //        }
 //        try {
 //            physicalFileDeleteByStorageEngine(realFileRecords);
 //        } catch (IOException e) {
-//            ErrorLogEvent errorLogEvent = new ErrorLogEvent(this, "物理文件：" + JSON.toJSONString(realFileIdList) + "，删除失败，请执行手动删除", TPanConstants.ZERO_LONG);
+//            ErrorLogEvent errorLogEvent = new ErrorLogEvent(this, "物理文件：" + JSON.toJSONString(realFileIdList) + "，删除失败，请执行手动删除", PanConstants.ZERO_LONG);
 //            applicationContext.publishEvent(errorLogEvent);
 //        }
 //    }
@@ -127,6 +122,6 @@
 //    private boolean isUnused(TPanUserFile record) {
 //        QueryWrapper<TPanUserFile> queryWrapper = Wrappers.query();
 //        queryWrapper.eq("real_file_id", record.getRealFileId());
-//        return userFileService.count(queryWrapper) == TPanConstants.ZERO_INT;
+//        return userFileService.count(queryWrapper) == PanConstants.ZERO_INT;
 //    }
-//}
+// }

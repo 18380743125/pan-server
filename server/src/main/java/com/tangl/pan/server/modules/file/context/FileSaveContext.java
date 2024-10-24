@@ -7,9 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 保存单文件的上下文实体
- * @create 2023-08-14 22:20
+ * 保存单文件的上下文实体
  */
 @Data
 public class FileSaveContext implements Serializable {

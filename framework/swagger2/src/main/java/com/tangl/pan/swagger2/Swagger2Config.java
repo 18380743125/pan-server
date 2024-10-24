@@ -15,9 +15,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @author tangl
- * @description 接口文档配置类
- * @create 2023-06-22 22:54
+ * 接口文档配置类
  */
 @SpringBootConfiguration
 @EnableSwagger2

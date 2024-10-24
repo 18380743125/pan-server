@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author tangl
- * @description 支持跨域的过滤器
- * @create 2023-06-22 18:09
+ * 支持跨域的过滤器
  */
 @WebFilter(filterName = "corsFilter")
 @Order(1)

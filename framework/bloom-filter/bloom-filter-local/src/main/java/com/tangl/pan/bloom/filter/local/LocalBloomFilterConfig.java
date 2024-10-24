@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author tangl
- * @description
- * @create 2023-09-23 21:18
+ * 配置列表
  */
 @Component
 @ConfigurationProperties(value = "com.tangl.pan.bloom.filter.local")

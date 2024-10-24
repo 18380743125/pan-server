@@ -8,11 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 创建分享链接的参数对象
- * @create 2023-09-16 16:12
- */
 @ApiModel(value = "创建分享链接的参数对象")
 @Data
 public class CreateShareUrlPO implements Serializable {

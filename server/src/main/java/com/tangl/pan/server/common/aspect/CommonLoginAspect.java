@@ -27,9 +27,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 统一的登录拦截校验切面逻辑实现类
- * @create 2023-07-31 15:22
+ * 统一的登录拦截校验切面逻辑实现类
  */
 @Component
 @Aspect

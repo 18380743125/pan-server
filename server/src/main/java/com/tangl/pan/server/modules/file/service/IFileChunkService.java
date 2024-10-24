@@ -5,9 +5,7 @@ import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * @author tangl
- * @description 文件分片的业务层
- * @createDate 2023-07-23 23:41:43
+ * 文件分片的业务层
  */
 public interface IFileChunkService extends IService<TPanFileChunk> {
 

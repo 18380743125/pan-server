@@ -9,9 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description 项目启动成功日志打印监听器
- * @create 2023-06-23 16:39
+ * 项目启动成功日志打印监听器
  */
 @Component
 @Log4j2

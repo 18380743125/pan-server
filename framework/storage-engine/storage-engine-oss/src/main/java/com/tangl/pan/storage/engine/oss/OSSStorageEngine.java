@@ -7,8 +7,8 @@ import com.aliyun.oss.model.*;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.constants.PanConstants;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.UUIDUtil;
 import com.tangl.pan.lock.core.annotation.Lock;
@@ -29,9 +29,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 基于 OSS 的文件存储引擎实现类
- * @create 2023-08-14 21:46
+ * 基于 OSS 的文件存储引擎实现类6
  */
 @Component
 public class OSSStorageEngine extends AbstractStorageEngine {
@@ -135,7 +133,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
     @Override
     protected void doStoreChunk(StoreFileChunkContext context) {
         if (context.getTotalChunks() > TEN_THOUSAND) {
-            throw new TPanFrameworkException("分片数超过了限制，分片数不得大于：" + TEN_THOUSAND);
+            throw new PanFrameworkException("分片数超过了限制，分片数不得大于：" + TEN_THOUSAND);
         }
 
         String cacheKey = getCacheKey(context.getIdentifier(), context.getUserId());
@@ -157,7 +155,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
         UploadPartResult result = client.uploadPart(request);
 
         if (Objects.isNull(result)) {
-            throw new TPanFrameworkException("文件分片上传失败");
+            throw new PanFrameworkException("文件分片上传失败");
         }
 
         PartETag partETag = result.getPartETag();
@@ -192,7 +190,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
         ChunkUploadEntity entity = getCache().get(cacheKey, ChunkUploadEntity.class);
 
         if (Objects.isNull(entity)) {
-            throw new TPanFrameworkException("文件分片合并失败，文件的唯一标识为：" + context.getIdentifier());
+            throw new PanFrameworkException("文件分片合并失败，文件的唯一标识为：" + context.getIdentifier());
         }
 
         List<String> chunkPaths = context.getRealPathList();
@@ -214,7 +212,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
                 entity.getObjectKey(), entity.getUploadId(), partETags);
         CompleteMultipartUploadResult result = client.completeMultipartUpload(request);
         if (Objects.isNull(result)) {
-            throw new TPanFrameworkException("文件分片合并失败，文件的唯一标识为：" + context.getIdentifier());
+            throw new PanFrameworkException("文件分片合并失败，文件的唯一标识为：" + context.getIdentifier());
         }
 
         getCache().evict(cacheKey);
@@ -226,7 +224,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
     protected void doReadFile(ReadFileContext context) throws IOException {
         OSSObject ossObject = client.getObject(config.getBucketName(), context.getReadPath());
         if (Objects.isNull(ossObject)) {
-            throw new TPanFrameworkException("文件读取失败，文件路径为：" + context.getReadPath());
+            throw new PanFrameworkException("文件读取失败，文件路径为：" + context.getReadPath());
         }
         FileUtil.writeStream2StreamNormal(ossObject.getObjectContent(), context.getOutputStream());
     }
@@ -243,12 +241,12 @@ public class OSSStorageEngine extends AbstractStorageEngine {
         if (!checkHaveParams(url)) {
             return result;
         }
-        String paramsPart = url.split(getSplitMark(TPanConstants.QUESTION_MARK_STR))[1];
+        String paramsPart = url.split(getSplitMark(PanConstants.QUESTION_MARK_STR))[1];
         if (StringUtils.isNotBlank(paramsPart)) {
-            List<String> paramPairList = Splitter.on(TPanConstants.AND_MARK_STR).splitToList(paramsPart);
+            List<String> paramPairList = Splitter.on(PanConstants.AND_MARK_STR).splitToList(paramsPart);
             paramPairList.forEach(paramPair -> {
-                String[] paramArr = paramPair.split(getSplitMark(TPanConstants.EQUALS_MARK_STR));
-                if (paramArr.length == TPanConstants.TWO_INT) {
+                String[] paramArr = paramPair.split(getSplitMark(PanConstants.EQUALS_MARK_STR));
+                if (paramArr.length == PanConstants.TWO_INT) {
                     result.put(paramArr[0], paramArr[1]);
                 }
             });
@@ -268,17 +266,17 @@ public class OSSStorageEngine extends AbstractStorageEngine {
             return baseUrl;
         }
         StringBuffer urlStringBuffer = new StringBuffer(baseUrl);
-        urlStringBuffer.append(TPanConstants.QUESTION_MARK_STR);
+        urlStringBuffer.append(PanConstants.QUESTION_MARK_STR);
         List<String> paramsList = Lists.newArrayList();
         StringBuffer urlParamsStringBuffer = new StringBuffer();
         params.forEach((key, value) -> {
-            urlParamsStringBuffer.setLength(TPanConstants.ZERO_INT);
+            urlParamsStringBuffer.setLength(PanConstants.ZERO_INT);
             urlParamsStringBuffer.append(key);
-            urlParamsStringBuffer.append(TPanConstants.EQUALS_MARK_STR);
+            urlParamsStringBuffer.append(PanConstants.EQUALS_MARK_STR);
             urlParamsStringBuffer.append(value);
             paramsList.add(urlParamsStringBuffer.toString());
         });
-        return urlStringBuffer.append(Joiner.on(TPanConstants.AND_MARK_STR).join(paramsList)).toString();
+        return urlStringBuffer.append(Joiner.on(PanConstants.AND_MARK_STR).join(paramsList)).toString();
     }
 
     /**
@@ -289,10 +287,10 @@ public class OSSStorageEngine extends AbstractStorageEngine {
      */
     private String getBaseUrl(String url) {
         if (StringUtils.isBlank(url)) {
-            return TPanConstants.EMPTY_STR;
+            return PanConstants.EMPTY_STR;
         }
         if (checkHaveParams(url)) {
-            return url.split(getSplitMark(TPanConstants.QUESTION_MARK_STR))[0];
+            return url.split(getSplitMark(PanConstants.QUESTION_MARK_STR))[0];
         }
         return url;
     }
@@ -306,9 +304,9 @@ public class OSSStorageEngine extends AbstractStorageEngine {
      * @return String
      */
     private String getSplitMark(String mark) {
-        return new StringBuffer(TPanConstants.LEFT_BRACKET_STR)
+        return new StringBuffer(PanConstants.LEFT_BRACKET_STR)
                 .append(mark)
-                .append(TPanConstants.RIGHT_BRACKET_STR)
+                .append(PanConstants.RIGHT_BRACKET_STR)
                 .toString();
     }
 
@@ -319,7 +317,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
      * @return boolean
      */
     private boolean checkHaveParams(String url) {
-        return StringUtils.isNotBlank(url) && url.indexOf(TPanConstants.QUESTION_MARK_STR) != TPanConstants.MINUS_ONE_INT;
+        return StringUtils.isNotBlank(url) && url.indexOf(PanConstants.QUESTION_MARK_STR) != PanConstants.MINUS_ONE_INT;
     }
 
 
@@ -338,7 +336,7 @@ public class OSSStorageEngine extends AbstractStorageEngine {
         InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(config.getBucketName(), filePath);
         InitiateMultipartUploadResult result = client.initiateMultipartUpload(request);
         if (Objects.isNull(result)) {
-            throw new TPanFrameworkException("文件分片上传初始化失败");
+            throw new PanFrameworkException("文件分片上传初始化失败");
         }
 
         ChunkUploadEntity entity = new ChunkUploadEntity();
@@ -371,11 +369,11 @@ public class OSSStorageEngine extends AbstractStorageEngine {
     private String getFilePath(String fileSuffix) {
         return new StringBuffer()
                 .append(DateUtil.thisYear())
-                .append(TPanConstants.SLASH_STR)
+                .append(PanConstants.SLASH_STR)
                 .append(DateUtil.thisMonth() + 1)
-                .append(TPanConstants.SLASH_STR)
+                .append(PanConstants.SLASH_STR)
                 .append(DateUtil.thisDayOfMonth())
-                .append(TPanConstants.SLASH_STR)
+                .append(PanConstants.SLASH_STR)
                 .append(UUIDUtil.getUUID())
                 .append(fileSuffix)
                 .toString();

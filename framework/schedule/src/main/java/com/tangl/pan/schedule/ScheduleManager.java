@@ -1,6 +1,6 @@
 package com.tangl.pan.schedule;
 
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import com.tangl.pan.core.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -15,12 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * @author tangl
- * @description 定时任务管理器
+ * 定时任务管理器
+ * <p>
  * 创建并启动一个定时任务
  * 停止一个定时任务
  * 更新一个定时任务
- * @create 2023-07-25 21:10
  */
 @Component
 @Slf4j
@@ -82,12 +81,12 @@ public class ScheduleManager {
      */
     public String changeSchedule(String key, String cron) {
         if (StringUtils.isAnyBlank(key, cron)) {
-            throw new TPanFrameworkException("定时任务的唯一标识和新的执行表达式不能为空");
+            throw new PanFrameworkException("定时任务的唯一标识和新的执行表达式不能为空");
         }
 
         ScheduleTaskHolder holder = cache.get(key);
         if (Objects.isNull(holder)) {
-            throw new TPanFrameworkException(key + "唯一标识不存在");
+            throw new PanFrameworkException(key + "唯一标识不存在");
         }
         stopTask(key);
         return startTask(holder.getScheduleTask(), cron);

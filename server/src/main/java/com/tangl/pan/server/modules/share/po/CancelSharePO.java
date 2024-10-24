@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 取消分享参数实体
- * @create 2023-09-16 19:04
- */
 @ApiModel(value = "取消分享参数实体")
 @Data
 public class CancelSharePO implements Serializable {

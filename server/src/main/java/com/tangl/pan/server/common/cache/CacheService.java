@@ -3,9 +3,7 @@ package com.tangl.pan.server.common.cache;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 支持业务缓存的 Service
- * @create 2023-09-21 22:31
+ * 支持业务缓存的 Service
  */
 public interface CacheService<V> {
 

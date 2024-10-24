@@ -1,15 +1,12 @@
 package com.tangl.pan.swagger2;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description swagger2 配置属性类
- * @create 2023-06-22 22:47
+ * swagger2 配置属性类
  */
 @Data
 @Component
@@ -20,7 +17,7 @@ public class Swagger2ConfigProperties {
 
     private String groupName = "t-pan";
 
-    private String basePackage = TPanConstants.BASE_COMPONENT_SCAN_PATH;
+    private String basePackage = PanConstants.BASE_COMPONENT_SCAN_PATH;
 
     private String title = "t-pan-server";
 

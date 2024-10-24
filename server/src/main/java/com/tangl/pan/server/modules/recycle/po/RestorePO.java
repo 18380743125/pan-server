@@ -8,9 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件还原参数实体
- * @create 2023-09-15 22:42
+ * 文件还原参数实体
  */
 @ApiModel("文件还原参数实体")
 @Data

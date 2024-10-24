@@ -3,17 +3,20 @@ package com.tangl.pan.server.modules.share.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * 用户分享表
- * @TableName t_pan_share
+ *
+ * @TableName pan_share
  */
-@TableName(value ="t_pan_share")
+@TableName(value = "pan_share")
 @Data
-public class TPanShare implements Serializable {
+public class PanShare implements Serializable {
     /**
      * 分享id
      */
