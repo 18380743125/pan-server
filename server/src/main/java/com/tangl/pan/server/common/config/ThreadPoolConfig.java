@@ -7,9 +7,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * @author tangl
- * @description 线程池的配置类
- * @create 2023-09-17 18:26
+ * 线程池的配置类
  */
 @SpringBootConfiguration
 public class ThreadPoolConfig {

@@ -1,9 +1,7 @@
 package com.tangl.pan.lock.core;
 
 /**
- * @author tangl
- * @description 锁相关公用常量类
- * @create 2023-09-24 0:44
+ * 锁相关公用常量类
  */
 public interface LockConstants {
 

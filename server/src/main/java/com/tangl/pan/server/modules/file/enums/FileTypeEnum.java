@@ -1,6 +1,6 @@
 package com.tangl.pan.server.modules.file.enums;
 
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.exception.PanBusinessException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -9,9 +9,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 /**
- * @author tangl
- * @description 文件类型枚举类
- * @create 2023-08-13 22:52
+ * 文件类型枚举类
  */
 @AllArgsConstructor
 @Getter
@@ -110,6 +108,6 @@ public enum FileTypeEnum {
             return result.get().getCode();
         }
 
-        throw new TPanBusinessException("获取文件类型失败");
+        throw new PanBusinessException("获取文件类型失败");
     }
 }

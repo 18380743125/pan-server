@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 批量删除文件入参对象实体
- * @create 2023-08-13 16:45
- */
 @ApiModel(value = "批量删除文件入参对象实体")
 @Data
 public class DeleteFilePO implements Serializable {

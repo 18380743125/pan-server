@@ -1,7 +1,7 @@
 package com.tangl.pan.server.modules.file.controller;
 
 import com.google.common.base.Splitter;
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import com.tangl.pan.core.response.R;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.utils.UserIdUtil;
@@ -27,9 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 文件模块的控制器
- * @create 2023-08-10 20:34
+ * 文件模块的控制器
  */
 @Api(tags = "文件模块")
 @RestController
@@ -57,7 +55,7 @@ public class FileController {
         }
         List<Integer> fileTypesArray = null;
         if (!Objects.equals(FileConstants.ALL_FILE_TYPE, fileType)) {
-            fileTypesArray = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileType).stream().map(Integer::valueOf).collect(Collectors.toList());
+            fileTypesArray = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileType).stream().map(Integer::valueOf).collect(Collectors.toList());
         }
         QueryFileListContext context = new QueryFileListContext();
         context.setParentId(realParentId);
@@ -81,7 +79,7 @@ public class FileController {
         context.setUserId(UserIdUtil.get());
         String fileTypes = fileSearchPO.getFileTypes();
         if (StringUtils.isNotBlank(fileTypes) && !Objects.equals(FileConstants.ALL_FILE_TYPE, fileTypes)) {
-            List<Integer> fileTypeArray = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileTypes).stream().map(Integer::valueOf).collect(Collectors.toList());
+            List<Integer> fileTypeArray = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileTypes).stream().map(Integer::valueOf).collect(Collectors.toList());
             context.setFileTypesArray(fileTypeArray);
         }
         List<FileSearchResultVO> result = userFileService.search(context);
@@ -124,7 +122,7 @@ public class FileController {
     public R<?> delete(@Validated @RequestBody DeleteFilePO deleteFilePO) {
         DeleteFileContext context = fileConverter.deleteFilePO2DeleteFileContext(deleteFilePO);
         String fileIds = deleteFilePO.getFileIds();
-        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> fileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
         context.setFileIdList(fileIdList);
         userFileService.deleteFile(context);
         return R.success();
@@ -257,7 +255,7 @@ public class FileController {
     public R<?> transferFile(@Validated @RequestBody TransferFilePO transferFilePO) {
         String fileIds = transferFilePO.getFileIds();
         String targetParentId = transferFilePO.getTargetParentId();
-        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> fileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
 
         TransferFileContext context = new TransferFileContext();
         context.setFileIdList(fileIdList);
@@ -278,7 +276,7 @@ public class FileController {
     public R<?> copyFile(@Validated @RequestBody CopyFilePO copyFilePO) {
         String fileIds = copyFilePO.getFileIds();
         String targetParentId = copyFilePO.getTargetParentId();
-        List<Long> fileIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
+        List<Long> fileIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(fileIds).stream().map(IdUtil::decrypt).collect(Collectors.toList());
 
         CopyFileContext context = new CopyFileContext();
         context.setFileIdList(fileIdList);

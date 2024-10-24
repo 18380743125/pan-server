@@ -9,11 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 用户登录参数实体
- * @create 2023-07-28 21:20
- */
 @ApiModel(value = "用户登录参数实体")
 @Data
 public class UserLoginPO implements Serializable {

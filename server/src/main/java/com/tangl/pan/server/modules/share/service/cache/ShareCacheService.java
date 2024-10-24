@@ -2,24 +2,22 @@ package com.tangl.pan.server.modules.share.service.cache;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.tangl.pan.server.common.cache.AbstractManualCacheService;
-import com.tangl.pan.server.modules.share.entity.TPanShare;
-import com.tangl.pan.server.modules.share.mapper.TPanShareMapper;
+import com.tangl.pan.server.modules.share.entity.PanShare;
+import com.tangl.pan.server.modules.share.mapper.PanShareMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description 手动缓存实现分享业务的查询等操作
- * @create 2023-09-23 12:20
+ * 手动缓存实现分享业务的查询等操作
  */
 @Component(value = "shareManualCacheService")
-public class ShareCacheService extends AbstractManualCacheService<TPanShare> {
+public class ShareCacheService extends AbstractManualCacheService<PanShare> {
 
     @Autowired
-    private TPanShareMapper mapper;
+    private PanShareMapper mapper;
 
     @Override
-    protected BaseMapper<TPanShare> getBaseMapper() {
+    protected BaseMapper<PanShare> getBaseMapper() {
         return mapper;
     }
 

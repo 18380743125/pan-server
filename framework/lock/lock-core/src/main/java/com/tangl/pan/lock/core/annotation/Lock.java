@@ -6,9 +6,7 @@ import com.tangl.pan.lock.core.key.StandardKeyGenerator;
 import java.lang.annotation.*;
 
 /**
- * @author tangl
- * @description 自定义锁的注解
- * @create 2023-09-24 0:48
+ * 自定义锁的注解
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件还原事件实体
- * @create 2023-09-15 23:22
+ * 文件还原事件实
  */
 @EqualsAndHashCode(callSuper = false)
 @Getter

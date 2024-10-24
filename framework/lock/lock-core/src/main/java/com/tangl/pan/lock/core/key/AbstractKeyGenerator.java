@@ -9,9 +9,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Map;
 
 /**
- * @author tangl
- * @description 锁的 key 生成器的公用父类
- * @create 2023-09-24 9:20
+ * 锁的 key 生成器的公用父类
  */
 public abstract class AbstractKeyGenerator implements KeyGenerator {
 

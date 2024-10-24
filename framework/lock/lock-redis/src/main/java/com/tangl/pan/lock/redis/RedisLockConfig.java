@@ -9,9 +9,7 @@ import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.integration.support.locks.LockRegistry;
 
 /**
- * @author tangl
- * @description 基于 redis 的分布式锁，该方法集成 spring-data-redis，配置项复用原来的配置
- * @create 2023-09-24 15:33
+ * 基于 redis 的分布式锁，该方法集成 spring-data-redis，配置项复用原来的配置
  */
 @SpringBootConfiguration
 @Slf4j

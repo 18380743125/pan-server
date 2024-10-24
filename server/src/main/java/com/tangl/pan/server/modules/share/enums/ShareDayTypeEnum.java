@@ -1,15 +1,13 @@
 package com.tangl.pan.server.modules.share.enums;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 分享日期枚举类
- * @create 2023-09-16 15:48
+ * 分享日期枚举类
  */
 @AllArgsConstructor
 @Getter
@@ -35,13 +33,13 @@ public enum ShareDayTypeEnum {
      */
     public static Integer getShareDaysByCode(Integer code) {
         if (Objects.isNull(code)) {
-            return TPanConstants.MINUS_ONE_INT;
+            return PanConstants.MINUS_ONE_INT;
         }
         for (ShareDayTypeEnum value : values()) {
             if (Objects.equals(value.getCode(), code)) {
                 return value.getDays();
             }
         }
-        return TPanConstants.MINUS_ONE_INT;
+        return PanConstants.MINUS_ONE_INT;
     }
 }

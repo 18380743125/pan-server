@@ -1,7 +1,7 @@
 package com.tangl.pan.core.utils;
 
 import cn.hutool.core.date.DateUtil;
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,9 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 文件相关的工具类
- * @create 2023-08-13 22:46
+ * 文件相关的工具类
  */
 public class FileUtil {
 
@@ -32,13 +30,13 @@ public class FileUtil {
      * @return 文件后缀
      */
     public static String getFileSuffix(String filename, boolean isContainDot) {
-        if (StringUtils.isBlank(filename) || filename.indexOf(TPanConstants.POINT_STR) == TPanConstants.MINUS_ONE_INT) {
+        if (StringUtils.isBlank(filename) || filename.indexOf(PanConstants.POINT_STR) == PanConstants.MINUS_ONE_INT) {
             return StringUtils.EMPTY;
         }
         if (isContainDot) {
-            return filename.substring(filename.lastIndexOf(TPanConstants.POINT_STR));
+            return filename.substring(filename.lastIndexOf(PanConstants.POINT_STR));
         } else {
-            return filename.substring(filename.lastIndexOf(TPanConstants.POINT_STR) + TPanConstants.ONE_INT);
+            return filename.substring(filename.lastIndexOf(PanConstants.POINT_STR) + PanConstants.ONE_INT);
         }
     }
 
@@ -50,7 +48,7 @@ public class FileUtil {
      */
     public static String byteCountToDisplaySize(Long totalSize) {
         if (Objects.isNull(totalSize)) {
-            return TPanConstants.EMPTY_STR;
+            return PanConstants.EMPTY_STR;
         }
         return FileUtils.byteCountToDisplaySize(totalSize);
     }
@@ -158,7 +156,7 @@ public class FileUtil {
                 .append(identifier)
                 .append(File.separator)
                 .append(UUIDUtil.getUUID())
-                .append(TPanConstants.COMMON_SEPARATOR)
+                .append(PanConstants.COMMON_SEPARATOR)
                 .append(chunkNumber)
                 .toString();
     }
@@ -183,7 +181,7 @@ public class FileUtil {
     public static void writeFile2OutputStream(FileInputStream fileInputStream, OutputStream outputStream, long length) throws IOException {
         FileChannel fileChannel = fileInputStream.getChannel();
         WritableByteChannel writableByteChannel = Channels.newChannel(outputStream);
-        fileChannel.transferTo(TPanConstants.ZERO_INT, length, writableByteChannel);
+        fileChannel.transferTo(PanConstants.ZERO_INT, length, writableByteChannel);
         outputStream.flush();
         fileInputStream.close();
         outputStream.close();
@@ -200,8 +198,8 @@ public class FileUtil {
     public static void writeStream2StreamNormal(InputStream inputStream, OutputStream outputStream) throws IOException {
         byte[] buffer = new byte[1024];
         int len;
-        while ((len = inputStream.read(buffer)) != TPanConstants.MINUS_ONE_INT) {
-            outputStream.write(buffer, TPanConstants.ZERO_INT, len);
+        while ((len = inputStream.read(buffer)) != PanConstants.MINUS_ONE_INT) {
+            outputStream.write(buffer, PanConstants.ZERO_INT, len);
         }
         outputStream.flush();
         inputStream.close();

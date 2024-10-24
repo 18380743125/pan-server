@@ -7,9 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 单文件上传的上下文实体
- * @create 2023-08-14 21:56
+ * 单文件上传的上下文实体
  */
 @Data
 public class FileUploadContext implements Serializable {

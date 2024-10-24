@@ -1,7 +1,7 @@
 package com.tangl.pan.web.exception;
 
-import com.tangl.pan.core.exception.TPanBusinessException;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanBusinessException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import com.tangl.pan.core.response.R;
 import com.tangl.pan.core.response.ResponseCode;
 import org.springframework.validation.BindException;
@@ -16,14 +16,12 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 /**
- * @author tangl
- * @description 全局异常处理器
- * @create 2023-06-23 17:11
+ * 全局异常处理器
  */
 @RestControllerAdvice
 public class WebExceptionHandler {
-    @ExceptionHandler(value = TPanBusinessException.class)
-    public R<?> tPanBusinessExceptionHandler(TPanBusinessException e) {
+    @ExceptionHandler(value = PanBusinessException.class)
+    public R<?> tPanBusinessExceptionHandler(PanBusinessException e) {
         return R.fail(e.getCode(), e.getMessage());
     }
 
@@ -55,8 +53,8 @@ public class WebExceptionHandler {
         return R.fail(ResponseCode.ERROR_PARAM.getCode(), fieldError.getDefaultMessage());
     }
 
-    @ExceptionHandler(value = TPanFrameworkException.class)
-    public R<?> tPanFrameworkException(TPanFrameworkException e) {
+    @ExceptionHandler(value = PanFrameworkException.class)
+    public R<?> tPanFrameworkException(PanFrameworkException e) {
         return R.fail(ResponseCode.ERROR.getCode(), e.getMessage());
     }
 

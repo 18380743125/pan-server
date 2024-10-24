@@ -21,9 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 统一的分享码校验切面逻辑实现类
- * @create 2023-09-16 23:20
+ * 统一的分享码校验切面逻辑实现类
  */
 @Component
 @Aspect

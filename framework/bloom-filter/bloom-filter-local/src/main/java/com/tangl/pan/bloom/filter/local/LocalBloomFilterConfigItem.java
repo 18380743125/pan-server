@@ -3,9 +3,7 @@ package com.tangl.pan.bloom.filter.local;
 import lombok.Data;
 
 /**
- * @author tangl
- * @description 本地布隆过滤器单体配置类
- * @create 2023-09-23 21:20
+ * 本地布隆过滤器单体配置类
  */
 @Data
 public class LocalBloomFilterConfigItem {

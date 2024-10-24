@@ -4,14 +4,13 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.ArrayUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.constants.PanConstants;
+import com.tangl.pan.core.exception.PanBusinessException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.util.Enumeration;
 import java.util.List;
@@ -212,9 +211,9 @@ public class IdUtil {
                 ByteBuffer byteBuffer = ByteBuffer.wrap(content);
                 return byteBuffer.getLong();
             }
-            throw new TPanBusinessException("AES128Util.aesDecode fail");
+            throw new PanBusinessException("AES128Util.aesDecode fail");
         }
-        throw new TPanBusinessException("the decryptId can not be empty");
+        throw new PanBusinessException("the decryptId can not be empty");
     }
 
     /**
@@ -227,7 +226,7 @@ public class IdUtil {
         if (StringUtils.isBlank(decryptIdStr)) {
             return Lists.newArrayList();
         }
-        List<String> decryptIdList = Splitter.on(TPanConstants.COMMON_SEPARATOR).splitToList(decryptIdStr);
+        List<String> decryptIdList = Splitter.on(PanConstants.COMMON_SEPARATOR).splitToList(decryptIdStr);
         if (CollectionUtils.isEmpty(decryptIdList)) {
             return Lists.newArrayList();
         }

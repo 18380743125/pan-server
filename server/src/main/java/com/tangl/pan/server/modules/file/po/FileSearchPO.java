@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 文件搜索参数实体对象
- * @create 2023-09-10 9:55
- */
 @ApiModel("文件搜索参数实体对象")
 @Data
 public class FileSearchPO implements Serializable {

@@ -3,9 +3,9 @@ package com.tangl.pan.server.modules.file;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
-import com.tangl.pan.server.TPanServerLauncher;
+import com.tangl.pan.server.PanServerLauncher;
 import com.tangl.pan.server.modules.file.context.*;
 import com.tangl.pan.server.modules.file.entity.TPanFile;
 import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
@@ -35,12 +35,10 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @author tangl
- * @description 文件模块单元测试类
- * @create 2023-08-10 21:56
+ * 文件模块单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = TPanServerLauncher.class)
+@SpringBootTest(classes = PanServerLauncher.class)
 @Transactional
 public class FileTest {
 
@@ -150,7 +148,7 @@ public class FileTest {
     /**
      * 测试复制文件失败
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testCopyFileFail() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -229,7 +227,7 @@ public class FileTest {
      * 测试转移文件失败
      * 目标文件夹是要转移文件夹以及子文件夹
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testTransferFileFail() {
         Long userId = register();
         UserInfoVO userInfoVO = info(userId);
@@ -502,7 +500,7 @@ public class FileTest {
     /**
      * 校验文件删除失败-非法的文件ID
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testDeleteFileFailByWrongFileId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
@@ -524,7 +522,7 @@ public class FileTest {
     /**
      * 校验文件删除失败-非法的用户ID
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testDeleteFileFailByWrongUserId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
@@ -568,7 +566,7 @@ public class FileTest {
     /**
      * 无效的 fileId
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testUpdateFilenameFailByWrongFileId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
@@ -590,7 +588,7 @@ public class FileTest {
     /**
      * 无权修改的 userId
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testUpdateFilenameFailByWrongUserId() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
@@ -612,7 +610,7 @@ public class FileTest {
     /**
      * 新旧文件名称一致
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testUpdateFilenameFailByWrongFilename() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
@@ -634,7 +632,7 @@ public class FileTest {
     /**
      * 该文件夹下已有该文件名称
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testUpdateFilenameFailByRepeatFileName() {
         Long userId = register();
         UserInfoVO userInfo = info(userId);
@@ -726,7 +724,7 @@ public class FileTest {
         MultipartFile file = null;
         try {
             StringBuffer stringBuffer = new StringBuffer();
-            for(int i = 0; i < 1024 * 1024; i++) {
+            for (int i = 0; i < 1024 * 1024; i++) {
                 stringBuffer.append("a");
             }
             file = new MockMultipartFile("file", "test.txt", "multipart/form-data", stringBuffer.toString().getBytes(StandardCharsets.UTF_8));

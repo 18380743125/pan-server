@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 批量删除上下文实体对象
- * @create 2023-08-13 16:47
+ * 批量删除上下文实体对象
  */
 @Data
 public class DeleteFileContext implements Serializable {

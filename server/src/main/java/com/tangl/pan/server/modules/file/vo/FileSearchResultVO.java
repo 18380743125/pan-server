@@ -10,11 +10,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author tangl
- * @description 用户搜索文件列表响应实体
- * @create 2023-08-10 20:47
- */
 @Data
 @ApiModel(value = "文件搜索列表响应实体")
 public class FileSearchResultVO implements Serializable {

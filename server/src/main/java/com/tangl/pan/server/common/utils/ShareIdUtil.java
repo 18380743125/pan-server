@@ -1,13 +1,11 @@
 package com.tangl.pan.server.common.utils;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 分享 ID 存储工具类
- * @create 2023-09-16 23:12
+ * 分享 ID 存储工具类
  */
 public class ShareIdUtil {
 
@@ -30,7 +28,7 @@ public class ShareIdUtil {
     public static Long get() {
         Long shareId = threadLocal.get();
         if (Objects.isNull(shareId)) {
-            return TPanConstants.ZERO_LONG;
+            return PanConstants.ZERO_LONG;
         }
         return shareId;
     }

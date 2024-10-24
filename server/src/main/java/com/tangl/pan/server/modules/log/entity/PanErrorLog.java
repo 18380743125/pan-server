@@ -1,4 +1,4 @@
-package com.tangl.pan.server.modules.user.entity;
+package com.tangl.pan.server.modules.log.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -9,12 +9,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 用户搜索历史表
- * @TableName t_pan_user_search_history
+ * 错误日志表
+ * @TableName pan_error_log
  */
-@TableName(value ="t_pan_user_search_history")
+@TableName(value ="pan_error_log")
 @Data
-public class TPanUserSearchHistory implements Serializable {
+public class PanErrorLog implements Serializable {
     /**
      * 主键
      */
@@ -22,22 +22,34 @@ public class TPanUserSearchHistory implements Serializable {
     private Long id;
 
     /**
-     * 用户id
+     * 日志内容
      */
-    @TableField(value = "user_id")
-    private Long userId;
+    @TableField(value = "log_content")
+    private String logContent;
 
     /**
-     * 搜索文案
+     * 日志状态：0 未处理 1 已处理
      */
-    @TableField(value = "search_content")
-    private String searchContent;
+    @TableField(value = "log_status")
+    private Integer logStatus;
+
+    /**
+     * 创建人
+     */
+    @TableField(value = "create_user")
+    private Long createUser;
 
     /**
      * 创建时间
      */
     @TableField(value = "create_time")
     private Date createTime;
+
+    /**
+     * 更新人
+     */
+    @TableField(value = "update_user")
+    private Long updateUser;
 
     /**
      * 更新时间

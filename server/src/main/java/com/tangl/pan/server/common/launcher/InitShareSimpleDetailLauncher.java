@@ -14,9 +14,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @author tangl
- * @description 分享简单详情布隆过滤器初始化器
- * @create 2023-09-23 23:23
+ * 分享简单详情布隆过滤器初始化器
  */
 @Component
 @Slf4j

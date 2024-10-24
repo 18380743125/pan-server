@@ -1,6 +1,5 @@
 package com.tangl.pan.cache.redis.config;
 
-import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +17,9 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * @author tangl
- * @description redis cache 的配置类
+ * redis cache 的配置类
  * 该缓存方案不支持事务
  * 该缓存方案直接集成 spring-boot-starter-data-redis 直接默认使用 spring 配置
- * @create 2023-07-25 15:32
  */
 @SpringBootConfiguration
 @EnableCaching

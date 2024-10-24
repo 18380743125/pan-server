@@ -7,9 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件分片保存的上下文实体信息
- * @create 2023-09-07 9:42
+ * 文件分片保存的上下文实体信息
  */
 @Data
 public class FileChunkSaveContext implements Serializable {

@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 取消分享的上下文实体
- * @create 2023-09-16 19:07
+ * 取消分享的上下文实体
  */
 @Data
 public class CancelShareContext implements Serializable {

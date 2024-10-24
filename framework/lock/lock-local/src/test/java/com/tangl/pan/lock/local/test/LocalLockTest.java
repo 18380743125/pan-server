@@ -1,6 +1,6 @@
 package com.tangl.pan.lock.local.test;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import com.tangl.pan.lock.core.LockConstants;
 import com.tangl.pan.lock.local.test.instance.LockTester;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import java.util.concurrent.locks.Lock;
 
 @SpringBootTest(classes = LocalLockTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootApplication(scanBasePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH + ".lock")
+@SpringBootApplication(scanBasePackages = PanConstants.BASE_COMPONENT_SCAN_PATH + ".lock")
 public class LocalLockTest {
 
     @Autowired

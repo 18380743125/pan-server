@@ -5,9 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 查询文件夹树的上下文实体
- * @create 2023-09-09 21:27
+ * 查询文件夹树的上下文实体
  */
 @Data
 public class QueryFolderTreeContext implements Serializable {

@@ -1,11 +1,5 @@
 package com.tangl.pan.server.common.listener.test;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-17 18:44
- */
-
 import com.tangl.pan.server.common.event.test.TestEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

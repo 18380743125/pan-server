@@ -1,9 +1,7 @@
 package com.tangl.pan.bloom.filter.core;
 
 /**
- * @author tangl
- * @description 布隆过滤器的顶级接口
- * @create 2023-09-23 21:03
+ * 布隆过滤器的顶级接口
  */
 public interface BloomFilter<T> {
 

@@ -1,6 +1,6 @@
 package com.tangl.pan.lock.core.aspect;
 
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import com.tangl.pan.lock.core.LockContext;
 import com.tangl.pan.lock.core.key.KeyGenerator;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -21,9 +20,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
 /**
- * @author tangl
- * @description 框架分布式锁统一切面增强逻辑实现
- * @create 2023-09-24 9:49
+ * 框架分布式锁统一切面增强逻辑实现
  */
 @Component
 @Aspect
@@ -53,7 +50,7 @@ public class LockAspect implements ApplicationContextAware {
 
         if (Objects.isNull(lock)) {
             log.error("lock aspect get lock fail.");
-            throw new TPanFrameworkException("aroundLock get lock fail");
+            throw new PanFrameworkException("aroundLock get lock fail");
         }
 
         boolean lockResult = false;
@@ -66,7 +63,7 @@ public class LockAspect implements ApplicationContextAware {
             }
         } catch (Throwable e) {
             log.error("lock aspect tryLock exception.", e);
-            throw new TPanFrameworkException("aroundLock tryLock fail.");
+            throw new PanFrameworkException("aroundLock tryLock fail.");
         } finally {
             if (lockResult) {
                 lock.unlock();

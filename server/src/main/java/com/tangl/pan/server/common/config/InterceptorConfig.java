@@ -10,11 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-23 23:11
- */
 @SpringBootConfiguration
 @Slf4j
 public class InterceptorConfig implements WebMvcConfigurer {

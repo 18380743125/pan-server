@@ -9,11 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 用户忘记密码-重置用户密码参数实体
- * @create 2023-08-01 11:15
- */
 @ApiModel(value = "用户忘记密码-重置用户密码参数实体")
 @Data
 public class ResetPasswordPO implements Serializable {

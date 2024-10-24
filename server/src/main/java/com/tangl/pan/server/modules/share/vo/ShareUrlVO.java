@@ -8,11 +8,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 创建分享链接的返回实体
- * @create 2023-09-16 16:07
- */
 @ApiModel(value = "创建分享链接的返回实体")
 @Data
 public class ShareUrlVO implements Serializable {

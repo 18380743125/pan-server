@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件还原的上下文实体
- * @create 2023-09-15 22:42
+ * 文件还原的上下文实体
  */
 @Data
 public class RestoreContext implements Serializable {

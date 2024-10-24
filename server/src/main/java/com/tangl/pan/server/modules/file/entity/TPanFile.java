@@ -12,9 +12,9 @@ import lombok.Data;
 /**
  * 物理文件信息表
  *
- * @TableName t_pan_file
+ * @TableName pan_file
  */
-@TableName(value = "t_pan_file")
+@TableName(value = "pan_file")
 @Data
 public class TPanFile implements Serializable {
     /**

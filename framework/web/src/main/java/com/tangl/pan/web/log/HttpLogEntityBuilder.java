@@ -15,9 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description HttpLogEntity构造类
- * @create 2023-06-22 18:25
+ * HttpLogEntity构造类
  */
 public class HttpLogEntityBuilder {
 

@@ -8,9 +8,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 错误日志事件
- * @create 2023-09-04 21:49
+ * 错误日志事件
  */
 @Setter
 @Getter

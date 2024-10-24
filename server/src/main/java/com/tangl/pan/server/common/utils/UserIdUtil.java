@@ -1,13 +1,11 @@
 package com.tangl.pan.server.common.utils;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 用户 ID 存储工具类
- * @create 2023-07-31 14:41
+ * 用户 ID 存储工具类
  */
 public class UserIdUtil {
 
@@ -30,7 +28,7 @@ public class UserIdUtil {
     public static Long get() {
         Long userId = threadLocal.get();
         if (Objects.isNull(userId)) {
-            return TPanConstants.ZERO_LONG;
+            return PanConstants.ZERO_LONG;
         }
         return userId;
     }

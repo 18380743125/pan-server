@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description
- * @create 2023-08-10 22:50
- */
 @ApiModel(value = "创建文件夹参数实体")
 @Data
 public class CreateFolderPO implements Serializable {

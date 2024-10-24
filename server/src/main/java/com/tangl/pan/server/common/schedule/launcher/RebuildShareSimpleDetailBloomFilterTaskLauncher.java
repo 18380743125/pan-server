@@ -8,9 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description 定时重建分享简单详情布隆过滤器任务触发器
- * @create 2023-09-24 0:06
+ * 定时重建分享简单详情布隆过滤器任务触发器
  */
 @Component
 @Slf4j

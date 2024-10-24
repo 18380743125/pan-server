@@ -7,9 +7,7 @@ import lombok.ToString;
 import org.springframework.context.ApplicationEvent;
 
 /**
- * @author tangl
- * @description 测试事件实体
- * @create 2023-09-17 18:41
+ * 测试事件实体
  */
 @Getter
 @Setter

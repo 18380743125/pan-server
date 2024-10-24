@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author tangl
- * @description 文件合并标识枚举类
- * @create 2023-09-07 9:49
+ * 文件合并标识枚举类
  */
 @Getter
 @AllArgsConstructor

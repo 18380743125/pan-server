@@ -6,9 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件分片上传上下文实体
- * @create 2023-09-06 20:30
+ * 文件分片上传上下文实体
  */
 @Data
 public class FileChunkUploadContext implements Serializable {

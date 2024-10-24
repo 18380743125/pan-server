@@ -10,9 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * @author tangl
- * @description 文件模块实体转换工具类
- * @create 2023-07-28 22:14
+ * 文件模块实体转换工具类
  */
 @Mapper(componentModel = "spring")
 public interface FileConverter {

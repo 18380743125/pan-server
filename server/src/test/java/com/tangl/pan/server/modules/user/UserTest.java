@@ -1,8 +1,8 @@
 package com.tangl.pan.server.modules.user;
 
 import cn.hutool.core.lang.Assert;
-import com.tangl.pan.core.exception.TPanBusinessException;
-import com.tangl.pan.server.TPanServerLauncher;
+import com.tangl.pan.core.exception.PanBusinessException;
+import com.tangl.pan.server.PanServerLauncher;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
@@ -15,12 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author tangl
- * @description 用户模块单元测试类
- * @create 2023-07-30 22:09
+ * 用户模块单元测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = TPanServerLauncher.class)
+@SpringBootTest(classes = PanServerLauncher.class)
 @Transactional
 public class UserTest {
     @Autowired
@@ -42,7 +40,7 @@ public class UserTest {
     /**
      * 测试重复用户名称注册幂等
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testRegisterDuplicateUsername() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
@@ -66,7 +64,7 @@ public class UserTest {
     /**
      * 测试用户名不正确
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testLoginWrongUsername() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
@@ -79,7 +77,7 @@ public class UserTest {
     /**
      * 测试密码不正确
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testLoginWrongPassword() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
@@ -119,7 +117,7 @@ public class UserTest {
     /**
      * 忘记密码-校验用户名-失败
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testCheckUsernameWrong() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
@@ -148,7 +146,7 @@ public class UserTest {
     /**
      * 忘记密码-校验密保答案-失败
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testCheckAnswerWrong() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);
@@ -178,7 +176,7 @@ public class UserTest {
     /**
      * 在线修改密码-失败
      */
-    @Test(expected = TPanBusinessException.class)
+    @Test(expected = PanBusinessException.class)
     public void testChangePasswordWrong() {
         UserRegisterContext context = createUserRegisterContext();
         Long userId = userService.register(context);

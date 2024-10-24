@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 分享文件下载的上下文实体
- * @create 2023-09-17 16:44
+ * 分享文件下载的上下文实体
  */
 @Data
 public class ShareFileDownloadContext implements Serializable {

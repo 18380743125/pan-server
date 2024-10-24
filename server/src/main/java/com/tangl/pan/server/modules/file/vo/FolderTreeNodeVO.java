@@ -10,11 +10,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-09 21:23
- */
 @ApiModel("文件夹树节点实体")
 @Data
 public class FolderTreeNodeVO implements Serializable {

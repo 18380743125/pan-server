@@ -2,8 +2,8 @@ package com.tangl.pan.server.modules.recycle.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.constants.PanConstants;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
 import com.tangl.pan.server.common.stream.event.file.FileRestoreEvent;
 import com.tangl.pan.server.common.stream.event.file.PhysicalFileDeleteEvent;
@@ -28,9 +28,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 回收站模块业务实现类
- * @create 2023-09-15 22:15
+ * 回收站模块业务实现类
  */
 @Service
 public class RecycleServiceImpl implements IRecycleService {
@@ -127,7 +125,7 @@ public class RecycleServiceImpl implements IRecycleService {
         queryWrapper.in("file_id", context.getFileIdList());
         List<TPanUserFile> records = userFileService.list(queryWrapper);
         if (CollectionUtils.isEmpty(records) || records.size() != context.getFileIdList().size()) {
-            throw new TPanBusinessException("无权限删除该文件");
+            throw new PanBusinessException("无权限删除该文件");
         }
         context.setRecords(records);
     }
@@ -157,7 +155,7 @@ public class RecycleServiceImpl implements IRecycleService {
         });
         boolean updateFlag = userFileService.updateBatchById(records);
         if (!updateFlag) {
-            throw new TPanBusinessException("文件还原失败");
+            throw new PanBusinessException("文件还原失败");
         }
     }
 
@@ -170,9 +168,9 @@ public class RecycleServiceImpl implements IRecycleService {
      */
     private void checkRestoreFilename(RestoreContext context) {
         List<TPanUserFile> records = context.getRecords();
-        Set<String> filenameSet = records.stream().map(record -> record.getFilename() + TPanConstants.COMMON_SEPARATOR + record.getParentId()).collect(Collectors.toSet());
+        Set<String> filenameSet = records.stream().map(record -> record.getFilename() + PanConstants.COMMON_SEPARATOR + record.getParentId()).collect(Collectors.toSet());
         if (filenameSet.size() != records.size()) {
-            throw new TPanBusinessException("文件还原失败，该还原文件中存在同名文件，请依次还原并重命名");
+            throw new PanBusinessException("文件还原失败，该还原文件中存在同名文件，请依次还原并重命名");
         }
 
         for (TPanUserFile record : records) {
@@ -182,7 +180,7 @@ public class RecycleServiceImpl implements IRecycleService {
             queryWrapper.eq("filename", record.getFilename());
             queryWrapper.eq("del_flag", DelFlagEnum.NO.getCode());
             if (userFileService.count(queryWrapper) > 0) {
-                throw new TPanBusinessException("文件：[" + record.getFilename() + "] 还原失败，该文件夹下已存在同名的文件或者文件夹，请重命名后再执行还原操作");
+                throw new PanBusinessException("文件：[" + record.getFilename() + "] 还原失败，该文件夹下已存在同名的文件或者文件夹，请重命名后再执行还原操作");
             }
         }
     }
@@ -196,14 +194,14 @@ public class RecycleServiceImpl implements IRecycleService {
         List<Long> fileIdList = context.getFileIdList();
         List<TPanUserFile> records = userFileService.listByIds(fileIdList);
         if (CollectionUtils.isEmpty(records)) {
-            throw new TPanBusinessException("文件还原失败");
+            throw new PanBusinessException("文件还原失败");
         }
         Set<Long> userIdSet = records.stream().map(TPanUserFile::getUserId).collect(Collectors.toSet());
         if (userIdSet.size() > 1) {
-            throw new TPanBusinessException("无权限还原文件");
+            throw new PanBusinessException("无权限还原文件");
         }
         if (!userIdSet.contains(context.getUserId())) {
-            throw new TPanBusinessException("无权限执行文件还原");
+            throw new PanBusinessException("无权限执行文件还原");
         }
         context.setRecords(records);
     }

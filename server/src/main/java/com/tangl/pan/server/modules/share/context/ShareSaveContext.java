@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 保存到我的网盘上下文实体
- * @create 2023-09-17 16:21
+ * 保存到我的网盘上下文实体
  */
 @Data
 public class ShareSaveContext implements Serializable {

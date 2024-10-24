@@ -7,9 +7,7 @@ import org.springframework.integration.support.locks.DefaultLockRegistry;
 import org.springframework.integration.support.locks.LockRegistry;
 
 /**
- * @author tangl
- * @description 本地锁配置类
- * @create 2023-09-24 15:14
+ * 本地锁配置类
  */
 @SpringBootConfiguration
 @Slf4j

@@ -2,7 +2,7 @@ package com.tangl.pan.server.common.interceptor;
 
 import com.tangl.pan.bloom.filter.core.BloomFilter;
 import com.tangl.pan.bloom.filter.core.BloomFilterManager;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.response.ResponseCode;
 import com.tangl.pan.core.utils.IdUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 查询分享简单详情布隆过滤器拦截器
- * @create 2023-09-23 22:49
+ * 查询分享简单详情布隆过滤器拦截器
  */
 @Component
 @Slf4j
@@ -50,7 +48,7 @@ public class ShareSimpleDetailBloomFilterInterceptor implements BloomFilterInter
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String encShareId = request.getParameter("shareId");
         if (StringUtils.isBlank(encShareId)) {
-            throw new TPanBusinessException("分享ID不能为空");
+            throw new PanBusinessException("分享ID不能为空");
         }
         BloomFilter<Long> bloomFilter = manager.getFilter(BLOOM_FILTER_NAME);
         if (Objects.isNull(bloomFilter)) {
@@ -64,6 +62,6 @@ public class ShareSimpleDetailBloomFilterInterceptor implements BloomFilterInter
             return true;
         }
         log.info("the bloomFilter name {} judge shareId {} mightContain fail...", BLOOM_FILTER_NAME, shareId);
-        throw new TPanBusinessException(ResponseCode.SHARE_CANCELLED);
+        throw new PanBusinessException(ResponseCode.SHARE_CANCELLED);
     }
 }

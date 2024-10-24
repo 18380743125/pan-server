@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
@@ -16,7 +16,7 @@ import com.tangl.pan.server.modules.file.entity.TPanFile;
 import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
-import com.tangl.pan.server.modules.file.mapper.TPanFileMapper;
+import com.tangl.pan.server.modules.file.mapper.PanFileMapper;
 import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.DeleteFileContext;
 import com.tangl.pan.storage.engine.core.context.MergeFileContext;
@@ -33,12 +33,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author 25050
- * @description 针对表【t_pan_file(物理文件信息表)】的数据库操作Service实现
- * @createDate 2023-07-23 23:41:43
+ * 文件业务层
  */
 @Service
-public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> implements IFileService {
+public class FileServiceImpl extends ServiceImpl<PanFileMapper, TPanFile> implements IFileService {
 
     @Autowired
     private StorageEngine storageEngine;
@@ -105,7 +103,7 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
 
         List<TPanFileChunk> chunkRecordList = fileChunkService.list(queryWrapper);
         if (CollectionUtils.isEmpty(chunkRecordList)) {
-            throw new TPanBusinessException("该文件未找到分片记录");
+            throw new PanBusinessException("该文件未找到分片记录");
         }
 
         List<String> realPathList = chunkRecordList.stream()
@@ -122,7 +120,7 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
             mergeFileContext.setRealPathList(realPathList);
             storageEngine.mergeFile(mergeFileContext);
         } catch (IOException e) {
-            throw new TPanBusinessException("文件分片合并失败");
+            throw new PanBusinessException("文件分片合并失败");
         }
 
         // 删除文件分片记录
@@ -197,7 +195,7 @@ public class FileServiceImpl extends ServiceImpl<TPanFileMapper, TPanFile> imple
             storageEngine.store(storeFileContext);
             context.setRealPath(storeFileContext.getRealPath());
         } catch (IOException e) {
-            throw new TPanBusinessException("文件上传失败");
+            throw new PanBusinessException("文件上传失败");
         }
     }
 }

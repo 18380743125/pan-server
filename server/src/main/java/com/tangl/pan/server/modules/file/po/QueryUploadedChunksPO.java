@@ -6,11 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 查询用户已上传的文件分片列表参数实体
- * @create 2023-09-07 11:25
- */
 @ApiModel("查询用户已上传的文件分片列表参数实体")
 public class QueryUploadedChunksPO implements Serializable {
 

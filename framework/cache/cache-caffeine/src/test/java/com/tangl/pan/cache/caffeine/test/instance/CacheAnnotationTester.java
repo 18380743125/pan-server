@@ -6,9 +6,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description cache 注解测试实体
- * @create 2023-07-24 11:29
+ * cache 注解测试实体
  */
 @Component
 @Slf4j

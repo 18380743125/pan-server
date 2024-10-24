@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件被物理删除的事件实体
- * @create 2023-09-16 0:02
+ * 文件被物理删除的事件实体
  */
 @Getter
 @Setter

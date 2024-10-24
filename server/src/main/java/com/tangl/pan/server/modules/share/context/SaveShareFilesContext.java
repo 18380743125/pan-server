@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 保存文件和分享的关联关系上下文实体
- * @create 2023-09-16 18:02
+ * 保存文件和分享的关联关系上下文实体
  */
 @Data
 public class SaveShareFilesContext implements Serializable {

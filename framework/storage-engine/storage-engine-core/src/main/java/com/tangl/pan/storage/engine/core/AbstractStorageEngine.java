@@ -2,7 +2,7 @@ package com.tangl.pan.storage.engine.core;
 
 import cn.hutool.core.lang.Assert;
 import com.tangl.pan.cache.core.constants.CacheConstants;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import com.tangl.pan.storage.engine.core.context.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 顶级文件存储引擎的公用父类
- * @create 2023-08-14 21:28
+ * 顶级文件存储引擎的公用父类
  */
 @Component
 public abstract class AbstractStorageEngine implements StorageEngine {
@@ -192,7 +190,7 @@ public abstract class AbstractStorageEngine implements StorageEngine {
      */
     protected Cache getCache() {
         if (Objects.isNull(cacheManager)) {
-            throw new TPanFrameworkException("the cache manager is empty!");
+            throw new PanFrameworkException("the cache manager is empty!");
         }
         return cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
     }

@@ -5,9 +5,7 @@ import com.tangl.pan.storage.engine.core.context.*;
 import java.io.IOException;
 
 /**
- * @author tangl
- * @description 文件存储引擎的顶级接口
- * @create 2023-08-14 21:27
+ * 文件存储引擎的顶级接口
  */
 public interface StorageEngine {
 

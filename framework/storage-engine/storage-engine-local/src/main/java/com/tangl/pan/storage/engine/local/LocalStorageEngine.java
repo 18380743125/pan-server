@@ -14,9 +14,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 本地文件存储引擎实现类
- * @create 2023-08-14 21:36
+ * 本地文件存储引擎实现类
  */
 @Component
 public class LocalStorageEngine extends AbstractStorageEngine {

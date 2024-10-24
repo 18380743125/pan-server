@@ -3,9 +3,7 @@ package com.tangl.pan.server.common.interceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
- * @author tangl
- * @description 布隆过滤器拦截器的顶级接口
- * @create 2023-09-23 22:44
+ * 布隆过滤器拦截器的顶级接口
  */
 public interface BloomFilterInterceptor extends HandlerInterceptor {
 

@@ -10,9 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * @author tangl
- * @description 定时任务的单元测试
- * @create 2023-07-25 21:45
+ * 定时任务的单元测试
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ScheduleTestConfig.class)

@@ -1,9 +1,7 @@
 package com.tangl.pan.server.modules.file.constants;
 
 /**
- * @author tangl
- * @description 文件模块常量类
- * @create 2023-07-29 1:07
+ * 文件模块常量类
  */
 public interface FileConstants {
     /**

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tangl.pan.server.modules.share.mapper.TPanShareMapper">
+<mapper namespace="com.tangl.pan.server.modules.share.mapper.PanShareMapper">
 
-    <resultMap id="BaseResultMap" type="com.tangl.pan.server.modules.share.entity.TPanShare">
+    <resultMap id="BaseResultMap" type="com.tangl.pan.server.modules.share.entity.PanShare">
             <id property="shareId" column="share_id" jdbcType="BIGINT"/>
             <result property="shareName" column="share_name" jdbcType="VARCHAR"/>
             <result property="shareType" column="share_type" jdbcType="TINYINT"/>

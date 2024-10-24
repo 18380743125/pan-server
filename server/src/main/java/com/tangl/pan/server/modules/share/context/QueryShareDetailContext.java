@@ -1,15 +1,13 @@
 package com.tangl.pan.server.modules.share.context;
 
-import com.tangl.pan.server.modules.share.entity.TPanShare;
+import com.tangl.pan.server.modules.share.entity.PanShare;
 import com.tangl.pan.server.modules.share.vo.ShareDetailVO;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 查询分享详情的上下文实体
- * @create 2023-09-17 10:18
+ * 查询分享详情的上下文实体
  */
 @Data
 public class QueryShareDetailContext implements Serializable {
@@ -24,7 +22,7 @@ public class QueryShareDetailContext implements Serializable {
     /**
      * 分享实体
      */
-    private TPanShare record;
+    private PanShare record;
 
     /**
      * 分享详情的 VO

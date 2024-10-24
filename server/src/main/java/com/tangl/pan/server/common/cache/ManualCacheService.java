@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author tangl
- * @description 手动缓存处理 Service 顶级接口
- * @create 2023-09-21 22:37
+ * 手动缓存处理 Service 顶级接口
  */
 public interface ManualCacheService<V> extends CacheService<V> {
 

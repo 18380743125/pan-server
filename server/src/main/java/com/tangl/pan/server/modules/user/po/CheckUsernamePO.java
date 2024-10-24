@@ -8,11 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 用户忘记密码-校验用户名参数实体
- * @create 2023-07-31 23:04
- */
 @ApiModel(value = "用户忘记密码-校验用户名参数实体")
 @Data
 public class CheckUsernamePO implements Serializable {

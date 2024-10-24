@@ -6,9 +6,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件读取的上下文实体
- * @create 2023-09-09 12:37
+ * 文件读取的上下文实体
  */
 @Data
 public class ReadFileContext implements Serializable {

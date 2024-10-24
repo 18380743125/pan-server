@@ -6,9 +6,7 @@ import org.springframework.messaging.Message;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 消费者的公用父类，抽离公用逻辑
- * @create 2023-09-24 18:11
+ * 消费者的公用父类，抽离公用逻辑
  */
 @Slf4j
 public abstract class AbstractConsumer {

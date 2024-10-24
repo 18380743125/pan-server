@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-10 9:10
- */
 @ApiModel("文件复制参数实体对象")
 @Data
 public class CopyFilePO implements Serializable {

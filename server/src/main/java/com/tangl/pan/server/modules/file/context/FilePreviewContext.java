@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件预览的上下文实体
- * @create 2023-09-09 11:49
+ * 文件预览的上下文实体
  */
 @Data
 public class FilePreviewContext implements Serializable {

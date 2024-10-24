@@ -6,9 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件分片合并的上下文实体
- * @create 2023-09-07 22:04
+ * 文件分片合并的上下文实体
  */
 @Data
 public class FileChunkMergeContext implements Serializable {

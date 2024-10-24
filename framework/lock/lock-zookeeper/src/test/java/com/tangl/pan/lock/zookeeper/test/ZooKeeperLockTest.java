@@ -1,8 +1,7 @@
 package com.tangl.pan.lock.zookeeper.test;
 
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import com.tangl.pan.lock.core.LockConstants;
-import com.tangl.pan.lock.zookeeper.ZooKeeperLockProperties;
 import com.tangl.pan.lock.zookeeper.test.instance.LockTester;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ import java.util.concurrent.locks.Lock;
 
 @SpringBootTest(classes = ZooKeeperLockTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootApplication(scanBasePackages = TPanConstants.BASE_COMPONENT_SCAN_PATH + ".lock")
+@SpringBootApplication(scanBasePackages = PanConstants.BASE_COMPONENT_SCAN_PATH + ".lock")
 public class ZooKeeperLockTest {
 
     @Autowired

@@ -5,11 +5,6 @@ import lombok.Data;
 import java.io.InputStream;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-07 10:22
- */
 @Data
 public class StoreFileChunkContext implements Serializable {
 

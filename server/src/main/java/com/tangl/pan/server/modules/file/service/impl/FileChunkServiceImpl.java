@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.lock.core.annotation.Lock;
 import com.tangl.pan.server.common.config.PanServerConfig;
@@ -13,25 +13,20 @@ import com.tangl.pan.server.modules.file.converter.FileConverter;
 import com.tangl.pan.server.modules.file.entity.TPanFileChunk;
 import com.tangl.pan.server.modules.file.enums.MergeFlagEnum;
 import com.tangl.pan.server.modules.file.service.IFileChunkService;
-import com.tangl.pan.server.modules.file.mapper.TPanFileChunkMapper;
+import com.tangl.pan.server.modules.file.mapper.PanFileChunkMapper;
 import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.StoreFileChunkContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.sql.Wrapper;
 import java.util.Date;
 
 /**
- * @author 25050
- * @description 针对表【t_pan_file_chunk(文件分片信息表)】的数据库操作Service实现
- * @createDate 2023-07-23 23:41:43
+ * 文件分片业务层
  */
 @Service
-public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanFileChunk>
+public class FileChunkServiceImpl extends ServiceImpl<PanFileChunkMapper, TPanFileChunk>
         implements IFileChunkService {
 
     @Autowired
@@ -99,7 +94,7 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
         record.setCreateUser(context.getUserId());
         record.setCreateTime(new Date());
         if (!save(record)) {
-            throw new TPanBusinessException("文件分片上传失败");
+            throw new PanBusinessException("文件分片上传失败");
         }
     }
 
@@ -110,7 +105,7 @@ public class FileChunkServiceImpl extends ServiceImpl<TPanFileChunkMapper, TPanF
             storageEngine.storeChunk(storeFileChunkContext);
             context.setRealPath(storeFileChunkContext.getRealPath());
         } catch (IOException e) {
-            throw new TPanBusinessException("文件分片上传失败");
+            throw new PanBusinessException("文件分片上传失败");
         }
     }
 }

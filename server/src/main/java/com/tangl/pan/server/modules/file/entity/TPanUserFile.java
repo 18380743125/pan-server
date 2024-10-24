@@ -13,9 +13,9 @@ import lombok.Data;
 /**
  * 用户文件信息表
  *
- * @TableName t_pan_user_file
+ * @TableName pan_user_file
  */
-@TableName(value = "t_pan_user_file")
+@TableName(value = "pan_user_file")
 @Data
 public class TPanUserFile implements Serializable {
     /**

@@ -9,11 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-06 17:51
- */
 @ApiModel("文件分片上传参数实体")
 @Data
 public class FileChunkUploadPO implements Serializable {

@@ -6,9 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description 本地文件存储引擎的配置类
- * @create 2023-08-15 22:04
+ * 本地文件存储引擎的配置类4
  */
 @Component
 @ConfigurationProperties("com.tangl.pan.storage.engine.local")

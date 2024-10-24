@@ -1,7 +1,6 @@
 package com.tangl.pan.server.modules.share.vo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.tangl.pan.server.modules.file.entity.TPanUserFile;
 import com.tangl.pan.server.modules.file.vo.UserFileVO;
 import com.tangl.pan.web.serializer.Date2StringSerializer;
 import com.tangl.pan.web.serializer.IdEncryptSerializer;
@@ -13,11 +12,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author tangl
- * @description 查询分享详情的响应实体
- * @create 2023-09-17 10:18
- */
 @ApiModel(value = "查询分享详情的响应实体")
 @Data
 public class ShareDetailVO implements Serializable {

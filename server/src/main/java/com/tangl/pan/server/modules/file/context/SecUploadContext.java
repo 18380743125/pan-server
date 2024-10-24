@@ -5,9 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 文件秒传上下文实体
- * @create 2023-08-13 21:52
+ * 文件秒传上下文实体
  */
 @Data
 public class SecUploadContext implements Serializable {

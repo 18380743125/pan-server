@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 
 /**
- * @author tangl
- * @description 初始化文件上传根目录和文件分片根目录的初始化容器
- * @create 2023-09-14 21:02
+ * 初始化文件上传根目录和文件分片根目录的初始化容器
  */
 @Component
 @Slf4j

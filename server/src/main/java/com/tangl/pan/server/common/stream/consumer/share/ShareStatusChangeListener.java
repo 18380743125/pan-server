@@ -19,9 +19,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 监听文件状态变更导致分享状态变更的处理器
- * @create 2023-09-17 17:20
+ * 监听文件状态变更导致分享状态变更的处理器
  */
 @Component
 public class ShareStatusChangeListener extends AbstractConsumer {

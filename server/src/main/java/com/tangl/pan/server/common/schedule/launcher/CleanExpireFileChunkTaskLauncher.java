@@ -8,9 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * @author tangl
- * @description 定时清理过期的文件分片任务触发器
- * @create 2023-09-14 22:21
+ * 定时清理过期的文件分片任务触发器
  */
 @Component
 @Slf4j

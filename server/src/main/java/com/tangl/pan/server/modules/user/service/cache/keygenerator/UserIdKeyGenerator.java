@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
- * @author tangl
- * @description 自定义缓存 key 生成器
- * @create 2023-09-23 12:40
+ * 自定义缓存 key 生成器
  */
 @Component(value = "userIdKeyGenerator")
 public class UserIdKeyGenerator implements KeyGenerator {

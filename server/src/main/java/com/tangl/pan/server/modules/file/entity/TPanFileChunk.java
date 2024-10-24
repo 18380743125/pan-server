@@ -10,9 +10,9 @@ import lombok.Data;
 
 /**
  * 文件分片信息表
- * @TableName t_pan_file_chunk
+ * @TableName pan_file_chunk
  */
-@TableName(value ="t_pan_file_chunk")
+@TableName(value ="pan_file_chunk")
 @Data
 public class TPanFileChunk implements Serializable {
     /**

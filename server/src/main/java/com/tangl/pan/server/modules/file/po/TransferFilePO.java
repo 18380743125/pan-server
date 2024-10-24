@@ -7,11 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description 文件转移参数实体对象
- * @create 2023-09-09 22:17
- */
 @ApiModel("文件转移参数实体对象")
 @Data
 public class TransferFilePO implements Serializable {

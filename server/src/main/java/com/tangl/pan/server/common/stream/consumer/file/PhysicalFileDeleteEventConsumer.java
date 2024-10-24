@@ -3,7 +3,7 @@ package com.tangl.pan.server.common.stream.consumer.file;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.tangl.pan.core.constants.TPanConstants;
+import com.tangl.pan.core.constants.PanConstants;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
 import com.tangl.pan.server.common.stream.event.file.PhysicalFileDeleteEvent;
 import com.tangl.pan.server.common.stream.event.log.ErrorLogEvent;
@@ -28,11 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * @author tangl
- * @description
- * @create 2023-09-16 0:46
- */
 @Component
 public class PhysicalFileDeleteEventConsumer extends AbstractConsumer {
 
@@ -83,14 +78,14 @@ public class PhysicalFileDeleteEventConsumer extends AbstractConsumer {
         }
 
         if (!fileService.removeByIds(realFileIdList)) {
-            ErrorLogEvent errorLogEvent = new ErrorLogEvent("文件实体记录：" + JSON.toJSONString(realFileIdList) + "，物理删除失败，请执行手动删除", TPanConstants.ZERO_LONG);
+            ErrorLogEvent errorLogEvent = new ErrorLogEvent("文件实体记录：" + JSON.toJSONString(realFileIdList) + "，物理删除失败，请执行手动删除", PanConstants.ZERO_LONG);
             producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
             return;
         }
         try {
             physicalFileDeleteByStorageEngine(realFileRecords);
         } catch (IOException e) {
-            ErrorLogEvent errorLogEvent = new ErrorLogEvent("物理文件：" + JSON.toJSONString(realFileIdList) + "，删除失败，请执行手动删除", TPanConstants.ZERO_LONG);
+            ErrorLogEvent errorLogEvent = new ErrorLogEvent("物理文件：" + JSON.toJSONString(realFileIdList) + "，删除失败，请执行手动删除", PanConstants.ZERO_LONG);
             producer.sendMessage(PanChannels.ERROR_LOG_OUTPUT, errorLogEvent);
         }
     }
@@ -129,6 +124,6 @@ public class PhysicalFileDeleteEventConsumer extends AbstractConsumer {
     private boolean isUnused(TPanUserFile record) {
         QueryWrapper<TPanUserFile> queryWrapper = Wrappers.query();
         queryWrapper.eq("real_file_id", record.getRealFileId());
-        return userFileService.count(queryWrapper) == TPanConstants.ZERO_INT;
+        return userFileService.count(queryWrapper) == PanConstants.ZERO_INT;
     }
 }

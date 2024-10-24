@@ -5,9 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author tangl
- * @description 查询用户回收站文件列表的上下文实体
- * @create 2023-09-15 22:20
+ * 查询用户回收站文件列表的上下文实体
  */
 @Data
 public class QueryRecycleFileListContext implements Serializable {

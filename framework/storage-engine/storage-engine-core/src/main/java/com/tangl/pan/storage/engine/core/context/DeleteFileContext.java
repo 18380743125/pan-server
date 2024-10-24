@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author tangl
- * @description 文件存储引擎删除物理文件的上下文实体
- * @create 2023-08-15 21:08
+ * 文件存储引擎删除物理文件的上下文实体
  */
 @Data
 public class DeleteFileContext implements Serializable {

@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.tangl.pan.core.constants.TPanConstants;
-import com.tangl.pan.core.exception.TPanBusinessException;
+import com.tangl.pan.core.constants.PanConstants;
+import com.tangl.pan.core.exception.PanBusinessException;
 import com.tangl.pan.core.utils.FileUtil;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.server.common.stream.channel.PanChannels;
@@ -25,7 +25,7 @@ import com.tangl.pan.server.modules.file.enums.FolderFlagEnum;
 import com.tangl.pan.server.modules.file.service.IFileChunkService;
 import com.tangl.pan.server.modules.file.service.IFileService;
 import com.tangl.pan.server.modules.file.service.IUserFileService;
-import com.tangl.pan.server.modules.file.mapper.TPanUserFileMapper;
+import com.tangl.pan.server.modules.file.mapper.PanUserFileMapper;
 import com.tangl.pan.server.modules.file.vo.*;
 import com.tangl.pan.storage.engine.core.StorageEngine;
 import com.tangl.pan.storage.engine.core.context.ReadFileContext;
@@ -44,12 +44,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author tangl
- * @description 用户文件业务层
- * @createDate 2023-07-23 23:41:43
+ * 用户文件业务层
  */
 @Service(value = "userFileService")
-public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUserFile> implements IUserFileService {
+public class UserFileServiceImpl extends ServiceImpl<PanUserFileMapper, TPanUserFile> implements IUserFileService {
 
     @Autowired
     private IFileService fileService;
@@ -262,7 +260,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         TPanUserFile record = getById(context.getFileId());
         checkOperatePermission(record, context.getUserId());
         if (checkIsFolder(record)) {
-            throw new TPanBusinessException("文件夹暂不支持下载");
+            throw new PanBusinessException("文件夹暂不支持下载");
         }
         doDownload(record, context.getResponse());
     }
@@ -279,10 +277,10 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     public void downloadWithoutCheckUser(FileDownloadContext context) {
         TPanUserFile record = getById(context.getFileId());
         if (Objects.isNull(record)) {
-            throw new TPanBusinessException("当前文件记录不存在");
+            throw new PanBusinessException("当前文件记录不存在");
         }
         if (checkIsFolder(record)) {
-            throw new TPanBusinessException("文件夹暂不支持下载");
+            throw new PanBusinessException("文件夹暂不支持下载");
         }
         doDownload(record, context.getResponse());
     }
@@ -300,7 +298,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         TPanUserFile record = getById(context.getFileId());
         checkOperatePermission(record, record.getUserId());
         if (checkIsFolder(record)) {
-            throw new TPanBusinessException("文件夹暂不支持下载");
+            throw new PanBusinessException("文件夹暂不支持下载");
         }
         doPreview(record, context.getResponse());
     }
@@ -514,13 +512,13 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     private void doCopyFile(CopyFileContext context) {
         List<TPanUserFile> prepareRecords = context.getPrepareRecords();
         if (CollectionUtils.isEmpty(prepareRecords)) {
-            throw new TPanBusinessException("选中的文件列表不能为空");
+            throw new PanBusinessException("选中的文件列表不能为空");
         }
 
         List<TPanUserFile> allRecords = Lists.newArrayList();
         prepareRecords.forEach(record -> assembleCopyChildRecord(allRecords, record, context.getTargetParentId(), context.getUserId()));
         if (!saveBatch(allRecords)) {
-            throw new TPanBusinessException("文件复制失败");
+            throw new PanBusinessException("文件复制失败");
         }
     }
 
@@ -578,14 +576,14 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     private void checkCopyCondition(CopyFileContext context) {
         Long targetParentId = context.getTargetParentId();
         if (!checkIsFolder(getById(targetParentId))) {
-            throw new TPanBusinessException("目标文件夹不是一个文件夹");
+            throw new PanBusinessException("目标文件夹不是一个文件夹");
         }
 
         List<Long> fileIdList = context.getFileIdList();
 
         List<TPanUserFile> prepareRecords = listByIds(fileIdList);
         if (checkIsChildFolder(prepareRecords, targetParentId, context.getUserId())) {
-            throw new TPanBusinessException("目标文件夹不能是要复制文件夹及其子文件夹");
+            throw new PanBusinessException("目标文件夹不能是要复制文件夹及其子文件夹");
         }
         context.setPrepareRecords(prepareRecords);
     }
@@ -607,7 +605,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             handleDuplicateFilename(record);
         });
         if (!updateBatchById(prepareRecords)) {
-            throw new TPanBusinessException("文件转移失败");
+            throw new PanBusinessException("文件转移失败");
         }
     }
 
@@ -621,14 +619,14 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
     private void checkTransferCondition(TransferFileContext context) {
         Long targetParentId = context.getTargetParentId();
         if (!checkIsFolder(getById(targetParentId))) {
-            throw new TPanBusinessException("目标文件夹不是一个文件夹");
+            throw new PanBusinessException("目标文件夹不是一个文件夹");
         }
 
         List<Long> fileIdList = context.getFileIdList();
 
         List<TPanUserFile> prepareRecords = listByIds(fileIdList);
         if (checkIsChildFolder(prepareRecords, targetParentId, context.getUserId())) {
-            throw new TPanBusinessException("目标文件夹不能是要转移文件夹及其子文件夹");
+            throw new PanBusinessException("目标文件夹不能是要转移文件夹及其子文件夹");
         }
         context.setPrepareRecords(prepareRecords);
     }
@@ -734,7 +732,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         Long realFileId = record.getRealFileId();
         TPanFile realFileRecord = fileService.getById(realFileId);
         if (Objects.isNull(realFileRecord)) {
-            throw new TPanBusinessException("当前的文件记录不存在");
+            throw new PanBusinessException("当前的文件记录不存在");
         }
         addCommonResponseHeader(response, realFileRecord.getFilePreviewContentType());
         readFile2OutputStream(realFileRecord.getRealPath(), response);
@@ -754,7 +752,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         Long realFileId = record.getRealFileId();
         TPanFile realFileRecord = fileService.getById(realFileId);
         if (Objects.isNull(realFileRecord)) {
-            throw new TPanBusinessException("当前的文件记录不存在");
+            throw new PanBusinessException("当前的文件记录不存在");
         }
         addCommonResponseHeader(response, MediaType.APPLICATION_OCTET_STREAM_VALUE);
         addDownloadAttribute(response, record, realFileRecord);
@@ -774,7 +772,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             readFileContext.setOutputStream(response.getOutputStream());
             storageEngine.readFile(readFileContext);
         } catch (IOException e) {
-            throw new TPanBusinessException("文件下载失败");
+            throw new PanBusinessException("文件下载失败");
         }
     }
 
@@ -790,7 +788,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
             response.setHeader(FileConstants.CONTENT_DISPOSITION_STR, FileConstants.CONTENT_DISPOSITION_VALUE_PREFIX_STR + new String(record.getFilename().getBytes(FileConstants.GB2312_STR), FileConstants.IOS_8859_1_STR));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            throw new TPanBusinessException("文件下载失败");
+            throw new PanBusinessException("文件下载失败");
         }
         response.setContentLengthLong(Long.parseLong(realFileRecord.getFileSize()));
     }
@@ -816,7 +814,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      */
     private boolean checkIsFolder(TPanUserFile record) {
         if (Objects.isNull(record)) {
-            throw new TPanBusinessException("当前文件记录不存在");
+            throw new PanBusinessException("当前文件记录不存在");
         }
         return Objects.equals(record.getFolderFlag(), FolderFlagEnum.YES.getCode());
     }
@@ -832,10 +830,10 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
      */
     private void checkOperatePermission(TPanUserFile record, Long userId) {
         if (Objects.isNull(record)) {
-            throw new TPanBusinessException("当前文件记录不存在");
+            throw new PanBusinessException("当前文件记录不存在");
         }
         if (!Objects.equals(record.getUserId(), userId)) {
-            throw new TPanBusinessException("你没有该文件的操作权限");
+            throw new PanBusinessException("你没有该文件的操作权限");
         }
     }
 
@@ -872,7 +870,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         if (CollectionUtils.isEmpty(records)) {
             return null;
         }
-        return records.get(TPanConstants.ZERO_INT);
+        return records.get(PanConstants.ZERO_INT);
     }
 
     /**
@@ -898,7 +896,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         updateWrapper.set("del_flag", DelFlagEnum.YES.getCode());
         updateWrapper.set("update_time", new Date());
         if (!update(updateWrapper)) {
-            throw new TPanBusinessException("文件删除失败");
+            throw new PanBusinessException("文件删除失败");
         }
     }
 
@@ -915,7 +913,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
 
         List<TPanUserFile> userFiles = listByIds(fileIdList);
         if (userFiles.size() != fileIdList.size()) {
-            throw new TPanBusinessException("存在不合法的文件ID");
+            throw new PanBusinessException("存在不合法的文件ID");
         }
 
         Set<Long> fileIdSet = userFiles.stream().map(TPanUserFile::getFileId).collect(Collectors.toSet());
@@ -923,18 +921,18 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         fileIdSet.addAll(fileIdList);
         int newSize = fileIdSet.size();
         if (oldSize != newSize) {
-            throw new TPanBusinessException("存在不合法的文件ID");
+            throw new PanBusinessException("存在不合法的文件ID");
         }
 
         Set<Long> userIdSet = userFiles.stream().map(TPanUserFile::getUserId).collect(Collectors.toSet());
         if (userIdSet.size() != 1) {
-            throw new TPanBusinessException("存在不合法的文件ID");
+            throw new PanBusinessException("存在不合法的文件ID");
         }
 
         Long dbUserId = userIdSet.stream().findFirst().get();
 
         if (!Objects.equals(dbUserId, userId)) {
-            throw new TPanBusinessException("该用户没有删除该文件的权限");
+            throw new PanBusinessException("该用户没有删除该文件的权限");
         }
     }
 
@@ -949,7 +947,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         entity.setUpdateUser(context.getUserId());
         entity.setUpdateTime(new Date());
         if (!updateById(entity)) {
-            throw new TPanBusinessException("文件重命名失败");
+            throw new PanBusinessException("文件重命名失败");
         }
     }
 
@@ -967,15 +965,15 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         TPanUserFile entity = getById(fileId);
 
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException("该文件ID无效");
+            throw new PanBusinessException("该文件ID无效");
         }
 
         if (!Objects.equals(entity.getUserId(), context.getUserId())) {
-            throw new TPanBusinessException("当前登录用户没有修改该文件的权限");
+            throw new PanBusinessException("当前登录用户没有修改该文件的权限");
         }
 
         if (Objects.equals(entity.getFilename(), context.getNewFilename())) {
-            throw new TPanBusinessException("新旧文件名称不能一致");
+            throw new PanBusinessException("新旧文件名称不能一致");
         }
 
         QueryWrapper<TPanUserFile> queryWrapper = new QueryWrapper<>();
@@ -983,7 +981,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         queryWrapper.eq("filename", context.getNewFilename());
         int count = count(queryWrapper);
         if (count > 0) {
-            throw new TPanBusinessException("该文件名称已存在");
+            throw new PanBusinessException("该文件名称已存在");
         }
 
         context.setEntity(entity);
@@ -1010,7 +1008,7 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
                               String fileSizeDesc) {
         TPanUserFile entity = assembleTPanUserFile(parentId, filename, folderFlagEnum, fileType, realFileId, userId, fileSizeDesc);
         if (!save(entity)) {
-            throw new TPanBusinessException("保存文件信息失败");
+            throw new PanBusinessException("保存文件信息失败");
         }
         return entity.getFileId();
     }
@@ -1068,13 +1066,13 @@ public class UserFileServiceImpl extends ServiceImpl<TPanUserFileMapper, TPanUse
         String filename = entity.getFilename();
         String newFilenameWithoutSuffix = "";
         String newFilenameSuffix = "";
-        int lastPointPosition = filename.lastIndexOf(TPanConstants.POINT_STR);
-        if (lastPointPosition == TPanConstants.MINUS_ONE_INT) {
+        int lastPointPosition = filename.lastIndexOf(PanConstants.POINT_STR);
+        if (lastPointPosition == PanConstants.MINUS_ONE_INT) {
             newFilenameWithoutSuffix = filename;
-            newFilenameSuffix = TPanConstants.EMPTY_STR;
+            newFilenameSuffix = PanConstants.EMPTY_STR;
         } else {
             newFilenameWithoutSuffix = filename.substring(0, lastPointPosition);
-            newFilenameSuffix = filename.replace(newFilenameWithoutSuffix, TPanConstants.EMPTY_STR);
+            newFilenameSuffix = filename.replace(newFilenameWithoutSuffix, PanConstants.EMPTY_STR);
         }
 
         int count = getDuplicateFilename(entity, newFilenameWithoutSuffix);

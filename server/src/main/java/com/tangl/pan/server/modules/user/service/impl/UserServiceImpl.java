@@ -3,8 +3,8 @@ package com.tangl.pan.server.modules.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tangl.pan.cache.core.constants.CacheConstants;
-import com.tangl.pan.core.exception.TPanBusinessException;
-import com.tangl.pan.core.exception.TPanFrameworkException;
+import com.tangl.pan.core.exception.PanBusinessException;
+import com.tangl.pan.core.exception.PanFrameworkException;
 import com.tangl.pan.core.response.ResponseCode;
 import com.tangl.pan.core.utils.IdUtil;
 import com.tangl.pan.core.utils.JwtUtil;
@@ -17,9 +17,9 @@ import com.tangl.pan.server.modules.file.service.IUserFileService;
 import com.tangl.pan.server.modules.user.constants.UserConstants;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.converter.UserConverter;
-import com.tangl.pan.server.modules.user.entity.TPanUser;
+import com.tangl.pan.server.modules.user.entity.PanUser;
 import com.tangl.pan.server.modules.user.service.IUserService;
-import com.tangl.pan.server.modules.user.mapper.TPanUserMapper;
+import com.tangl.pan.server.modules.user.mapper.PanUserMapper;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +36,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author tangl
- * @description 用户业务层实现
- * @createDate 2023-07-23 23:38:02
+ * 用户业务层实现
  */
 @Service(value = "userService")
-public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> implements IUserService {
+public class UserServiceImpl extends ServiceImpl<PanUserMapper, PanUser> implements IUserService {
 
     @Autowired
     private UserConverter userConverter;
@@ -54,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
 
     @Autowired
     @Qualifier(value = "userAnnotationCacheService")
-    private AnnotationCacheService<TPanUser> cacheService;
+    private AnnotationCacheService<PanUser> cacheService;
 
     /**
      * 用户注册的业务实现
@@ -107,7 +105,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
             assert cache != null;
             cache.evict(UserConstants.USER_LOGIN_PREFIX + userId);
         } catch (Exception e) {
-            throw new TPanBusinessException("退出登录失败");
+            throw new PanBusinessException("退出登录失败");
         }
     }
 
@@ -121,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
     public String checkUsername(CheckUsernameContext context) {
         String question = baseMapper.selectQuestionByUsername(context.getUsername());
         if (StringUtils.isBlank(question)) {
-            throw new TPanBusinessException("没有此用户");
+            throw new PanBusinessException("没有此用户");
         }
         return question;
     }
@@ -134,13 +132,13 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      */
     @Override
     public String checkAnswer(CheckAnswerContext context) {
-        QueryWrapper<TPanUser> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<PanUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", context.getUsername());
         queryWrapper.eq("question", context.getQuestion());
         queryWrapper.eq("answer", context.getAnswer());
         int count = count(queryWrapper);
         if (count == 0) {
-            throw new TPanBusinessException("密保答案错误");
+            throw new PanBusinessException("密保答案错误");
         }
         return generateCheckAnswerToken(context);
     }
@@ -184,13 +182,13 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      */
     @Override
     public UserInfoVO info(Long userId) {
-        TPanUser entity = getById(userId);
+        PanUser entity = getById(userId);
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException("用户信息查询失败");
+            throw new PanBusinessException("用户信息查询失败");
         }
         TPanUserFile userFile = getUserRootFileInfo(userId);
         if (Objects.isNull(userFile)) {
-            throw new TPanBusinessException("查询根文件夹信息失败");
+            throw new PanBusinessException("查询根文件夹信息失败");
         }
 
         return userConverter.assembleUserInfoVO(entity, userFile);
@@ -203,27 +201,27 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
 
     @Override
     public boolean removeByIds(Collection<? extends Serializable> idList) {
-        throw new TPanBusinessException("请更换手动缓存");
+        throw new PanBusinessException("请更换手动缓存");
     }
 
     @Override
-    public boolean updateById(TPanUser entity) {
+    public boolean updateById(PanUser entity) {
         return cacheService.updateById(entity.getUserId(), entity);
     }
 
     @Override
-    public boolean updateBatchById(Collection<TPanUser> entityList) {
-        throw new TPanBusinessException("请更换手动缓存");
+    public boolean updateBatchById(Collection<PanUser> entityList) {
+        throw new PanBusinessException("请更换手动缓存");
     }
 
     @Override
-    public TPanUser getById(Serializable id) {
+    public PanUser getById(Serializable id) {
         return cacheService.getById(id);
     }
 
     @Override
-    public List<TPanUser> listByIds(Collection<? extends Serializable> idList) {
-        throw new TPanBusinessException("请更换手动缓存");
+    public List<PanUser> listByIds(Collection<? extends Serializable> idList) {
+        throw new PanBusinessException("请更换手动缓存");
     }
 
     /**
@@ -252,12 +250,12 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      */
     private void doChangePassword(ChangePasswordContext context) {
         String newPassword = context.getNewPassword();
-        TPanUser entity = context.getEntity();
+        PanUser entity = context.getEntity();
         String salt = entity.getSalt();
         String encNewPassword = PasswordUtil.encryptPassword(salt, newPassword);
         entity.setPassword(encNewPassword);
         if (!updateById(entity)) {
-            throw new TPanBusinessException("修改用户密码失败");
+            throw new PanBusinessException("修改用户密码失败");
         }
     }
 
@@ -270,15 +268,15 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
     private void checkOldPassword(ChangePasswordContext context) {
         Long userId = context.getUserId();
         String oldPassword = context.getOldPassword();
-        TPanUser entity = getById(userId);
+        PanUser entity = getById(userId);
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException("用户信息不存在");
+            throw new PanBusinessException("用户信息不存在");
         }
         context.setEntity(entity);
         String encOldPassword = PasswordUtil.encryptPassword(entity.getSalt(), oldPassword);
         String dbOldPassword = entity.getPassword();
         if (!Objects.equals(encOldPassword, dbOldPassword)) {
-            throw new TPanBusinessException("旧密码不正确");
+            throw new PanBusinessException("旧密码不正确");
         }
     }
 
@@ -290,15 +288,15 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
     private void checkAndResetUserPassword(ResetPasswordContext context) {
         String username = context.getUsername();
         String password = context.getPassword();
-        TPanUser entity = getTPanUserByUsername(username);
+        PanUser entity = getTPanUserByUsername(username);
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException("用户信息不存在");
+            throw new PanBusinessException("用户信息不存在");
         }
         String newDbPassword = PasswordUtil.encryptPassword(entity.getSalt(), password);
         entity.setPassword(newDbPassword);
         entity.setUpdateTime(new Date());
         if (!updateById(entity)) {
-            throw new TPanBusinessException("重置用户密码失败");
+            throw new PanBusinessException("重置用户密码失败");
         }
     }
 
@@ -312,11 +310,11 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
         String username = context.getUsername();
         Object value = JwtUtil.analyzeToken(token, UserConstants.FORGET_USERNAME);
         if (Objects.isNull(value)) {
-            throw new TPanBusinessException(ResponseCode.TOKEN_EXPIRE);
+            throw new PanBusinessException(ResponseCode.TOKEN_EXPIRE);
         }
         String tokenUsername = String.valueOf(value);
         if (!Objects.equals(tokenUsername, username)) {
-            throw new TPanBusinessException("token错误");
+            throw new PanBusinessException("token错误");
         }
     }
 
@@ -337,10 +335,10 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      * @param context 上下文实体
      */
     private void generateAndSaveAccessToken(UserLoginContext context) {
-        TPanUser entity = context.getEntity();
+        PanUser entity = context.getEntity();
         String accessToken = JwtUtil.generateToken(entity.getUsername(), UserConstants.LOGIN_USER_ID, entity.getUserId(), UserConstants.ONE_DAY_LONG);
         Cache cache = cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
-        if (Objects.isNull(cache)) throw new TPanFrameworkException("获取缓存失败");
+        if (Objects.isNull(cache)) throw new PanFrameworkException("获取缓存失败");
         cache.put(UserConstants.USER_LOGIN_PREFIX + entity.getUserId(), accessToken);
         context.setAccessToken(accessToken);
     }
@@ -353,15 +351,15 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
     private void checkLoginInfo(UserLoginContext context) {
         String username = context.getUsername();
         String password = context.getPassword();
-        TPanUser entity = getTPanUserByUsername(username);
+        PanUser entity = getTPanUserByUsername(username);
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException("用户名不存在");
+            throw new PanBusinessException("用户名不存在");
         }
         String salt = entity.getSalt();
         String encPassword = PasswordUtil.encryptPassword(salt, password);
         String dbPassword = entity.getPassword();
         if (!Objects.equals(encPassword, dbPassword)) {
-            throw new TPanBusinessException("用户名或密码不正确");
+            throw new PanBusinessException("用户名或密码不正确");
         }
         context.setEntity(entity);
     }
@@ -372,8 +370,8 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      * @param username 用户名
      * @return entity
      */
-    private TPanUser getTPanUserByUsername(String username) {
-        QueryWrapper<TPanUser> queryWrapper = new QueryWrapper<>();
+    private PanUser getTPanUserByUsername(String username) {
+        QueryWrapper<PanUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         return getOne(queryWrapper);
     }
@@ -398,16 +396,16 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      * @param context context
      */
     private void doRegister(UserRegisterContext context) {
-        TPanUser entity = context.getEntity();
+        PanUser entity = context.getEntity();
         if (Objects.isNull(entity)) {
-            throw new TPanBusinessException(ResponseCode.ERROR);
+            throw new PanBusinessException(ResponseCode.ERROR);
         }
         try {
             if (!save(entity)) {
-                throw new TPanBusinessException("用户注册失败");
+                throw new PanBusinessException("用户注册失败");
             }
         } catch (DuplicateKeyException e) {
-            throw new TPanBusinessException("用户名已存在");
+            throw new PanBusinessException("用户名已存在");
         }
     }
 
@@ -418,7 +416,7 @@ public class UserServiceImpl extends ServiceImpl<TPanUserMapper, TPanUser> imple
      * @param context 上下文实体
      */
     private void assembleUserEntity(UserRegisterContext context) {
-        TPanUser entity = userConverter.userRegisterContext2TPanUser(context);
+        PanUser entity = userConverter.userRegisterContext2TPanUser(context);
         String salt = PasswordUtil.getSalt();
         String password = PasswordUtil.encryptPassword(salt, context.getPassword());
         entity.setUserId(IdUtil.get());

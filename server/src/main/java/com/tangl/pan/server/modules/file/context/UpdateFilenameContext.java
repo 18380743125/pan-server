@@ -5,11 +5,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author tangl
- * @description
- * @create 2023-08-13 11:53
- */
 @Data
 public class UpdateFilenameContext implements Serializable {
 

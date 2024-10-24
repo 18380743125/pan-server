@@ -8,9 +8,7 @@ import com.tangl.pan.server.modules.recycle.context.RestoreContext;
 import java.util.List;
 
 /**
- * @author tangl
- * @description
- * @create 2023-09-15 22:15
+ * 回收站模块业务层
  */
 public interface IRecycleService {
     /**

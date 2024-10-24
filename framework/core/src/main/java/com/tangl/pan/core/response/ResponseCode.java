@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author tangl
- * @description 响应状态枚举类
- * @create 2023-06-22 14:44
+ * 响应状态枚举类
  */
 @AllArgsConstructor
 @Getter

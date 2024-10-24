@@ -9,10 +9,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import java.lang.reflect.Method;
 
 /**
- * @author tangl
- * @description 锁实体的上下文信息
+ * 锁实体的上下文信息
  * 主要做切点的实体解析，为整体逻辑所公用
- * @create 2023-09-24 0:53
  */
 @Data
 public class LockContext {
