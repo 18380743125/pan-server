@@ -3,11 +3,11 @@ SET
     FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for t_pan_file
+-- Table structure for pan_file
 -- ----------------------------
-DROP TABLE IF EXISTS `t_pan_file`;
+DROP TABLE IF EXISTS `pan_file`;
 
-CREATE TABLE `t_pan_file`
+CREATE TABLE `pan_file`
 (
     `file_id`                   bigint                                                 NOT NULL COMMENT '文件id',
     `filename`                  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '文件名称',
@@ -26,10 +26,10 @@ CREATE TABLE `t_pan_file`
   ROW_FORMAT = DYNAMIC COMMENT ='物理文件信息表';
 
 -- ----------------------------
--- Table structure for t_pan_share
+-- Table structure for pan_share
 -- ----------------------------
-DROP TABLE IF EXISTS `t_pan_share`;
-CREATE TABLE `t_pan_share`
+DROP TABLE IF EXISTS `pan_share`;
+CREATE TABLE `pan_share`
 (
     `share_id`       bigint(0)                                              NOT NULL COMMENT '分享id',
     `share_name`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '分享名称',
@@ -50,10 +50,10 @@ CREATE TABLE `t_pan_share`
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for t_pan_share_file
+-- Table structure for pan_share_file
 -- ----------------------------
-DROP TABLE IF EXISTS `t_pan_share_file`;
-CREATE TABLE `t_pan_share_file`
+DROP TABLE IF EXISTS `pan_share_file`;
+CREATE TABLE `pan_share_file`
 (
     `id`          bigint(0)   NOT NULL AUTO_INCREMENT COMMENT '主键',
     `share_id`    bigint(0)   NOT NULL COMMENT '分享id',
@@ -69,10 +69,10 @@ CREATE TABLE `t_pan_share_file`
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for t_pan_user
+-- Table structure for pan_user
 -- ----------------------------
-DROP TABLE IF EXISTS `t_pan_user`;
-CREATE TABLE `t_pan_user`
+DROP TABLE IF EXISTS `pan_user`;
+CREATE TABLE `pan_user`
 (
     `user_id`     bigint(0)                                              NOT NULL COMMENT '用户id',
     `username`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户名',
@@ -90,10 +90,10 @@ CREATE TABLE `t_pan_user`
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for t_pan_user_file
+-- Table structure for pan_user_file
 -- ----------------------------
-DROP TABLE IF EXISTS `t_pan_user_file`;
-CREATE TABLE `t_pan_user_file`
+DROP TABLE IF EXISTS `pan_user_file`;
+CREATE TABLE `pan_user_file`
 (
     `file_id`        bigint(20)                       NOT NULL COMMENT '文件记录ID',
     `user_id`        bigint(20)                       NOT NULL COMMENT '用户ID',
@@ -117,10 +117,10 @@ CREATE TABLE `t_pan_user_file`
   ROW_FORMAT = DYNAMIC COMMENT ='用户文件信息表';
 
 -- ----------------------------
--- Table structure for t_pan_user_search_history
+-- Table structure for pan_user_search_history
 -- ----------------------------
-DROP TABLE IF EXISTS `t_pan_user_search_history`;
-CREATE TABLE `t_pan_user_search_history`
+DROP TABLE IF EXISTS `pan_user_search_history`;
+CREATE TABLE `pan_user_search_history`
 (
     `id`             bigint(0)                                              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `user_id`        bigint(0)                                              NOT NULL COMMENT '用户ID',
@@ -137,11 +137,11 @@ CREATE TABLE `t_pan_user_search_history`
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for t_pan_file_chunk
+-- Table structure for pan_file_chunk
 -- ----------------------------
 
-DROP TABLE IF EXISTS `t_pan_file_chunk`;
-CREATE TABLE `t_pan_file_chunk`
+DROP TABLE IF EXISTS `pan_file_chunk`;
+CREATE TABLE `pan_file_chunk`
 (
     `id`              bigint                           NOT NULL AUTO_INCREMENT COMMENT '主键',
     `identifier`      varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '文件唯一标识',
@@ -158,11 +158,11 @@ CREATE TABLE `t_pan_file_chunk`
   COLLATE = utf8mb4_bin COMMENT ='文件分片信息表';
 
 -- ----------------------------
--- Table structure for t_pan_error_log
+-- Table structure for pan_error_log
 -- ----------------------------
 
-DROP TABLE IF EXISTS `t_pan_error_log`;
-CREATE TABLE `t_pan_error_log`
+DROP TABLE IF EXISTS `pan_error_log`;
+CREATE TABLE `pan_error_log`
 (
     `id`          bigint                           NOT NULL AUTO_INCREMENT COMMENT '主键',
     `log_content` varchar(900) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '日志内容',

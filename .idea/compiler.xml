@@ -7,29 +7,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="t-pan-cache-core" />
-        <module name="t-pan-bloom-filter-core" />
-        <module name="t-pan-lock-zookeeper" />
+        <module name="bloom-filter-core" />
         <module name="swagger2" />
-        <module name="t-pan-cache-caffeine" />
         <module name="t-pan-stream-core" />
+        <module name="lock-core" />
         <module name="distribution" />
         <module name="t-pan-storage-engine-fastdfs" />
-        <module name="t-pan-cache-redis" />
+        <module name="lock-local" />
+        <module name="lock-redis" />
         <module name="core" />
         <module name="schedule" />
+        <module name="lock-zookeeper" />
         <module name="t-pan-storage-engine-core" />
-        <module name="t-pan-mybatis-plus" />
-        <module name="t-pan-bloom-filter-local" />
-        <module name="t-pan-lock-local" />
-        <module name="t-pan-lock-redis" />
         <module name="web" />
         <module name="t-pan-storage-engine-local" />
+        <module name="cache-caffeine" />
         <module name="t-pan-stream-rocketmq" />
-        <module name="t-pan-lock-core" />
+        <module name="cache-core" />
         <module name="t-pan-storage-engine-oss" />
+        <module name="bloom-filter-local" />
+        <module name="cache-redis" />
+        <module name="mybatis-plus" />
       </profile>
-      <profile name="Annotation profile for t-pan-parent" enabled="true">
+      <profile name="Annotation profile for pan-parent" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -42,33 +42,48 @@
         <module name="server" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
+    <bytecodeTargetLevel target="8">
+      <module name="t-pan-bloom-filter" target="1.8" />
+      <module name="t-pan-cache" target="1.8" />
+      <module name="t-pan-core" target="1.8" />
+      <module name="t-pan-distribution" target="1.8" />
+      <module name="t-pan-framework" target="1.8" />
+      <module name="t-pan-lock" target="1.8" />
+      <module name="t-pan-orm" target="1.8" />
+      <module name="t-pan-parent" target="1.8" />
+      <module name="t-pan-schedule" target="1.8" />
+      <module name="t-pan-server" target="1.8" />
+      <module name="t-pan-storage-engine" target="1.8" />
+      <module name="t-pan-stream" target="1.8" />
+      <module name="t-pan-swagger2" target="1.8" />
+      <module name="t-pan-web" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="bloom-filter" options="-parameters" />
+      <module name="bloom-filter-core" options="-parameters" />
+      <module name="bloom-filter-local" options="-parameters" />
       <module name="cache" options="-parameters" />
+      <module name="cache-caffeine" options="-parameters" />
+      <module name="cache-core" options="-parameters" />
+      <module name="cache-redis" options="-parameters" />
       <module name="coco-pan" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="distribution" options="-parameters" />
       <module name="framework" options="-parameters" />
       <module name="lock" options="-parameters" />
+      <module name="lock-core" options="-parameters" />
+      <module name="lock-local" options="-parameters" />
+      <module name="lock-redis" options="-parameters" />
+      <module name="lock-zookeeper" options="-parameters" />
+      <module name="mybatis-plus" options="-parameters" />
       <module name="orm" options="-parameters" />
       <module name="schedule" options="-parameters" />
       <module name="server" options="-parameters" />
       <module name="storage-engine" options="-parameters" />
       <module name="stream" options="-parameters" />
       <module name="swagger2" options="-parameters" />
-      <module name="t-pan-bloom-filter-core" options="-parameters" />
-      <module name="t-pan-bloom-filter-local" options="-parameters" />
-      <module name="t-pan-cache-caffeine" options="-parameters" />
-      <module name="t-pan-cache-core" options="-parameters" />
-      <module name="t-pan-cache-redis" options="-parameters" />
-      <module name="t-pan-lock-core" options="-parameters" />
-      <module name="t-pan-lock-local" options="-parameters" />
-      <module name="t-pan-lock-redis" options="-parameters" />
-      <module name="t-pan-lock-zookeeper" options="-parameters" />
-      <module name="t-pan-mybatis-plus" options="-parameters" />
       <module name="t-pan-storage-engine-core" options="-parameters" />
       <module name="t-pan-storage-engine-fastdfs" options="-parameters" />
       <module name="t-pan-storage-engine-local" options="-parameters" />

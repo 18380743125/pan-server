@@ -9,7 +9,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>t-pan-bloom-filter-local</artifactId>
+    <artifactId>bloom-filter-local</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-bloom-filter-core</artifactId>
+            <artifactId>bloom-filter-core</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

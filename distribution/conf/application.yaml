@@ -1,6 +1,6 @@
 spring:
   application:
-    name: t-pan-server
+    name: pan-server
   output:
     ansi:
       enabled: always
@@ -26,12 +26,12 @@ swagger2:
   show: true
   group-name: ${spring.application.name}
   base-package: com.tangl.pan
-  title: t-pan-server docs
-  description: t-pan-server docs
+  title: pan-server docs
+  description: pan-server docs
   terms-of-service-url: http://127.0.0.1:${server.port}
   contact-name: tangl
-  contact-url: t.bright.top
-  contact-email: tl-bright@163.com
+  contact-url: coco.yn.cn
+  contact-email: coco@163.com
   version: 1.0
 
 logging:

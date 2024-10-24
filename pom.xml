@@ -15,8 +15,8 @@
     <packaging>pom</packaging>
     <version>1.0</version>
 
-    <name>t-pan-parent</name>
-    <description>t pan server side</description>
+    <name>pan-parent</name>
+    <description>pan server side</description>
     <modules>
         <module>framework</module>
         <module>server</module>
@@ -30,10 +30,12 @@
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <druid.version>1.1.10</druid.version>
+
         <mysql-connector.version>8.0.11</mysql-connector.version>
+        <druid.version>1.1.10</druid.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <velocity.version>2.3</velocity.version>
+
         <jackson.version>2.10.2</jackson.version>
         <guava.version>20.0</guava.version>
         <commons-lang3.version>3.5</commons-lang3.version>
@@ -41,16 +43,19 @@
         <fastjson.version>1.2.56</fastjson.version>
         <jjwt.version>0.7.0</jjwt.version>
         <commons-io.version>2.4</commons-io.version>
-        <swagger2.version>2.8.0</swagger2.version>
-        <swagger2.ui.version>1.9.3</swagger2.ui.version>
         <hutool.version>4.5.18</hutool.version>
         <reflections.version>0.9.10</reflections.version>
+        <swagger2.version>2.8.0</swagger2.version>
+        <swagger2.ui.version>1.9.3</swagger2.ui.version>
+
         <fastdfs.client.version>1.26.1-RELEASE</fastdfs.client.version>
         <oss.client.version>2.8.3</oss.client.version>
-        <rocketmq.version>2.0.3</rocketmq.version>
+
         <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
         <projectlombok.version>1.18.20</projectlombok.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+
+        <rocketmq.version>2.0.3</rocketmq.version>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
     </properties>

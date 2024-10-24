@@ -9,7 +9,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>t-pan-cache-core</artifactId>
+    <artifactId>cache-core</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

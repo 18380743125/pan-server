@@ -42,7 +42,7 @@
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-mybatis-plus</artifactId>
+            <artifactId>mybatis-plus</artifactId>
             <version>1.0</version>
         </dependency>
 
@@ -60,13 +60,13 @@
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-cache-redis</artifactId>
+            <artifactId>cache-redis</artifactId>
             <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-storage-engine-local</artifactId>
+            <artifactId>storage-engine-local</artifactId>
             <version>1.0</version>
         </dependency>
 
@@ -84,19 +84,19 @@
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-bloom-filter-local</artifactId>
+            <artifactId>bloom-filter-local</artifactId>
             <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-lock-redis</artifactId>
+            <artifactId>lock-redis</artifactId>
             <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-stream-rocketmq</artifactId>
+            <artifactId>stream-rocketmq</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

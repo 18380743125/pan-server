@@ -4,9 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:集成锁模块">
+    <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/assembly.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/assembly.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/conf/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/conf/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/test-classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/test-classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/test-classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-local/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-local/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-redis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-redis/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/test-classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/orm/mybatis-plus/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +79,6 @@
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="jdkForImporter" value="corretto-1.8" />
-        <option name="workspaceImportForciblyTurnedOn" value="true" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -59,46 +99,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "20",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Project/java-project/pan/资料/r_pan_parent",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Project/java-project/t-pan/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.31724137",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "spring.configuration.checksum": "c79fff50780f60ba42449fdca835532a",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Project/java-project/pan/资料/r_pan_parent&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Project/java-project/t-pan/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.31724137&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;c79fff50780f60ba42449fdca835532a&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "MySQL",
-      "SparkSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;,
+      &quot;SparkSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -147,7 +187,7 @@
       </method>
     </configuration>
     <configuration name="ZooKeeperLockTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="t-pan-lock-zookeeper" />
+      <module name="lock-zookeeper" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
@@ -162,7 +202,7 @@
       </method>
     </configuration>
     <configuration name="ZooKeeperLockTest.lockRegistryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="t-pan-lock-zookeeper" />
+      <module name="lock-zookeeper" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
@@ -178,7 +218,7 @@
       </method>
     </configuration>
     <configuration name="ZooKeeperLockTest.lockTesterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="t-pan-lock-zookeeper" />
+      <module name="lock-zookeeper" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
@@ -347,6 +387,8 @@
       <workItem from="1696580245452" duration="5707000" />
       <workItem from="1696586879973" duration="11378000" />
       <workItem from="1729739510200" duration="2935000" />
+      <workItem from="1729774985897" duration="10000" />
+      <workItem from="1729775003541" duration="1798000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>

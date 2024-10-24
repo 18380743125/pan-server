@@ -27,7 +27,7 @@
     </dependencies>
 
     <build>
-        <finalName>t-pan-server</finalName>
+        <finalName>pan-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
