@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.tangl.pan</groupId>
-        <artifactId>t-pan-parent</artifactId>
+        <artifactId>coco-pan</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>t-pan-server</artifactId>
+    <artifactId>server</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -30,13 +30,13 @@
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-web</artifactId>
+            <artifactId>web</artifactId>
             <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-swagger2</artifactId>
+            <artifactId>swagger2</artifactId>
             <version>1.0</version>
         </dependency>
 
@@ -48,7 +48,7 @@
 
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-schedule</artifactId>
+            <artifactId>schedule</artifactId>
             <version>1.0</version>
         </dependency>
 

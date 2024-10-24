@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.tangl.pan</groupId>
-        <artifactId>t-pan-framework</artifactId>
+        <artifactId>framework</artifactId>
         <version>1.0</version>
     </parent>
 
@@ -17,7 +17,7 @@
         <module>storage-engine-fastdfs</module>
     </modules>
 
-    <artifactId>t-pan-storage-engine</artifactId>
+    <artifactId>storage-engine</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

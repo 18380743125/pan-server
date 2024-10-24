@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.tangl.pan</groupId>
-        <artifactId>t-pan-framework</artifactId>
+        <artifactId>framework</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>t-pan-web</artifactId>
+    <artifactId>web</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tangl.pan</groupId>
-            <artifactId>t-pan-core</artifactId>
+            <artifactId>core</artifactId>
             <version>1.0</version>
         </dependency>
 

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/t-pan-parent.iml" filepath="$PROJECT_DIR$/t-pan-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coco-pan.iml" filepath="$PROJECT_DIR$/coco-pan.iml" />
     </modules>
   </component>
 </project>
