@@ -5,15 +5,11 @@
 <mapper namespace="com.tangl.pan.server.modules.share.mapper.PanShareFileMapper">
 
     <resultMap id="BaseResultMap" type="com.tangl.pan.server.modules.share.entity.PanShareFile">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="shareId" column="share_id" jdbcType="BIGINT"/>
-            <result property="fileId" column="file_id" jdbcType="BIGINT"/>
-            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="shareId" column="share_id" jdbcType="BIGINT"/>
+        <result property="fileId" column="file_id" jdbcType="BIGINT"/>
+        <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,share_id,file_id,
-        create_user,create_time
-    </sql>
 </mapper>

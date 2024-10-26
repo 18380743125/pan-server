@@ -12,15 +12,10 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,user_id,search_content,
-        create_time,update_time
-    </sql>
-
     <select id="selectUserSearchHistories"
             resultType="com.tangl.pan.server.modules.user.vo.UserSearchHistoryVO">
         SELECT search_content AS `value`
-        FROM t_pan_user_search_history
+        FROM pan_user_search_history
         WHERE user_id = #{param.userId}
         ORDER BY update_time DESC
         LIMIT 10

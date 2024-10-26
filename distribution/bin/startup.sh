@@ -37,7 +37,7 @@ if [ -z "$JAVA_HOME" ]; then
   fi
 fi
 
-export SERVER="t-pan-server"
+export SERVER="pan-server"
 
 export JAVA_HOME
 export JAVA="$JAVA_HOME/bin/java"

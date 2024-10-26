@@ -22,6 +22,7 @@ management:
         include: '*'
         exclude: env,beans
 
+# swagger2
 swagger2:
   show: true
   group-name: ${spring.application.name}
@@ -30,7 +31,7 @@ swagger2:
   description: pan-server docs
   terms-of-service-url: http://127.0.0.1:${server.port}
   contact-name: tangl
-  contact-url: coco.yn.cn
+  contact-url: coco
   contact-email: coco@163.com
   version: 1.0
 

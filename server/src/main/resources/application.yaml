@@ -18,14 +18,14 @@ spring:
   # 数据库连接
   datasource:
     username: root
-    password: AI123456
+    password: Qaqa123+
     url: jdbc:mysql://127.0.0.1:3306/coco_pan?characterEncoding=utf8&serverTimeZone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     stream:
       rocketmq:
         binder:
-          name-server: 192.168.255.129:9876
+          name-server: 127.0.0.1:9876
       bindings:
         testInput:
           destination: testTopic
@@ -63,7 +63,6 @@ spring:
         userSearchOutput:
           destination: userSearchTopic
 
-
 # mapper.xml 位置
 mybatis-plus:
   mapper-locations: classpath:mappers/**/*.xml
@@ -83,12 +82,12 @@ swagger2:
   show: true
   group-name: ${spring.application.name}
   base-package: com.tangl.pan
-  title: t-pan-server docs
-  description: t-pan-server docs
+  title: pan-server docs
+  description: pan-server docs
   terms-of-service-url: http://127.0.0.1:${server.port}
   contact-name: tangl
-  contact-url: t.bright.top
-  contact-email: tl-bright@163.com
+  contact-url: coco
+  contact-email: coco@163.com
   version: 1.0
 
 # oss
@@ -97,17 +96,17 @@ com:
     pan:
       storage:
         engine:
-          fdfs:
-            connect-timeout: 600
-            tracker-list:
-              - 43.139.66.230:22122
-            group: group1
-          oss:
-            bucket-name: t-pan-test
-            endpoint: oss-cn-chengdu.aliyuncs.com
-            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
-            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
-            auto-create-bucket: true
+      #          fdfs:
+      #            connect-timeout: 600
+      #            tracker-list:
+      #              - 43.139.66.230:22122
+      #            group: group1
+      #          oss:
+      #            bucket-name: t-pan-test
+      #            endpoint: oss-cn-chengdu.aliyuncs.com
+      #            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
+      #            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
+      #            auto-create-bucket: true
       server:
         chunk-file-expiration-days: 1
         share-prefix: http://127.0.0.1:5173/share/

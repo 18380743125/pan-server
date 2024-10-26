@@ -12,7 +12,7 @@ set BASE_DIR="%BASE_DIR:~0,-5%"
 
 set CUSTOM_SEARCH_LOCATIONS=file:%BASE_DIR%/conf/
 
-set SERVER=t-pan-server
+set SERVER=pan-server
 
 set "PAN_JVM_OPTS=-Xms512m -Xmx512m -Xmn256m"
 

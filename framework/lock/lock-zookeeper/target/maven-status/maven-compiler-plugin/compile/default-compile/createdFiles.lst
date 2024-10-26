@@ -1,0 +1,3 @@
+com\tangl\pan\lock\zookeeper\ZooKeeperLockConfig.class
+com\tangl\pan\lock\zookeeper\ZooKeeperLockProperties.class
+META-INF\spring-configuration-metadata.json
