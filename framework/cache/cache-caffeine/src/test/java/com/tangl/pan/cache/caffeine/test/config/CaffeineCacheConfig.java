@@ -21,7 +21,7 @@ public class CaffeineCacheConfig {
 
     @Bean
     public CacheManager caffeineCacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager(CacheConstants.T_PAN_CACHE_NAME);
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager(CacheConstants.PAN_CACHE_NAME);
         cacheManager.setAllowNullValues(properties.getAllowNullValue());
         Caffeine<Object, Object> caffeineBuilder = Caffeine.newBuilder()
                 .initialCapacity(properties.getInitCacheCapacity())

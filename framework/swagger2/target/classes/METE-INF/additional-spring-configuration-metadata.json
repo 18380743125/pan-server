@@ -10,19 +10,19 @@
       "name": "swagger2.group-name",
       "type": "java.lang.String",
       "description": "组名称",
-      "defaultValue": "t-pan"
+      "defaultValue": "pan"
     },
     {
       "name": "swagger2.title",
       "type": "java.lang.String",
       "description": "接口文档标题",
-      "defaultValue": "t-pan-server"
+      "defaultValue": "pan-server"
     },
     {
       "name": "swagger2.description",
       "type": "java.lang.String",
       "description": "接口文档描述",
-      "defaultValue": "t-pan-server"
+      "defaultValue": "pan-server"
     },
     {
       "name": "swagger2.terms-of-service-url",

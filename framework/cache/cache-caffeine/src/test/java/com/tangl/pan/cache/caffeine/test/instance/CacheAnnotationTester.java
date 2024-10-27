@@ -16,7 +16,7 @@ public class CacheAnnotationTester {
      *
      * @param name 参数
      */
-    @Cacheable(cacheNames = CacheConstants.T_PAN_CACHE_NAME, key = "#name", sync = true)
+    @Cacheable(cacheNames = CacheConstants.PAN_CACHE_NAME, key = "#name", sync = true)
     public void testCacheable(String name) {
         log.info("call com.tangl.pan.cache.caffeine.test.instance.CacheAnnotationTester.testCacheable, param is {}", name);
     }

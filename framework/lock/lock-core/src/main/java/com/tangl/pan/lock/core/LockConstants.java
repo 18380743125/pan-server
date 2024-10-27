@@ -8,11 +8,11 @@ public interface LockConstants {
     /**
      * 公用 lock 的名称
      */
-    String T_PAN_LOCK = "t-pan-lock;";
+    String T_PAN_LOCK = "pan-lock;";
 
     /**
      * 公用 lock 的 path
      * 主要针对 zk 等节点型软件
      */
-    String T_PAN_LOCK_PATH = "/t-pan-lock";
+    String T_PAN_LOCK_PATH = "/pan-lock";
 }

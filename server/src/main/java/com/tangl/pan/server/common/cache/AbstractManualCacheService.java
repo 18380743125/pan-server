@@ -124,7 +124,7 @@ public abstract class AbstractManualCacheService<V> implements ManualCacheServic
         if (Objects.isNull(cacheManager)) {
             throw new PanFrameworkException("the cache manager is empty!");
         }
-        return cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
+        return cacheManager.getCache(CacheConstants.PAN_CACHE_NAME);
     }
 
     /**

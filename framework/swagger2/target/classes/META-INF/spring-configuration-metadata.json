@@ -34,13 +34,13 @@
       "name": "swagger2.description",
       "type": "java.lang.String",
       "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "t-pan-server"
+      "defaultValue": "pan-server"
     },
     {
       "name": "swagger2.group-name",
       "type": "java.lang.String",
       "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "t-pan"
+      "defaultValue": "pan"
     },
     {
       "name": "swagger2.show",
@@ -58,7 +58,7 @@
       "name": "swagger2.title",
       "type": "java.lang.String",
       "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "t-pan-server"
+      "defaultValue": "pan-server"
     },
     {
       "name": "swagger2.version",

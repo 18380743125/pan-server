@@ -6,12 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:集成锁模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/bin/startup.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/startup.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/bin/startup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/startup.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/conf/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/mappers/user/PanUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/mappers/user/PanUserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/java/com/tangl/pan/cache/caffeine/config/CaffeineCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/java/com/tangl/pan/cache/caffeine/config/CaffeineCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/CaffeineCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/CaffeineCacheTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/config/CaffeineCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/config/CaffeineCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/instance/CacheAnnotationTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/instance/CacheAnnotationTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/src/main/java/com/tangl/pan/cache/core/constants/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-core/src/main/java/com/tangl/pan/cache/core/constants/CacheConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/RedisCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/RedisCacheTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/instance/CacheAnnotationTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/instance/CacheAnnotationTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/AbstractStorageEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/AbstractStorageEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/AbstractManualCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/AbstractManualCacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +85,7 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Project/java-project/pan/资料/r_pan_parent&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Project/java-project/coco-pan/server/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -108,11 +114,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Project\java-project\coco-pan\server\src\main\resources" />
+      <recent name="C:\Project\java-project\coco-pan\distribution\bin" />
       <recent name="C:\Project\java-project\t-pan\server\src\main\java\com\tangl\pan\server\common\stream\consumer" />
       <recent name="C:\Project\java-project\t-pan\server\src\main\java\com\tangl\pan\server\common\stream\event" />
       <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\test" />
-      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\test\java" />
-      <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Project\java-project\t-pan\server\src\main\resources\mappers\file" />
@@ -130,88 +136,24 @@
       <recent name="com.tangl.pan.server.modules.share.enums" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.generated-requests | #1">
-    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="FileTest.uploadWithChunkTestSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.server.modules.file.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.server.modules.file" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.server.modules.file.FileTest" />
-      <option name="METHOD_NAME" value="uploadWithChunkTestSuccess" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ZooKeeperLockTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="lock-zookeeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.zookeeper.test" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.zookeeper.test.ZooKeeperLockTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ZooKeeperLockTest.lockRegistryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="lock-zookeeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.zookeeper.test" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.zookeeper.test.ZooKeeperLockTest" />
-      <option name="METHOD_NAME" value="lockRegistryTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ZooKeeperLockTest.lockTesterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="lock-zookeeper" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.lock.zookeeper.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.lock.zookeeper.test" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.lock.zookeeper.test.ZooKeeperLockTest" />
-      <option name="METHOD_NAME" value="lockTesterTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PanServerLauncher" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="PanServerLauncher" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tangl.pan.server.PanServerLauncher" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tangl.pan.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #1" />
-        <item itemvalue="JUnit.FileTest.uploadWithChunkTestSuccess" />
-        <item itemvalue="JUnit.ZooKeeperLockTest.lockTesterTest" />
-        <item itemvalue="JUnit.ZooKeeperLockTest.lockRegistryTest" />
-        <item itemvalue="JUnit.ZooKeeperLockTest" />
+        <item itemvalue="Spring Boot.PanServerLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -353,7 +295,13 @@
       <workItem from="1729739510200" duration="2935000" />
       <workItem from="1729774985897" duration="10000" />
       <workItem from="1729775003541" duration="5747000" />
-      <workItem from="1729924105142" duration="5091000" />
+      <workItem from="1729924105142" duration="12854000" />
+      <workItem from="1729948270861" duration="2403000" />
+      <workItem from="1729952145402" duration="42000" />
+      <workItem from="1729952198872" duration="17000" />
+      <workItem from="1729953453413" duration="1040000" />
+      <workItem from="1729991833475" duration="3743000" />
+      <workItem from="1730019584092" duration="5266000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>

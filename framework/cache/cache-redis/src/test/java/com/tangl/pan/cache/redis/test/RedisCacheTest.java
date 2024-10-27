@@ -27,7 +27,7 @@ public class RedisCacheTest {
      */
     @Test
     public void caffeineCacheManagerTest() {
-        Cache cache = cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
+        Cache cache = cacheManager.getCache(CacheConstants.PAN_CACHE_NAME);
         assert cache != null;
         cache.put("name", "value");
         String value = cache.get("name", String.class);

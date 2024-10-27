@@ -101,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<PanUserMapper, PanUser> impleme
     @Override
     public void exit(Long userId) {
         try {
-            Cache cache = cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
+            Cache cache = cacheManager.getCache(CacheConstants.PAN_CACHE_NAME);
             assert cache != null;
             cache.evict(UserConstants.USER_LOGIN_PREFIX + userId);
         } catch (Exception e) {
@@ -337,7 +337,7 @@ public class UserServiceImpl extends ServiceImpl<PanUserMapper, PanUser> impleme
     private void generateAndSaveAccessToken(UserLoginContext context) {
         PanUser entity = context.getEntity();
         String accessToken = JwtUtil.generateToken(entity.getUsername(), UserConstants.LOGIN_USER_ID, entity.getUserId(), UserConstants.ONE_DAY_LONG);
-        Cache cache = cacheManager.getCache(CacheConstants.T_PAN_CACHE_NAME);
+        Cache cache = cacheManager.getCache(CacheConstants.PAN_CACHE_NAME);
         if (Objects.isNull(cache)) throw new PanFrameworkException("获取缓存失败");
         cache.put(UserConstants.USER_LOGIN_PREFIX + entity.getUserId(), accessToken);
         context.setAccessToken(accessToken);

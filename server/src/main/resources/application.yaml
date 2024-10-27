@@ -1,8 +1,4 @@
 spring:
-  # redis
-  redis:
-    database: 0
-    host: 127.0.0.1
   application:
     name: pan-server
   output:
@@ -15,53 +11,8 @@ spring:
     multipart:
       max-file-size: 3072MB
       max-request-size: 3072MB
-  # 数据库连接
-  datasource:
-    username: root
-    password: Qaqa123+
-    url: jdbc:mysql://127.0.0.1:3306/coco_pan?characterEncoding=utf8&serverTimeZone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  cloud:
-    stream:
-      rocketmq:
-        binder:
-          name-server: 127.0.0.1:9876
-      bindings:
-        testInput:
-          destination: testTopic
-          group: testGroup
-        testOutput:
-          destination: testTopic
-
-        errorLogInput:
-          destination: errorLogTopic
-          group: errorLogGroup
-        errorLogOutput:
-          destination: errorLogTopic
-
-        fileDeleteInput:
-          destination: fileDeleteTopic
-          group: fileDeleteGroup
-        fileDeleteOutput:
-          destination: fileDeleteTopic
-
-        fileRestoreInput:
-          destination: fileRestoreTopic
-          group: fileRestoreGroup
-        fileRestoreOutput:
-          destination: fileRestoreTopic
-
-        physicalFileDeleteInput:
-          destination: physicalFileDeleteTopic
-          group: physicalFileDeleteGroup
-        physicalFileDeleteOutput:
-          destination: physicalFileDeleteTopic
-
-        userSearchInput:
-          destination: userSearchTopic
-          group: userSearchGroup
-        userSearchOutput:
-          destination: userSearchTopic
+  profiles:
+    active: local
 
 # mapper.xml 位置
 mybatis-plus:
@@ -102,19 +53,8 @@ com:
       #              - 43.139.66.230:22122
       #            group: group1
       #          oss:
-      #            bucket-name: t-pan-test
+      #            bucket-name: pan-test
       #            endpoint: oss-cn-chengdu.aliyuncs.com
       #            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
       #            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
       #            auto-create-bucket: true
-      server:
-        chunk-file-expiration-days: 1
-        share-prefix: http://127.0.0.1:5173/share/
-      bloom:
-        filter:
-          local:
-            items:
-              - name: SHARE_SIMPLE_DETAIL
-              - funnel-type-name: LONG
-              - expected-insertions: 1000000
-              - fpp: 0.01

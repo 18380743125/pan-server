@@ -15,13 +15,13 @@ public class Swagger2ConfigProperties {
 
     private boolean show = true;
 
-    private String groupName = "t-pan";
+    private String groupName = "pan";
 
     private String basePackage = PanConstants.BASE_COMPONENT_SCAN_PATH;
 
-    private String title = "t-pan-server";
+    private String title = "pan-server";
 
-    private String description = "t-pan-server";
+    private String description = "pan-server";
 
     private String termsOfServiceURL = "http://127.0.0.1:${server.port}";
 
