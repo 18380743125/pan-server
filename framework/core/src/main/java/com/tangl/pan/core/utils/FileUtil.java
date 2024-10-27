@@ -131,14 +131,14 @@ public class FileUtil {
     public static String generateDefaultStoreFileRealPath() {
         return new StringBuffer(System.getProperty("user.home"))
                 .append(File.separator)
-                .append("tpan")
+                .append("pan")
                 .toString();
     }
 
     public static String generateDefaultStoreFileChunkRealPath() {
         return new StringBuffer(System.getProperty("user.home"))
                 .append(File.separator)
-                .append("tpan")
+                .append("pan")
                 .append(File.separator)
                 .append("chunks")
                 .toString();

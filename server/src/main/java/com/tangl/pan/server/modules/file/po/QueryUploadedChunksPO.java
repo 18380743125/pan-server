@@ -2,11 +2,13 @@ package com.tangl.pan.server.modules.file.po;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @ApiModel("查询用户已上传的文件分片列表参数实体")
+@Data
 public class QueryUploadedChunksPO implements Serializable {
 
     private static final long serialVersionUID = 4794027706833131087L;

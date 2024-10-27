@@ -19,7 +19,7 @@
       "type": "java.lang.String",
       "description": "ZooKeeper分布式锁根路径",
       "sourceType": "com.tangl.pan.lock.zookeeper.ZooKeeperLockProperties",
-      "defaultValue": "\/t-pan-lock"
+      "defaultValue": "\/pan-lock"
     }
   ],
   "hints": []

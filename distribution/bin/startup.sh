@@ -73,5 +73,5 @@ echo "pan server is starting..."
 
 # start
 echo "$JAVA $JAVA_OPT_EXT_FIX ${JAVA_OPT}" > ${BASE_DIR}/logs/start.out 2>&1 &
-nohup "$JAVA" "$JAVA_OPT_EXT_FIX" ${JAVA_OPT} pan.server >> /dev/null 2>&1 &
+nohup "$JAVA" "$JAVA_OPT_EXT_FIX" ${JAVA_OPT} pan.server >> ~/logs/pan-server.log 2>&1 &
 echo "pan server is started!"

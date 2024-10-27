@@ -30,7 +30,7 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>com.tangl.pan:pan-server</include>
+                <include>com.tangl.pan:server</include>
             </includes>
         </moduleSet>
     </moduleSets>
