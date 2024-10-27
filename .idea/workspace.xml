@@ -5,19 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:集成锁模块">
+      <change afterPath="$PROJECT_DIR$/server/src/main/resources/application-local.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/resources/application-prod.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dac73084-8b16-494c-bc1f-d7b6227cdc74/storage_v2/_src_/schema/t_pan.UoaPBg.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/java/com/tangl/pan/cache/caffeine/config/CaffeineCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/java/com/tangl/pan/cache/caffeine/config/CaffeineCacheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/CaffeineCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/CaffeineCacheTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/config/CaffeineCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/config/CaffeineCacheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/instance/CacheAnnotationTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/instance/CacheAnnotationTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/src/main/java/com/tangl/pan/cache/core/constants/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-core/src/main/java/com/tangl/pan/cache/core/constants/CacheConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/RedisCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/RedisCacheTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/instance/CacheAnnotationTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/instance/CacheAnnotationTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/AbstractStorageEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/src/main/java/com/tangl/pan/storage/engine/core/AbstractStorageEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/AbstractManualCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/cache/AbstractManualCacheService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/assembly.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/assembly.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/bin/shutdown.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/shutdown.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/bin/shutdown.sh" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/shutdown.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/bin/startup.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/startup.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/bin/startup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/startup.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/conf/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/utils/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/LockConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-core/src/main/java/com/tangl/pan/lock/core/LockConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/main/resources/META-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/src/main/resources/META-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/src/test/java/com/tangl/pan/orm/mp/generate/MpGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/orm/mybatis-plus/src/test/java/com/tangl/pan/orm/mp/generate/MpGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/swagger2/src/main/java/com/tangl/pan/swagger2/Swagger2ConfigProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/swagger2/src/main/java/com/tangl/pan/swagger2/Swagger2ConfigProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/swagger2/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/swagger2/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/swagger2/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/swagger2/target/classes/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/QueryUploadedChunksPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/file/po/QueryUploadedChunksPO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -301,7 +316,7 @@
       <workItem from="1729952198872" duration="17000" />
       <workItem from="1729953453413" duration="1040000" />
       <workItem from="1729991833475" duration="3743000" />
-      <workItem from="1730019584092" duration="5266000" />
+      <workItem from="1730019584092" duration="4079000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>
