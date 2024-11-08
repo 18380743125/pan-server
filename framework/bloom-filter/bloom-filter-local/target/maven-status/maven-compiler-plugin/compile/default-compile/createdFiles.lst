@@ -1,6 +1,0 @@
-com\tangl\pan\bloom\filter\local\FunnelType.class
-com\tangl\pan\bloom\filter\local\LocalBloomFilterManager.class
-com\tangl\pan\bloom\filter\local\LocalBloomFilterConfigItem.class
-META-INF\spring-configuration-metadata.json
-com\tangl\pan\bloom\filter\local\LocalBloomFilter.class
-com\tangl\pan\bloom\filter\local\LocalBloomFilterConfig.class

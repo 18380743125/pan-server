@@ -11,15 +11,13 @@
       "name": "com.tangl.storage.engine.fdfs.connect-timeout",
       "type": "java.lang.Integer",
       "description": "连接的超时时间",
-      "sourceType": "com.tangl.pan.storage.engine.fastdfs.config.FastDFSStorageEngineConfig",
-      "defaultValue": 600
+      "sourceType": "com.tangl.pan.storage.engine.fastdfs.config.FastDFSStorageEngineConfig"
     },
     {
       "name": "com.tangl.storage.engine.fdfs.group",
       "type": "java.lang.String",
       "description": "组名称",
-      "sourceType": "com.tangl.pan.storage.engine.fastdfs.config.FastDFSStorageEngineConfig",
-      "defaultValue": "group1"
+      "sourceType": "com.tangl.pan.storage.engine.fastdfs.config.FastDFSStorageEngineConfig"
     },
     {
       "name": "com.tangl.storage.engine.fdfs.tracker-list",

@@ -68,7 +68,6 @@
       <module name="cache-caffeine" options="-parameters" />
       <module name="cache-core" options="-parameters" />
       <module name="cache-redis" options="-parameters" />
-      <module name="coco-pan" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="distribution" options="-parameters" />
       <module name="framework" options="-parameters" />
@@ -79,6 +78,7 @@
       <module name="lock-zookeeper" options="-parameters" />
       <module name="mybatis-plus" options="-parameters" />
       <module name="orm" options="-parameters" />
+      <module name="pan-server" options="-parameters" />
       <module name="schedule" options="-parameters" />
       <module name="server" options="-parameters" />
       <module name="storage-engine" options="-parameters" />

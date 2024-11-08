@@ -1,4 +1,0 @@
-com\tangl\pan\storage\engine\local\config\LocalStorageEngineConfig.class
-com\tangl\pan\storage\engine\local\initializer\UploadFolderAndChunkFolderInitializer.class
-META-INF\spring-configuration-metadata.json
-com\tangl\pan\storage\engine\local\LocalStorageEngine.class

@@ -15,56 +15,47 @@
     {
       "name": "swagger2.contact-email",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "tl-bright@163.com"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.contact-name",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "tangl"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.contact-url",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "t-bright.top"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.description",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "pan-server"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.group-name",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "pan"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.show",
       "type": "java.lang.Boolean",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": true
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.terms-of-service-u-r-l",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "http:\/\/127.0.0.1:${server.port}"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.title",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "pan-server"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     },
     {
       "name": "swagger2.version",
       "type": "java.lang.String",
-      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties",
-      "defaultValue": "1.0"
+      "sourceType": "com.tangl.pan.swagger2.Swagger2ConfigProperties"
     }
   ],
   "hints": []

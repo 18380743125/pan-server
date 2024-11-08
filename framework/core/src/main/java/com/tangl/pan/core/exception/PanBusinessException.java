@@ -10,6 +10,7 @@ import lombok.Getter;
 public class PanBusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 6989859219046497129L;
+
     /**
      * 错误码
      */
