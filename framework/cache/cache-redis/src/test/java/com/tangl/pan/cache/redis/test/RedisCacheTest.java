@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootApplication
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RedisCacheTest {
+
     @Autowired
     private CacheManager cacheManager;
 
@@ -26,16 +27,15 @@ public class RedisCacheTest {
      * 简单测试 CacheManager 功能以及获取 Cache 对象的功能
      */
     @Test
-    public void caffeineCacheManagerTest() {
+    public void redisCacheManagerTest() {
         Cache cache = cacheManager.getCache(CacheConstants.PAN_CACHE_NAME);
-        assert cache != null;
         cache.put("name", "value");
         String value = cache.get("name", String.class);
         Assert.isTrue("value".equals(value));
     }
 
     @Test
-    public void caffeineCacheAnnotationTest() {
+    public void redisCacheAnnotationTest() {
         for (int i = 0; i < 2; i++) {
             cacheAnnotationTester.testCacheable("tangl");
         }

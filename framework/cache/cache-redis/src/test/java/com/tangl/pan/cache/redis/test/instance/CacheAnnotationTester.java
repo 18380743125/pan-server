@@ -20,6 +20,6 @@ public class CacheAnnotationTester {
     @Cacheable(cacheNames = CacheConstants.PAN_CACHE_NAME, key = "#name", sync = true)
     public String testCacheable(String name) {
         log.info("call com.tangl.pan.cache.redis.test.instance.CacheAnnotationTester.testCacheable, param is {}", name);
-        return "hello" + name;
+        return "hello " + name;
     }
 }

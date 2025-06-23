@@ -58,3 +58,17 @@ com:
       #            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
       #            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
       #            auto-create-bucket: true
+      bloom:
+        filter:
+          local:
+            items:
+              - name: SHARE_SIMPLE_DETAIL
+                funnel-type-name: LONG
+                expected-insertions: 10000000
+                fpp: 0.01
+
+logging:
+  file:
+    name: ${user.home}/logs/${spring.application.name}/${spring.application.name}.log
+  level:
+    root: INFO

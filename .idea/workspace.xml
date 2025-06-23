@@ -5,87 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="feat:集成锁模块">
+      <change afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coco-pan.iml" beforeDir="false" afterPath="$PROJECT_DIR$/pan-server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/bin/shutdown.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/bin/startup.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/bin/startup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/bin/startup.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribution/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/test-classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/test-classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/exception/PanBusinessException.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/core/src/main/java/com/tangl/pan/core/exception/PanBusinessException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-local/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-local/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-local/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-redis/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-redis/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-redis/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/lock/lock-zookeeper/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/orm/mybatis-plus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/framework/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/schedule/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-fastdfs/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-local/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/storage-engine/storage-engine-oss/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/stream/stream-core/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/stream/stream-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/stream/stream-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/stream/stream-rocketmq/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/stream/stream-rocketmq/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/stream/stream-rocketmq/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/swagger2/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/swagger2/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution/conf/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/distribution/conf/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/java/com/tangl/pan/bloom/filter/local/LocalBloomFilterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/bloom-filter/bloom-filter-local/target/classes/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/java/com/tangl/pan/cache/caffeine/config/CaffeineCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/java/com/tangl/pan/cache/caffeine/config/CaffeineCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/main/resources/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/CaffeineCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/java/com/tangl/pan/cache/caffeine/test/CaffeineCacheTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/src/test/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/classes/METE-INF/additional-spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/classes/METE-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-caffeine/target/test-classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/main/java/com/tangl/pan/cache/redis/config/RedisCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/main/java/com/tangl/pan/cache/redis/config/RedisCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/RedisCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/RedisCacheTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/instance/CacheAnnotationTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/test/java/com/tangl/pan/cache/redis/test/instance/CacheAnnotationTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +56,6 @@
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="jdkForImporter" value="corretto-1.8" />
-        <option name="workspaceImportForciblyTurnedOn" value="true" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -138,47 +76,56 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "JUnit.LocalBloomFilterTest.localBloomFilterTest.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "20",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/other/pan-server",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Project/java-project/t-pan/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.31724137",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "spring.configuration.checksum": "c79fff50780f60ba42449fdca835532a",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;JUnit.CaffeineCacheTest.caffeineCacheAnnotationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CaffeineCacheTest.caffeineCacheManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LocalBloomFilterTest.localBloomFilterTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RedisCacheTest.caffeineCacheAnnotationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RedisCacheTest.caffeineCacheManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RedisCacheTest.redisCacheAnnotationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RedisCacheTest.redisCacheManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PanServerLauncher.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/other/pan-server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Project/java-project/t-pan/framework/stream/stream-rocketmq/src/main/java/com/tangl/pan/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.31724137&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;c79fff50780f60ba42449fdca835532a&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "MySQL",
-      "SparkSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;,
+      &quot;SparkSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -191,6 +138,7 @@
       <recent name="C:\Project\java-project\t-pan\framework\lock\lock-zookeeper\src\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/framework/cache/cache-redis/src/test" />
       <recent name="C:\Project\java-project\t-pan\server\src\main\resources\mappers\file" />
       <recent name="C:\Project\java-project\t-pan\server\src\main\resources\mappers\share" />
       <recent name="C:\Project\java-project\t-pan\server\src\main\resources\mappers\log" />
@@ -206,23 +154,7 @@
       <recent name="com.tangl.pan.server.modules.share.enums" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LocalBloomFilterTest.localBloomFilterTest">
-    <configuration name="LocalBloomFilterTest.localBloomFilterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="bloom-filter-local" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tangl.pan.bloom.filter.local.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tangl.pan.bloom.filter.local.test" />
-      <option name="MAIN_CLASS_NAME" value="com.tangl.pan.bloom.filter.local.test.LocalBloomFilterTest" />
-      <option name="METHOD_NAME" value="localBloomFilterTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="PanServerLauncher" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="server" />
@@ -239,15 +171,19 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LocalBloomFilterTest.localBloomFilterTest" />
         <item itemvalue="Spring Boot.PanServerLauncher" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="SpringBootOptions">
-    <option name="showAdditionalConfigNotification" value="false" />
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
+      </set>
+    </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="" />
@@ -392,6 +328,24 @@
       <workItem from="1731032641454" duration="3215000" />
       <workItem from="1731036112331" duration="1601000" />
       <workItem from="1731037721726" duration="1972000" />
+      <workItem from="1731072499013" duration="5650000" />
+      <workItem from="1731135242362" duration="9361000" />
+      <workItem from="1731155460297" duration="133000" />
+      <workItem from="1731512895167" duration="124000" />
+      <workItem from="1732628404811" duration="2452000" />
+      <workItem from="1732938913004" duration="10000" />
+      <workItem from="1732940430947" duration="9000" />
+      <workItem from="1732977438054" duration="443000" />
+      <workItem from="1732981021624" duration="1132000" />
+      <workItem from="1732982713685" duration="14000" />
+      <workItem from="1733754767985" duration="285000" />
+      <workItem from="1734097836260" duration="20000" />
+      <workItem from="1736684484379" duration="91000" />
+      <workItem from="1736779142085" duration="62000" />
+      <workItem from="1738551695439" duration="2165000" />
+      <workItem from="1738637017278" duration="1332000" />
+      <workItem from="1744290423794" duration="70000" />
+      <workItem from="1747582321342" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>

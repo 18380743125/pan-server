@@ -3,11 +3,12 @@ package com.tangl.pan.bloom.filter.local;
 import com.google.common.collect.Maps;
 import com.tangl.pan.bloom.filter.core.BloomFilter;
 import com.tangl.pan.bloom.filter.core.BloomFilterManager;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,11 @@ import java.util.Map;
 /**
  * 本地布隆过滤器的管理器
  */
+@Slf4j
 @Component
 public class LocalBloomFilterManager<T> implements BloomFilterManager, InitializingBean {
 
-    @Autowired
+    @Resource
     private LocalBloomFilterConfig config;
 
     /**
@@ -57,10 +59,16 @@ public class LocalBloomFilterManager<T> implements BloomFilterManager, Initializ
             String funnelTypeName = item.getFunnelTypeName();
             try {
                 FunnelType funnelType = FunnelType.valueOf(funnelTypeName);
-                bloomFilterContainer.putIfAbsent(item.getName(),
-                        new LocalBloomFilter<T>(funnelType.getFunnel(), item.getExpectedInsertions(), item.getFpp()));
-            } catch (Exception ignored) {
-
+                bloomFilterContainer.putIfAbsent(
+                        item.getName(),
+                        new LocalBloomFilter<T>(
+                                funnelType.getFunnel(),
+                                item.getExpectedInsertions(),
+                                item.getFpp()
+                        )
+                );
+            } catch (Exception e) {
+                log.error(e.getMessage());
             }
         });
     }

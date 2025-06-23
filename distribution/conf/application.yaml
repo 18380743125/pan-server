@@ -29,11 +29,11 @@ swagger2:
   base-package: com.tangl.pan
   title: pan-server docs
   description: pan-server docs
-  terms-of-service-url: http://127.0.0.1:${server.port}
+  terms-of-service-url: https://coco.yn.cn:${server.port}
   contact-name: tangl
-  contact-url: coco
-  contact-email: coco@163.com
-  version: 1.0
+  contact-url: tang
+  contact-email: tangl@163.com
+  version: 1.0.0
 
 logging:
   file: ${user.home}/logs/${spring.application.name}/${spring.application.name}.log

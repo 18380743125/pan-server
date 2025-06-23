@@ -13,17 +13,17 @@ public class LocalBloomFilter<T> implements BloomFilter<T> {
     /**
      * 数据类型通道
      */
-    private Funnel funnel;
+    private final Funnel funnel;
 
     /**
      * 数组的长度
      */
-    private Long expectedInsertions;
+    private final Long expectedInsertions;
 
     /**
      * 误判率
      */
-    private Double ffp;
+    private final Double ffp;
 
     public LocalBloomFilter(Funnel funnel, Long expectedInsertions, Double ffp) {
         this.funnel = funnel;
