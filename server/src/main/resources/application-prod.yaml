@@ -8,7 +8,7 @@ spring:
   datasource:
     username: root
     password: Qaqa123+
-    url: jdbc:mysql://127.0.0.1:3306/coco_pan?characterEncoding=utf8&serverTimeZone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/geek_pan?characterEncoding=utf8&serverTimeZone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     stream:
@@ -56,19 +56,6 @@ spring:
 com:
   tangl:
     pan:
-      storage:
-        engine:
-      #          fdfs:
-      #            connect-timeout: 600
-      #            tracker-list:
-      #              - 43.139.66.230:22122
-      #            group: group1
-      #          oss:
-      #            bucket-name: pan-test
-      #            endpoint: oss-cn-chengdu.aliyuncs.com
-      #            access-key-id: LTAI5tCn7uTuaijAzRGoDLMC
-      #            access-key-secret: OxWe6Y8hv6j2uNLAugL7EC9K3UlHGm
-      #            auto-create-bucket: true
       server:
         chunk-file-expiration-days: 1
-        share-prefix: http://139.155.139.173:18080/share/
+        share-prefix: https://coco.yn.cn/share/
