@@ -30,7 +30,6 @@ public class UserCacheService implements AnnotationCacheService<PanUser> {
     @Cacheable(cacheNames = CacheConstants.PAN_CACHE_NAME, keyGenerator = "userIdKeyGenerator", sync = true)
     @Override
     public PanUser getById(Serializable id) {
-        System.out.println(id);
         return mapper.selectById(id);
     }
 
@@ -41,7 +40,7 @@ public class UserCacheService implements AnnotationCacheService<PanUser> {
      * @param entity V
      * @return boolean
      */
-    @CachePut(cacheNames = CacheConstants.PAN_CACHE_NAME, keyGenerator = "userIdKeyGenerator")
+    @CacheEvict(cacheNames = CacheConstants.PAN_CACHE_NAME, keyGenerator = "userIdKeyGenerator")
     @Override
     public boolean updateById(Serializable id, PanUser entity) {
         return mapper.updateById(entity) == 1;

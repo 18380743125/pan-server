@@ -18,8 +18,8 @@ import com.tangl.pan.server.modules.user.constants.UserConstants;
 import com.tangl.pan.server.modules.user.context.*;
 import com.tangl.pan.server.modules.user.converter.UserConverter;
 import com.tangl.pan.server.modules.user.entity.PanUser;
-import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.mapper.PanUserMapper;
+import com.tangl.pan.server.modules.user.service.IUserService;
 import com.tangl.pan.server.modules.user.vo.UserInfoVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -338,7 +338,7 @@ public class UserServiceImpl extends ServiceImpl<PanUserMapper, PanUser> impleme
         PanUser entity = context.getEntity();
         String accessToken = JwtUtil.generateToken(entity.getUsername(), UserConstants.LOGIN_USER_ID, entity.getUserId(), UserConstants.ONE_DAY_LONG);
         Cache cache = cacheManager.getCache(CacheConstants.PAN_CACHE_NAME);
-        if (Objects.isNull(cache)) throw new PanFrameworkException("获取缓存失败");
+        if (Objects.isNull(cache)) throw new PanFrameworkException("获取缓存管理器失败");
         cache.put(UserConstants.USER_LOGIN_PREFIX + entity.getUserId(), accessToken);
         context.setAccessToken(accessToken);
     }

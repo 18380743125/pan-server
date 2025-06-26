@@ -12,7 +12,7 @@ spring:
       max-file-size: 3072MB
       max-request-size: 3072MB
   profiles:
-    active: local
+    active: prod
 
 # mapper.xml 位置
 mybatis-plus:

@@ -20,7 +20,8 @@
     {
       "name": "com.tangl.pan.storage.engine.oss.auto-create-bucket",
       "type": "java.lang.Boolean",
-      "sourceType": "com.tangl.pan.storage.engine.oss.config.OSSStorageEngineConfig"
+      "sourceType": "com.tangl.pan.storage.engine.oss.config.OSSStorageEngineConfig",
+      "defaultValue": true
     },
     {
       "name": "com.tangl.pan.storage.engine.oss.bucket-name",
