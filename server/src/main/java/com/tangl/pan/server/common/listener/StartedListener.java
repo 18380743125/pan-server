@@ -25,11 +25,11 @@ public class StartedListener implements ApplicationListener<ApplicationReadyEven
         ApplicationContext context = applicationReadyEvent.getApplicationContext();
         String port = context.getEnvironment().getProperty("server.port");
         String url = String.format("http://%s:%s", "127.0.0.1", port);
-        log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "t pan server at：" + url));
+        log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "pan server at：" + url));
         if (checkShowServerDoc(context)) {
-            log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "t pan server's doc started at：", url, "/doc.html"));
+            log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "pan server's doc started at：", url, "/doc.html"));
         }
-        log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "t pan server has started successfully！"));
+        log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "pan server has started successfully！"));
     }
 
     /**

@@ -52,7 +52,6 @@ spring:
         userSearchOutput:
           destination: userSearchTopic
 
-# oss
 com:
   tangl:
     pan:
