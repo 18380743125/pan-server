@@ -17,7 +17,7 @@ public class RedisLockConfig {
 
     @Bean
     public LockRegistry redisLockRegistry(RedisConnectionFactory redisConnectionFactory) {
-        RedisLockRegistry lockRegistry = new RedisLockRegistry(redisConnectionFactory, LockConstants.T_PAN_LOCK);
+        RedisLockRegistry lockRegistry = new RedisLockRegistry(redisConnectionFactory, LockConstants.PAN_LOCK);
         log.info("redis lock is loaded successfully");
         return lockRegistry;
     }

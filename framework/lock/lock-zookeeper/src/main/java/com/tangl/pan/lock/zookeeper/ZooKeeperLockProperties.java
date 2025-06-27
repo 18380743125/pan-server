@@ -18,6 +18,6 @@ public class ZooKeeperLockProperties {
     /**
      * zk分布式锁的根路径
      */
-    private String rootPath = LockConstants.T_PAN_LOCK_PATH;
+    private String rootPath = LockConstants.PAN_LOCK_PATH;
 
 }

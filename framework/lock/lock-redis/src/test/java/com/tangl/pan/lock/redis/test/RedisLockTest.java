@@ -38,7 +38,7 @@ public class RedisLockTest {
         CountDownLatch countDownLatch = new CountDownLatch(10);
         for (int i = 0; i < 10; i++) {
             threadPoolTaskExecutor.execute(() -> {
-                Lock lock = lockRegistry.obtain(LockConstants.T_PAN_LOCK);
+                Lock lock = lockRegistry.obtain(LockConstants.PAN_LOCK);
                 boolean lockResult = false;
                 try {
                     lockResult = lock.tryLock(60L, TimeUnit.SECONDS);
