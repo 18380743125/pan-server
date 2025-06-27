@@ -36,6 +36,7 @@ public class CleanExpireFileChunkTask implements ScheduleTask {
     @Autowired
     IFileChunkService fileChunkService;
 
+    @Qualifier("localStorageEngine")
     @Autowired
     private StorageEngine storageEngine;
 

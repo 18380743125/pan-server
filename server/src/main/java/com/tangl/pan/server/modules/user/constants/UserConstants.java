@@ -6,7 +6,7 @@ package com.tangl.pan.server.modules.user.constants;
 public interface UserConstants {
 
     /**
-     * 登录用户的用户 ID 的 key 值
+     * 生成登录 token 的 key
      */
     String LOGIN_USER_ID = "LOGIN_USER_ID";
 

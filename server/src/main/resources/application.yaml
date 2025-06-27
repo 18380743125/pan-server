@@ -28,7 +28,13 @@ management:
         include: '*'
         exclude: env,beans
 
-# oss
+logging:
+  file:
+    name: ${user.home}/logs/${spring.application.name}/${spring.application.name}.log
+  level:
+    root: INFO
+
+# custom config
 com:
   tangl:
     pan:
@@ -40,12 +46,6 @@ com:
                 funnel-type-name: LONG
                 expected-insertions: 10000000
                 fpp: 0.01
-
-logging:
-  file:
-    name: ${user.home}/logs/${spring.application.name}/${spring.application.name}.log
-  level:
-    root: INFO
 
 # swagger2
 swagger2:

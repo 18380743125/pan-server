@@ -52,6 +52,7 @@ spring:
         userSearchOutput:
           destination: userSearchTopic
 
+# custom config
 com:
   tangl:
     pan:

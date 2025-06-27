@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class RebuildShareSimpleDetailBloomFilterTaskLauncher implements CommandLineRunner {
-    private static final String CRON = "1 0 0 * * ? ";
+    private static final String CRON = "3 0 0 * * ? ";
 
     @Autowired
     private RebuildShareSimpleDetailBloomFilterTask task;

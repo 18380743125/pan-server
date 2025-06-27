@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4cfe3a-d46a-4ba1-a1fa-ff36255f2303" name="Changes" comment="Changes">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/CommonLoginAspect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/ShareCodeAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/aspect/ShareCodeAspect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/StartedListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/listener/StartedListener.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/cache/cache-redis/src/main/java/com/tangl/pan/cache/redis/config/RedisCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/framework/cache/cache-redis/src/main/java/com/tangl/pan/cache/redis/config/RedisCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/launcher/RebuildShareSimpleDetailBloomFilterTaskLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/launcher/RebuildShareSimpleDetailBloomFilterTaskLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/task/CleanExpireFileChunkTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/common/schedule/task/CleanExpireFileChunkTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/constants/UserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/constants/UserConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/tangl/pan/server/modules/user/service/cache/UserCacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application-prod.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application-prod.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yaml" afterDir="false" />
+>>>>>>> ffaf7747e1b51769d9d6bca40a7980f01d3c7c39
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +166,11 @@
       <recent name="com.tangl.pan.server.modules.share.enums" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager">
+=======
+  <component name="RunManager" selected="Spring Boot.PanServerLauncher">
+>>>>>>> ffaf7747e1b51769d9d6bca40a7980f01d3c7c39
     <configuration name="PanServerLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tangl.pan.server.PanServerLauncher" />
       <module name="server" />
@@ -167,11 +184,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+=======
+    <configuration name="PanServerLauncher" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tangl.pan.server.PanServerLauncher" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tangl.pan.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> ffaf7747e1b51769d9d6bca40a7980f01d3c7c39
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.PanServerLauncher" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -336,6 +378,8 @@
       <workItem from="1738637017278" duration="1332000" />
       <workItem from="1744290423794" duration="70000" />
       <workItem from="1747582321342" duration="3000" />
+      <workItem from="1750941961375" duration="8145000" />
+      <workItem from="1750950702385" duration="2265000" />
     </task>
     <task id="LOCAL-00001" summary="add:脚手架搭建">
       <created>1687435141248</created>
